@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+--> 
+<wsdl:definitions name="TransferMedia" targetNamespace="http://transfermedia.fims.tv" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv" xmlns:tms="http://transfermedia.fims.tv" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+	<wsdl:types>
+	    <schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_1_0.xsd">
+			</import>
+		</schema>
+
+		<schema targetNamespace="http://transfermedia.fims.tv" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://transfermedia.fims.tv">
+			<include schemaLocation="transferMedia-V1_1_0.xsd"/>
+        </schema>		
+    </wsdl:types>
+
+  
+    <wsdl:message name="transferRequestMsg">
+    	<wsdl:part name="in" element="tms:transferRequest">
+    		<wsdl:documentation>This message represents a request to the transfer media service for transferring content from a source to a target.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="transferAckMsg">
+    	<wsdl:part name="ack" element="tms:transferAck">
+    		<wsdl:documentation>This message represents the acknowledgment sent back from the transfer media service when the transfer job is submitted. It is based on the BaseResponseType.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="transferFaultMsg">
+    	<wsdl:part name="fault" element="tms:transferFault">
+    		<wsdl:documentation>This message represents a fault which may be sent by the transfer media service when submitting a job.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="transferNotificationMsg">
+    	<wsdl:part name="in" element="tms:transferNotification">
+    		<wsdl:documentation>This message represents a job completion notification that the transfer media service sends to a specified endpoint when the transfer job ends.
+This notification shall be sent if the notifyAt element is set in the request.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="transferFaultNotificationMsg">
+    	<wsdl:part name="fault" element="tms:transferFaultNotification">
+    		<wsdl:documentation>This message represents a fault notification that the transfer media service sends to a specified endpoint if the transfer job fails.
+The fault notification shall be sent if the notifyAt element is set in the request.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    
+     <wsdl:message name="manageJobRequestMsg">
+		<wsdl:part name="in" element="bms:manageJobRequest">
+			<wsdl:documentation>This message allows to submit jobs management requests, such as getting the status or pausing a job.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageJobResponseMsg">
+		<wsdl:part name="out" element="bms:manageJobResponse">
+			<wsdl:documentation>This message provides the response to job management requests, which includes the current status of the job.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageQueueRequestMsg">
+		<wsdl:part name="in" element="bms:manageQueueRequest">
+			<wsdl:documentation>This message allowsto submit queue management requests, such as getting the status or locking a queue.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageQueueResponseMsg">
+		<wsdl:part name="out" element="bms:manageQueueResponse">
+			<wsdl:documentation>This messag provides the response to queue management requests, which includes the status and lenght of the queue.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="queryJobRequestMsg">
+		<wsdl:part name="in" element="bms:queryJobRequest">
+			<wsdl:documentation>This message is used to request a list of submitted jobs.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="queryJobResponseMsg">
+		<wsdl:part name="out" element="bms:queryJobResponse">
+			<wsdl:documentation>This message provides a list of jobs.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="FaultMsg">
+		<wsdl:part name="fault" element="bms:fault">
+			<wsdl:documentation>This message represents a fault which might occur for a  management request.</wsdl:documentation></wsdl:part>
+	</wsdl:message>    
+        
+    <wsdl:portType name="TransferMedia">
+    	<wsdl:documentation>This port type allows to send job requests to the transfer media service. A media transfer service allows copying, moving, 
+or accessing media files over local and/or wide area IP networks.
+
+		    <h4>REST Mapping for Transfer Service</h4>
+    		<table>
+    			<tr>
+    				<th width="10%">Operation</th>
+    				<th width="30%">Description</th>
+    				<th width="5%">HTTP Method</th>
+    				<th width="10%">URI</th>
+    				<th width="10%">Request Body</th>
+    				<th width="10%">Success Body</th>
+    				<th width="10%">Failure Body</th>
+    				<th width="10%">HTTP Request Headers</th>
+    				<th width="5%">HTTP Response Headers</th>
+    			</tr>
+				<tr>
+					<td class="firstColumn">transfer</td>
+					<td>Create a Transfer Job</td>
+					<td class="firstColumn">POST</td>
+					<td>.../job</td>
+					<td class="firstColumn">tms:TransferJobType</td>
+					<td>tms:TransferJobType</td>
+					<td class="firstColumn">tms:TransferFaultType</td>
+					<td/>
+					<td class="firstColumn">location: {urlForJob}</td>				
+				</tr>
+			</table>
+	  		<br/>
+    		<br/>		
+    		
+		
+</wsdl:documentation>
+    	<wsdl:operation name="transfer">
+    		<wsdl:documentation>This operation allows to submit a transfer media job request to the transfer media service.</wsdl:documentation>
+    		<wsdl:input message="tms:transferRequestMsg"/>
+    		<wsdl:output message="tms:transferAckMsg"/>
+            <wsdl:fault name="transferFault" message="tms:transferFaultMsg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:portType name="TransferMediaNotification">
+    	<wsdl:documentation>This port type defines the operations used by the transfer media service to send back a notification to the endpoint specified in the notifyAt request element.
+    	
+			<h4>REST Mapping for Transfer Notifications</h4>
+			<table>
+				<tr>
+					<th width="20%">Notification</th>
+					<th width="25%">Description</th>
+					<th width="10%">HTTP Method</th>
+					<th width="25%">Body</th>
+					<th width="20%">Generated Events</th>
+				</tr>
+				<tr>
+					<td class="firstColumn">notifyTransferResult</td>
+					<td>Transfer Job events related to state change, creation, deletion, progress</td>
+					<td class="firstColumn">POST</td>
+					<td>tms:TransferJobType</td>
+					<td class="firstColumn"><ul> <li> Create Job </li><li> Job Progress </li><li> Manage Job </li></ul></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">notifyFault</td>
+					<td>Transfer Job Failures</td>
+					<td class="firstColumn">POST</td>
+					<td>tms:TransferFaultNotificationType</td>
+					<td class="firstColumn"><ul> <li> Create Job</li> <li> Job Failure</li> </ul></td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+    	    	
+    	</wsdl:documentation>
+    	<wsdl:operation name="notifyTransferResult">
+    		<wsdl:documentation>This operation allows the transfer media service to send a notification with information about job completion to the endpoint specified in the notifyAt element of the job request.</wsdl:documentation>
+    		<wsdl:input message="tms:transferNotificationMsg"/>
+    	</wsdl:operation>
+    	<wsdl:operation name="notifyFault">
+    		<wsdl:documentation>This operation allows the transfer media service to send a fault notification with information about the job failure to the endpoint specified in the notifyAt element of the job request.</wsdl:documentation>
+    		<wsdl:input message="tms:transferFaultNotificationMsg"/>
+    	</wsdl:operation>
+    </wsdl:portType>
+    
+      <wsdl:portType name="MediaServiceStatus">
+		<wsdl:documentation>The MediaServiceStatus interface provides a common SOAP interface for all FIMS services for managing jobs and queues.
+		
+		    <h4>REST Mapping for Media Status Service</h4>
+    		<table>
+    			<tr>
+    				<th width="10%">Operation</th>
+    				<th width="30%">Description</th>
+    				<th width="5%">HTTP Method</th>
+    				<th width="10%">URI</th>
+    				<th width="10%">Request Body</th>
+    				<th width="10%">Success Body</th>
+    				<th width="10%">Failure Body</th>
+    				<th width="10%">HTTP Request Headers</th>
+    				<th width="5%">HTTP Response Headers</th>
+    			</tr>
+				<tr>
+					<td class="firstColumn">queryJob (single)</td>
+					<td>Retrieve a Capture Job</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/{jobId}</td>
+					<td class="firstColumn"/>
+					<td>bms:JobType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (all)</td>
+					<td>Retrieve All Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/</td>
+					<td class="firstColumn"/>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (selection)</td>
+					<td>Retrieve a list of Specific Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job?jobId={jobid}&amp;jobId={jobId}...</td>
+					<td class="firstColumn"/>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (filtered)</td>
+					<td>Retrieve a Filtered List Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job?{<em>JobFilterCriteria</em>} (see specification document)</td>
+					<td class="firstColumn"/>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageJob</td>
+					<td>Manage Jobs (Control Jobs)</td>
+					<td class="firstColumn">POST</td>
+					<td>.../job/{jobId}/manage</td>
+					<td class="firstColumn">bms:ManageJobRequestType</td>
+					<td>bms:JobType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+				    <td class="firstColumn">manageJob (query status)</td>
+					<td>Get Minimal Job for current Status</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/{jobId}/manage</td>
+					<td class="firstColumn"/>
+					<td>bms:JobType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryQueue</td>
+					<td>Retrieve complete details of a Queue</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}</td>
+					<td class="firstColumn"/>
+					<td>bms:QueueType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryQueues</td>
+					<td>Retrieve complete details of all Queues</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/</td>
+					<td class="firstColumn"/>
+					<td>bms:QueuesType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue (status)</td>
+					<td>Retrieve a Queue Status</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}/status</td>
+					<td class="firstColumn"/>
+					<td>bms:QueueType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue (commands)</td>
+					<td>Manage Queue (Queue Commands)</td>
+					<td class="firstColumn">POST</td>
+					<td>.../queue/{queueID}/manage</td>
+					<td class="firstColumn">bms:ManageQueueRequestType</td>
+					<td>bms:QueueType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+				    <td class="firstColumn">manageQueue</td>
+					<td>Manage Queue (retrieve queue for management)</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}/manage</td>
+					<td class="firstColumn"/>
+					<td>bms:QueueType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+			</table>
+	  		<br/>
+    		<br/>		
+		
+		</wsdl:documentation>
+		<wsdl:operation name="manageJob">
+			<wsdl:documentation>This operation provides the managements of jobs, for example requesting the status of a job or pausing a job.</wsdl:documentation>
+			<wsdl:input name="jobIn" message="tms:manageJobRequestMsg"/>
+			<wsdl:output name="jobOut" message="tms:manageJobResponseMsg"/>
+			<wsdl:fault name="fault" message="tms:FaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="manageQueue">
+			<wsdl:documentation>This operation provides the managements of the job queue, for example requesting the status of the queue or starting the queue.</wsdl:documentation>
+			<wsdl:input name="queueIn" message="tms:manageQueueRequestMsg"/>
+			<wsdl:output name="queueOut" message="tms:manageQueueResponseMsg"/>
+			<wsdl:fault name="fault" message="tms:FaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="queryJob">
+			<wsdl:documentation>This operation allows to list submitted jobs and get summary status information for each job.</wsdl:documentation>
+			<wsdl:input name="queryIn" message="tms:queryJobRequestMsg"/>
+			<wsdl:output name="queryOut" message="tms:queryJobResponseMsg"/>
+			<wsdl:fault name="fault" message="tms:FaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+      <wsdl:binding name="TransferMediaStatusBinding" type="tms:MediaServiceStatus">
+      	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      	<wsdl:operation name="manageJob">
+      		<soap:operation soapAction="http://transfermedia.fims.tv/manageJob"/>
+      		<wsdl:input name="jobIn">
+      			<soap:body use="literal"/>
+      		</wsdl:input>
+      		<wsdl:output name="jobOut">
+      			<soap:body use="literal"/>
+      		</wsdl:output>
+      		<wsdl:fault name="fault">
+      			<soap:fault use="literal" name="fault"/>
+      		</wsdl:fault>
+      	</wsdl:operation>
+      	<wsdl:operation name="manageQueue">
+      		<soap:operation soapAction="http://transfermedia.fims.tv/manageQueue"/>
+      		<wsdl:input name="queueIn">
+      			<soap:body use="literal"/>
+      		</wsdl:input>
+      		<wsdl:output name="queueOut">
+      			<soap:body use="literal"/>
+      		</wsdl:output>
+      		<wsdl:fault name="fault">
+      			<soap:fault use="literal" name="fault"/>
+      		</wsdl:fault>
+      	</wsdl:operation>
+      	<wsdl:operation name="queryJob">
+      		<soap:operation soapAction="http://transfermedia.fims.tv/queryJob"/>
+      		<wsdl:input name="queryIn">
+      			<soap:body use="literal"/>
+      		</wsdl:input>
+      		<wsdl:output name="queryOut">
+      			<soap:body use="literal"/>
+      		</wsdl:output>
+      		<wsdl:fault name="fault">
+      			<soap:fault use="literal" name="fault"/>
+      		</wsdl:fault>
+      	</wsdl:operation>
+      </wsdl:binding>
+      <wsdl:binding name="TransferMediaBinding" type="tms:TransferMedia">
+      	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      	<wsdl:operation name="transfer">
+      		<soap:operation soapAction="http://transfermedia.fims.tv/transfer"/>
+      		<wsdl:input>
+      			<soap:body use="literal"/>
+      		</wsdl:input>
+      		<wsdl:output>
+      			<soap:body use="literal"/>
+      		</wsdl:output>
+      		<wsdl:fault name="transferFault">
+      			<soap:fault use="literal" name="transferFault"/>
+      		</wsdl:fault>
+      	</wsdl:operation>
+      </wsdl:binding>
+      <wsdl:binding name="TransferMediaNotificationBinding" type="tms:TransferMediaNotification">
+      	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      	<wsdl:operation name="notifyTransferResult">
+      		<soap:operation soapAction="http://transfermedia.fims.tv/notifyTransferResult"/>
+      		<wsdl:input>
+      			<soap:body use="literal"/>
+      		</wsdl:input>
+      	</wsdl:operation>
+      	<wsdl:operation name="notifyFault">
+      		<soap:operation soapAction="http://transfermedia.fims.tv/notifyFault"/>
+      		<wsdl:input>
+      			<soap:body use="literal"/>
+      		</wsdl:input>
+      	</wsdl:operation>
+      </wsdl:binding>
+      <wsdl:service name="TransferMediaService">
+      	<wsdl:port name="TransferMediaPort" binding="tms:TransferMediaBinding">
+      		<soap:address location="http://host/path/TransferMediaPort"/>
+      	</wsdl:port>
+      	<wsdl:port name="TransferMediaStatusPort" binding="tms:TransferMediaStatusBinding">
+      		<soap:address location="http://host/path/TransferMediaStatusPort"/>
+      	</wsdl:port>
+      </wsdl:service>
+      <wsdl:service name="TransferMediaNotificationService">
+      	<wsdl:port name="TransferMediaNotificationPort" binding="tms:TransferMediaNotificationBinding">
+      		<soap:address location="http://host/port/TransferMediaNotificationPort"/>
+      	</wsdl:port>
+      </wsdl:service>
+</wsdl:definitions>

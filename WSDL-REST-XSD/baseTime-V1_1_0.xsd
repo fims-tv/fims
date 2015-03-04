@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+--> 
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tim="http://baseTime.fims.tv"
+	targetNamespace="http://baseTime.fims.tv"
+	elementFormDefault="qualified">
+
+	<!-- ****************************** FIMS-defined simple types ****************************** -->
+	<simpleType name="Timecode">
+		<annotation>
+			<documentation source="urn:x-fims:description">A SMPTE ST 12-1 timecode value formatted
+				according to the edit decision list grammar specified in SMPTE ST 258. In this grammar,
+				the punctuation character between the seconds and frames of the timecode indicates whether
+				the timecode is a drop frame or non drop frame timecode, e.g. 10:11:12;13 is a drop frame
+				timecode value and 10:11:12:13 is a non-drop frame timecode value.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+		</annotation>
+		<restriction base="string">
+			<pattern
+				value="(([0-1][0-9])|([2][0-3])):[0-5][0-9]:[0-5][0-9](([.,])|([:;]))[0-2][0-9]"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TimecodeDuration">
+		<annotation>
+			<documentation source="urn:x-fims:description">A representation of AV duration as a
+				SMPTE timecode-like value, with an upper bound of 99 hours rather than 23 hours.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+		</annotation>
+		<restriction base="string">
+			<pattern value="[0-9][0-9]:[0-5][0-9]:[0-5][0-9](([.,])|([:;]))[0-2][0-9]"/>
+		</restriction>
+	</simpleType>
+	<!-- ****************************** FIMS-defined complex types for representing single values ****************************** -->
+	<complexType name="DurationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Measure of the duration of an operation
+				or item of content.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">One of the elements shall be used.</documentation>
+			<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+			<documentation source="urn:x-fims:contentOfServiceDescription">Element(s) supported.</documentation>
+		</annotation>
+		<choice>
+			<element name="timecode" type="tim:TimecodeDuration" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Duration of AV content in a
+						timecode-like format (e.g. SMPTE ST 12-1) as defined in EBU Tech 3293.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement">This kind of duration
+						shall be used only where an exact time can be calculated from the timecode
+						value. For example, it is not appropriate for NTSC systems.</documentation>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+			<element name="normalPlayTime" type="duration" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">A duration expressed using usual
+						time representation as in RFC 2326 and ISO 8601 (e.g.:PT1H31M25.152S)</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+			<element name="editUnitNumber" type="tim:EditUnitNumberType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">A duration expressed as a number
+						of edit units, as defined in EBU Tech 3293.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+		</choice>
+	</complexType>
+	<complexType name="TimeType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Value used to represent a point in time,
+				such as at what time to start an operation.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">One of the elements shall be used.</documentation>
+			<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+			<documentation source="urn:x-fims:contentOfServiceDescription">Element(s) supported.</documentation>
+		</annotation>
+		<choice>
+			<element name="timecode" type="tim:Timecode" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Start time expressed using
+						timecode values compliant with SMPTE ST 12-1.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+			<element name="normalPlayTime" type="time" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Start time expressed by time of day in the format
+						hh:mm:ss.sss with an optional following time zone indicator. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+			<element name="editUnitNumber" type="tim:EditUnitNumberType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Start time expressed as a number
+						of edit units.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+		</choice>
+	</complexType>
+	
+	<complexType name="EditUnitNumberType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A number of edit units as defined in EBU Tech 3293. 
+				An editUnit is the inverse of the edit rate, or corrected edit rate as the result of
+				editUnit=1/(editrate*(factorNumerator/factorDenominator)). See EBU Tech 3293 for
+				more information. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<simpleContent>
+			<extension base="long">
+				<attribute name="editRate" type="positiveInteger" use="required">
+					<annotation>
+						<documentation source="urn:x-fims:description">The base number of frames or samples per seconds.
+							This base number can be corrected by a factor calculated as the product of the
+							edit rate and 'factorNumerator/factorDenominator'.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="factorNumerator" type="positiveInteger" use="required">
+					<annotation>
+						<documentation source="urn:x-fims:description">The numerator of the
+							correction factor.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="factorDenominator" type="positiveInteger" use="required">
+					<annotation>
+						<documentation source="urn:x-fims:description">The denominator of the
+							correction factor.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+</schema>

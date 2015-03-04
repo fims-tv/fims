@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:desc="http://description.fims.tv" xmlns:tim="http://baseTime.fims.tv" targetNamespace="http://description.fims.tv" elementFormDefault="qualified">
+	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_1_0.xsd"/>
+	<element name="bmContentDescription" type="desc:bmContentDescriptionType"/>
+	<complexType name="bmContentDescriptionType">
+		<annotation>
+			<documentation source="urn:x-fims:description">The body of  descriptive metadata</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+		</annotation>
+		<sequence>
+			<element name="title" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A Title is the ‘main’ name given to a resource e.g. an editorial object. It corresponds for a series to the series title, for programme to the programme title, for an item to the item title, etc. 
+Titles are recorded as they appear. The Title is the name by which a resource is formally known and that everyone should use to refer to or search for that particular resource. The Title may be provided in several languages. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="alternativeTitle" type="desc:titleType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">An Alternative Title is the name other than the ‘main’ Title given to a resource. The type of title is defined by the typeGroup of attributes. Alternative Titles are recorded as they appear. An Alternative Title may be attributed to a resource for several reasons described using the type (e.g. series title) attributes.
+The alternativeTitle may be provided in several languages.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="creator" type="desc:entityType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">The descriptor creator identifies an ‘entity’ (a person, group of persons or organisation) primarily responsible for creating the content of the resource - behind the camera. Different roles may be considered as representing a creator, e.g. a producer, an author, etc. Creator is a sub-class of Contributor. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="subject" type="desc:subjectType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">The generalised topic that represents the intellectual content of the resource. Typically, a subject is expressed by keywords, key phrases.
+Free text, controlled vocabularies, authorities, or formal classification schemes (codes) may be employed when selecting descriptive subject terms. Persons as subjects are also placed here.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="description" type="desc:descriptionType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">Free-form text or a narrative to report general notes, abstracts, or summaries about the intellectual content of a resource.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="publisher" type="desc:entityType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A publisher is a person, an organization, or a service. Typically, the name of a Publisher should be used to indicate the entity primarily responsible for distributing or making a resource available to others e.g. by broadcasting, selling, leasing, renting and other modes of distribution.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="contributor" type="desc:entityType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">The descriptor contributor identifies a person or organization that has made substantial creative contributions to the content of a resource. Refers particularly (but not only) to participation in front of the camera. If in doubt whether an entity is a creator or contributor use the element contributor.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="date" type="desc:dateType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">Dates associated with events occurring during the life of the resource. Typically, Date will be associated with the creation, modification or availability of the resource.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="type" type="desc:typeType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">The nature or genre of the editorial object. Type includes terms describing general categories, functions, genres, or aggregation levels for content. Recommended best practice is to select a value from a controlled vocabulary.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="identifier" type="desc:identifierType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A unique, unambiguous reference or identifier for a resource within a given context. Best practice is to identify the resource (whether analogue or digital) by means of a string or number corresponding to an established or formal identification system if one exists. Otherwise, use an identification method that is in use within your agency, station, production company, office, or institution. It is also possible to enter more than one, different but still unique, identifier for the same resource.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="language" type="desc:languageType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">Identifies languages and their use in the intellectual content of the resource. Recommended best practice for the values of the Language element is defined by RFC 5646. It is recommended to use a two-letter Language Code (taken from the ISO Standard 639), followed optionally, by a two-letter Country Code (taken from the ISO Standard 3166) preferably expressed using capitals letters. For example, 'en' for English, 'fr' for French, or 'en-UK' for English used in the United Kingdom. More contextual information can be provided using the “note” attribute.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="relation" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">Recommended best practice is to reference the resource (to which the current resource under description is related) by means of a string or number conforming to a formal identification system. Relation is used to show the relation in content to another resource. For example, "IsPartOf" is used to show the relation between a part of a radio programme and the whole programme or between a track and a record album.
+A resource can be identified by its title, or an identifier (possibly a URI). The related item has its own separate metadata record. Relation is used to provide a name, an identification number or ID, or a locator where the related item can be found.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isVersionOf" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to the resource that the current resource is a version of </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="hasVersion" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to another version of the resource </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isReplacedBy" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource replacing the current resource</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="replaces" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource that the current resource replaces</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isRequiredBy" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource requiring the current resource</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="requires" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource that the current resource requires</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isPartOf" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource that the current resource is a part of</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="hasPart" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description"> A reference to a resource that forms part of the current resource </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isReferencedBy" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource that references the current resource</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="references" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource that the current resource references</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isFormatOf" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a resource with which the current resource shares a format </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="hasFormat" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A format in which the resource is also available</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isEpisodeOf" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a series the current resource is an episode of</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="isMemberOf" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">A reference to a group e.g. a brand, the current resource is an member of </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="hasMembers" type="desc:relationType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description"> A reference to members of a group </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+			<element name="coverage" type="desc:coverageType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">Coverage is used to show various time and place aspects of the subject of the content. Coverage will typically include spatial location (a place name or geographic coordinates), temporal period (a period label, date, or date range) or jurisdiction (such as a named administrative entity). Recommended best practice is to select a value from a controlled vocabulary (for example, the Thesaurus of Geographic Names) and that, where appropriate, named places or time periods be used in preference to numeric identifiers such as sets of coordinates or date ranges.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="rights" type="desc:rightsType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">An all-purpose field to identify information (rights management statement or reference to a service providing such information e.g. via a URL) about copyright, intellectual property rights or other property rights held in and over a resource, stating whether access is open or restricted in some way.
+If dates, times, territories and availability periods are associated with a right, they should be included. If the Rights element is absent, no assumptions can be made about the status of these and other rights with respect to the resource.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="version" type="string" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">UK Version, US Version, home video version, etc. Mapping to Dublin Core would be made using a description element. There can be mutiple type of version references.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_0_7</documentation>
+				</annotation>
+			</element>
+			<element name="part" type="desc:partType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">To identify parts or segments within the editorial object, such as changes in the topic of a magasine programme</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute ref="xml:lang"/>
+	</complexType>
+	<complexType name="titleType">
+		<complexContent>
+			<extension base="desc:textElementType">
+				<attributeGroup ref="desc:typeGroup"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="identifierType">
+		<simpleContent>
+			<extension base="string">
+				<attributeGroup ref="desc:typeGroup"/>
+				<attributeGroup ref="desc:formatGroup"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="subjectType">
+		<complexContent>
+			<extension base="desc:textElementType">
+				<attributeGroup ref="desc:typeGroup"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="typeType">
+		<sequence>
+			<element name="genre" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<complexContent>
+						<extension base="desc:textElementType">
+							<attributeGroup ref="desc:typeGroup"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="objectType" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<complexContent>
+						<extension base="desc:textElementType">
+							<attributeGroup ref="desc:typeGroup"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="targetAudience" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<complexContent>
+						<extension base="desc:textElementType">
+							<attributeGroup ref="desc:typeGroup"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="descriptionType">
+		<complexContent>
+			<extension base="desc:textElementType">
+				<attributeGroup ref="desc:typeGroup"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="coverageType">
+		<sequence>
+			<element name="temporal" minOccurs="0">
+				<complexType>
+					<complexContent>
+						<extension base="desc:textElementType">
+							<attributeGroup ref="desc:typeGroup"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="spatial" minOccurs="0">
+				<complexType>
+					<sequence>
+						<element name="locationName">
+							<complexType>
+								<complexContent>
+									<extension base="desc:textElementType">
+										<attributeGroup ref="desc:typeGroup"/>
+									</extension>
+								</complexContent>
+							</complexType>
+						</element>
+						<element name="coordinates" minOccurs="0">
+							<annotation>
+								<documentation> Optional geospatial coordinates. 'posy'
+									is the latitude. 'posx' is the longitude. Both are
+									expressed in digital degrees</documentation>
+							</annotation>
+							<complexType>
+								<sequence>
+									<element name="posy" type="float"/>
+									<element name="posx" type="float"/>
+								</sequence>
+								<attributeGroup ref="desc:formatGroup"/>
+							</complexType>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="rightsType">
+		<sequence>
+			<element name="rightsExpression" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="rightsLink" type="anyURI" minOccurs="0"/>
+			<element name="rightsHolder" type="desc:entityType" minOccurs="0"/>
+			<element name="exploitationIssues" type="desc:textElementType" minOccurs="0"/>
+			<element name="coverage" type="desc:coverageType" minOccurs="0"/>
+			<element name="rightsClearanceFlag" type="boolean" minOccurs="0"/>
+			<element name="disclaimer" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="rightsId" type="desc:identifierType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="contactDetails" type="desc:contactDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+		<attributeGroup ref="desc:typeGroup"/>
+	</complexType>
+	<complexType name="textElementType">
+		<simpleContent>
+			<extension base="string">
+				<attribute ref="xml:lang"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="dateType">
+		<sequence>
+			<element name="created" minOccurs="0">
+				<complexType>
+					<attributeGroup ref="desc:dateGroup"/>
+				</complexType>
+			</element>
+			<element name="modified" minOccurs="0">
+				<complexType>
+					<attributeGroup ref="desc:dateGroup"/>
+				</complexType>
+			</element>
+			<element name="issued" minOccurs="0">
+				<complexType>
+					<attributeGroup ref="desc:dateGroup"/>
+				</complexType>
+			</element>
+			<element name="alternative" minOccurs="0">
+				<complexType>
+					<attributeGroup ref="desc:dateGroup"/>
+					<attributeGroup ref="desc:typeGroup"/>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="entityType">
+		<sequence>
+			<element name="contactDetails" type="desc:contactDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="organisationDetails" type="desc:organisationDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="role" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attributeGroup ref="desc:typeGroup"/>
+				</complexType>
+			</element>
+		</sequence>
+		<attribute name="entityId" type="anyURI"/>
+	</complexType>
+	<complexType name="contactDetailsType">
+		<sequence>
+			<choice>
+				<element name="name" type="string"/>
+				<sequence>
+					<element name="givenName" type="string" minOccurs="0"/>
+					<element name="familyName" type="string" minOccurs="0"/>
+					<element name="otherGivenName" type="string" minOccurs="0" maxOccurs="unbounded"/>
+					<element name="suffix" type="string" minOccurs="0"/>
+					<element name="salutation" type="string" minOccurs="0"/>
+				</sequence>
+			</choice>
+			<element name="username" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="occupation" type="desc:textElementType" minOccurs="0"/>
+			<element name="details" type="desc:detailsType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="stageName" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>For example, in the case the contact is a performing
+						actor/actress, the stage name will be the fictitious character's
+						name</documentation>
+				</annotation>
+			</element>
+			<element name="relatedContacts" type="desc:entityType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation> This is used to identify contacts related to the contact being
+						described </documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="contactId" type="anyURI"/>
+		<attributeGroup ref="desc:typeGroup"/>
+	</complexType>
+	<complexType name="organisationDetailsType">
+		<sequence>
+			<element name="organisationName" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>The organisation name is optional as an organisation maybe
+						identified by its OrganisationId</documentation>
+				</annotation>
+			</element>
+			<element name="organisationCode" type="anyURI" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="organisationDepartment" minOccurs="0">
+				<annotation>
+					<documentation>To identify one or more production area / department / service
+						where the resource was created/originated, in free text</documentation>
+				</annotation>
+				<complexType>
+					<complexContent>
+						<extension base="desc:textElementType">
+							<attribute name="departmentId" type="anyURI"/>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="details" type="desc:detailsType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="contacts" type="desc:entityType" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation> Useful to provide contact information particularly is no other
+						person information is otherwise provided. </documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="organisationId" type="anyURI"/>
+		<attributeGroup ref="desc:typeGroup"/>
+	</complexType>
+	<complexType name="detailsType">
+		<sequence>
+			<element name="emailAddress" type="string" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>The e-mail address through which the contact can be directly
+						accessed</documentation>
+				</annotation>
+			</element>
+			<element name="webAddress" type="string" minOccurs="0">
+				<annotation>
+					<documentation> The web address where additional information can be found
+						regarding the company </documentation>
+				</annotation>
+			</element>
+			<element name="address" type="desc:addressType" minOccurs="0">
+				<annotation>
+					<documentation>The organisation address is also the professional address of the
+						contact in the context of the content being described and in relation to the
+						contact occupation provided in the contact details</documentation>
+				</annotation>
+			</element>
+			<element name="telephoneNumber" type="string" minOccurs="0"/>
+			<element name="mobileTelephoneNumber" type="string" minOccurs="0"/>
+		</sequence>
+		<attributeGroup ref="desc:typeGroup"/>
+	</complexType>
+	<complexType name="addressType">
+		<annotation>
+			<documentation xml:lang="EN"> Provides address details for an organisation
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="addressLine" type="desc:textElementType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="addressTownCity" type="desc:textElementType" minOccurs="0"/>
+			<element name="addressCountyState" type="desc:textElementType" minOccurs="0"/>
+			<element name="addressDeliveryCode" type="string" minOccurs="0"/>
+			<element name="country" minOccurs="0">
+				<complexType>
+					<attributeGroup ref="desc:typeGroup"/>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="languageType">
+		<attributeGroup ref="desc:typeGroup"/>
+		<attribute ref="xml:lang"/>
+	</complexType>
+	<complexType name="relationType">
+		<sequence>
+			<element name="relationIdentifier" type="desc:identifierType"/>
+			<element name="relationLink" type="anyURI">
+				<annotation>
+					<documentation> A link to related material. </documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attributeGroup ref="desc:typeGroup"/>
+		<attribute name="runningOrderNumber" type="integer">
+			<annotation>
+				<documentation> If exists, it provides the ranking/running order within an ordered
+					list.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="totalNumberOfGroupMembers" type="integer"/>
+		<attribute name="orderedGroupFlag" type="boolean"/>
+		<attribute name="note" type="string">
+			<annotation>
+				<documentation> Optional additional contextual information. </documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<attributeGroup name="typeGroup">
+		<attribute name="typeLabel" type="string"/>
+		<attribute name="typeDefinition" type="string"/>
+		<attribute name="typeLink" type="anyURI"/>
+		<attribute name="typeLanguage" type="language"/>
+	</attributeGroup>
+	<attributeGroup name="formatGroup">
+		<attribute name="formatLabel" type="string"/>
+		<attribute name="formatDefinition" type="string"/>
+		<attribute name="formatLink" type="anyURI"/>
+		<attribute name="formatLanguage" type="language"/>
+	</attributeGroup>
+	<attributeGroup name="statusGroup">
+		<attribute name="statusLabel" type="string"/>
+		<attribute name="statusDefinition" type="string"/>
+		<attribute name="statusLink" type="anyURI"/>
+		<attribute name="statusLanguage" type="language"/>
+	</attributeGroup>
+	<attributeGroup name="dateGroup">
+		<attribute name="startYear" type="gYear"/>
+		<attribute name="startDate" type="date"/>
+		<attribute name="startTime" type="time"/>
+		<attribute name="endYear" type="gYear"/>
+		<attribute name="endDate" type="date"/>
+		<attribute name="endTime" type="time"/>
+		<attribute name="period" type="string"/>
+	</attributeGroup>
+	<complexType name="partType">
+		<complexContent>
+			<extension base="desc:bmContentDescriptionType">
+				<sequence>
+					<element name="partStartTime" type="tim:TimeType" minOccurs="0"/>
+					<element name="partDuration" type="tim:DurationType" minOccurs="0"/>
+				</sequence>
+				<attribute name="partId" type="NMTOKEN"/>
+				<attribute name="partName" type="string"/>
+				<attribute name="partDefinition" type="string"/>
+				<attribute name="partNumber" type="integer"/>
+				<attribute name="partTotalNumber" type="integer"/>
+				<attributeGroup ref="desc:typeGroup"/>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

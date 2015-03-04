@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+--> 
+<wsdl:definitions name="CaptureMedia" targetNamespace="http://capturemedia.fims.tv"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:bms="http://base.fims.tv" xmlns:cms="http://capturemedia.fims.tv" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+	<wsdl:types>
+	    <schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_1_0.xsd">
+			</import>
+		</schema>
+
+		<schema targetNamespace="http://capturemedia.fims.tv" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://capturemedia.fims.tv">            
+            <include schemaLocation="captureMedia-V1_1_0.xsd" ></include>
+        </schema>	
+    </wsdl:types>
+    
+	<wsdl:message name="captureRequestMsg">
+    	<wsdl:part name="in" element="cms:captureRequest">
+    		<wsdl:documentation>This message represents a request to the media capture service for capturing content from a variety of sources.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="captureAckMsg">
+    	<wsdl:part name="ack" element="cms:captureAck">
+    		<wsdl:documentation>This message represents the acknowledgment sent back from the media capture service when the capture job is submitted.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="captureFaultMsg">
+    	<wsdl:part name="fault" element="cms:captureFault">
+    		<wsdl:documentation>This message represents a fault which may be sent by the media capture service when submitting a job.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="captureNotificationMsg">
+    	<wsdl:part name="in" element="cms:captureNotification">
+    		<wsdl:documentation>This message represents a job completion notification that the capture media service sends to a specified endpoint when the capture job ends.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="captureFaultNotificationMsg">
+    	<wsdl:part name="fault" element="cms:captureFaultNotification">
+    		<wsdl:documentation>This message represents a job fault notification that the capture media service sends to a specified endpoint if the capture job fails.</wsdl:documentation></wsdl:part>
+    </wsdl:message>
+    
+    <wsdl:message name="manageJobRequestMsg">
+		<wsdl:part name="in" element="bms:manageJobRequest" >
+			<wsdl:documentation>This message allows to submit jobs management requests, such as getting the status or pausing a job.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageJobResponseMsg">
+		<wsdl:part name="out" element="bms:manageJobResponse" >
+			<wsdl:documentation>This message provides the response to job management requests, which includes the current status of the job.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageQueueRequestMsg">
+		<wsdl:part name="in" element="bms:manageQueueRequest" >
+			<wsdl:documentation>This message allows to submit queue management requests, such as getting the status or locking a queue.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageQueueResponseMsg">
+		<wsdl:part name="out" element="bms:manageQueueResponse" >
+			<wsdl:documentation>This message provides the response to queue management requests, which includes the status and lenght of the queue.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="queryJobRequestMsg">
+		<wsdl:part name="in" element="bms:queryJobRequest" >
+			<wsdl:documentation>This message is used to request a list of submitted jobs.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="queryJobResponseMsg">
+		<wsdl:part name="out" element="bms:queryJobResponse" >
+			<wsdl:documentation>This message provides a list of jobs.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="FaultMsg">
+		<wsdl:part name="fault" element="bms:fault" >
+			<wsdl:documentation>This message represents a fault which might occur for a  management request.</wsdl:documentation></wsdl:part>
+	</wsdl:message>
+        
+    <wsdl:portType name="CaptureMedia">
+    	<wsdl:documentation>This port type allows to send job requests to the capture media service. The capture media service captures video and audio streams, typically provided via an interface such as 
+HD-SDI, AES-48, etc, are captured as media files, using one or more codec and wrapper formats appropriate to the workflow. Often the capture is initiated by a human operator, 
+who will also enter appropriate metadata about the capture (e.g. programme name and location). As part of the capture use case, it may be necessary to copy files to another
+location (for robustness) or to transcode to other formats (for workflow reasons). It may also be necessary to notify users about the success or otherwise of the capture.
+
+    		<h4>REST Mapping for Capture Service</h4>
+    		<table>
+    			<tr>
+    				<th width="10%">Operation</th>
+    				<th width="30%">Description</th>
+    				<th width="5%">HTTP Method</th>
+    				<th width="10%">URI</th>
+    				<th width="10%">Request Body</th>
+    				<th width="10%">Success Body</th>
+    				<th width="10%">Failure Body</th>
+    				<th width="10%">HTTP Request Headers</th>
+    				<th width="5%">HTTP Response Headers</th>
+    			</tr>
+				<tr>
+					<td class="firstColumn">capture</td>
+					<td>Create a Capture Job</td>
+					<td class="firstColumn">POST</td>
+					<td>.../job</td>
+					<td class="firstColumn">cms:CaptureJobType</td>
+					<td>cms:CaptureJobType</td>
+					<td class="firstColumn">cms:CaptureFaultType</td>
+					<td></td>
+					<td class="firstColumn">location: {urlForJob}</td>
+				</tr>
+			</table>
+	  		<br/>
+    		<br/>		
+    		
+		</wsdl:documentation>
+    	<wsdl:operation name="capture">
+    		<wsdl:documentation>This operation allows to capture media content for the capture media service.</wsdl:documentation>
+    		<wsdl:input message="cms:captureRequestMsg"></wsdl:input>
+    		<wsdl:output message="cms:captureAckMsg"></wsdl:output>
+            <wsdl:fault name="captureFault" message="cms:captureFaultMsg"></wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:portType name="CaptureMediaNotification">
+    	<wsdl:documentation>This port type defines the operations used by the capture media service to send back a notification to the endpoint specified in the notifyAt request element.
+    	
+			<h4>REST Mapping for Capture Notifications</h4>
+			<table>
+				<tr>
+					<th width="20%">Notification</th>
+					<th width="25%">Description</th>
+					<th width="10%">HTTP Method</th>
+					<th width="25%">Body</th>
+					<th width="20%">Generated Events</th>
+				</tr>
+				<tr>
+				    <td class="firstColumn">notifyCaptureResult</td>
+					<td>Capture Job events related to state change, creation, deletion, progress</td>
+					<td class="firstColumn">POST</td>
+					<td>cms:CaptureJobType</td>
+					<td class="firstColumn"><ul> <li> Create Job </li><li> Job Progress </li><li>  Manage Job  </li></ul></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">notifyFault</td>
+					<td>Capture Job Failures</td>
+					<td class="firstColumn">POST</td>
+					<td>cms:CaptureFaultNotificationType</td>
+					<td class="firstColumn"><ul> <li> Create Job </li><li> Job Failure </li></ul></td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+    	
+    	</wsdl:documentation>
+    	<wsdl:operation name="notifyCaptureResult">
+    		<wsdl:documentation>This operation allows the capture media service to send a notification with information about job completion to the endpoint specified in the notifyAt element of the job request.</wsdl:documentation>
+    		<wsdl:input message="cms:captureNotificationMsg"></wsdl:input>
+    	</wsdl:operation>
+    	<wsdl:operation name="notifyFault">
+    		<wsdl:documentation>This operation allows the capture media service to send a fault notification with information about the job failure to the endpoint specified in the notifyAt element of the job request.</wsdl:documentation>
+    		<wsdl:input message="cms:captureFaultNotificationMsg"></wsdl:input>
+    	</wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:portType name="MediaServiceStatus">
+		<wsdl:documentation>The MediaServiceStatus interface provides a common SOAP interface for all FIMS services for managing jobs and queues.
+		
+		    <h4>REST Mapping for Media Status Service</h4>
+    		<table>
+    			<tr>
+    				<th width="10%">Operation</th>
+    				<th width="30%">Description</th>
+    				<th width="5%">HTTP Method</th>
+    				<th width="10%">URI</th>
+    				<th width="10%">Request Body</th>
+    				<th width="10%">Success Body</th>
+    				<th width="10%">Failure Body</th>
+    				<th width="10%">HTTP Request Headers</th>
+    				<th width="5%">HTTP Response Headers</th>
+    			</tr>
+				<tr>
+					<td class="firstColumn">queryJob (single)</td>
+					<td>Retrieve a Capture Job</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/{jobId}</td>
+					<td class="firstColumn"></td>
+					<td>bms:JobType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (all)</td>
+					<td>Retrieve All Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/</td>
+					<td class="firstColumn"></td>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (selection)</td>
+					<td>Retrieve a list of Specific Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job?jobId={jobid}&amp;jobId={jobId}...</td>
+					<td class="firstColumn"></td>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (filtered)</td>
+					<td>Retrieve a Filtered List Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job?{<em>JobFilterCriteria</em>} (see specification document)</td>
+					<td class="firstColumn"></td>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageJob</td>
+					<td>Manage Jobs (Control Jobs)</td>
+					<td class="firstColumn">POST</td>
+					<td>.../job/{jobId}/manage</td>
+					<td class="firstColumn">bms:ManageJobRequestType</td>
+					<td>bms:JobType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+				    <td class="firstColumn">manageJob (query status)</td>
+					<td>Get Minimal Job for current Status</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/{jobId}/manage</td>
+					<td class="firstColumn"></td>
+					<td>bms:JobType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryQueue</td>
+					<td>Retrieve complete details of a Queue</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}</td>
+					<td class="firstColumn"></td>
+					<td>bms:QueueType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryQueues</td>
+					<td>Retrieve complete details of all Queues</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/</td>
+					<td class="firstColumn"></td>
+					<td>bms:QueuesType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue (status)</td>
+					<td>Retrieve a Queue Status</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}/status</td>
+					<td class="firstColumn"></td>
+					<td>bms:QueueType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue (commands)</td>
+					<td>Manage Queue (Queue Commands)</td>
+					<td class="firstColumn">POST</td>
+					<td>.../queue/{queueID}/manage</td>
+					<td class="firstColumn">bms:ManageQueueRequestType</td>
+					<td>bms:QueueType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+				<tr>
+				    <td class="firstColumn">manageQueue</td>
+					<td>Manage Queue (retrieve queue for management)</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}/manage</td>
+					<td class="firstColumn"></td>
+					<td>bms:QueueType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td></td>
+					<td class="firstColumn"></td>
+				</tr>
+			</table>
+	  		<br/>
+    		<br/>		
+		
+		</wsdl:documentation>
+		<wsdl:operation name="manageJob">
+			<wsdl:documentation>This operation provides the managements of jobs, for example requesting the status of a job or pausing a job.</wsdl:documentation>
+			<wsdl:input name="jobIn" message="cms:manageJobRequestMsg" />
+			<wsdl:output name="jobOut" message="cms:manageJobResponseMsg" />
+			<wsdl:fault name="fault" message="cms:FaultMsg" />
+		</wsdl:operation>
+		<wsdl:operation name="manageQueue">
+			<wsdl:documentation>This operation provides the managements of the job queue, for example requesting the status of the queue or starting the queue.</wsdl:documentation>
+			<wsdl:input name="queueIn" message="cms:manageQueueRequestMsg" />
+			<wsdl:output name="queueOut" message="cms:manageQueueResponseMsg" />
+			<wsdl:fault name="fault" message="cms:FaultMsg" />
+		</wsdl:operation>
+		<wsdl:operation name="queryJob">
+			<wsdl:documentation>This operation allows to list submitted jobs and get summary status information for each job.</wsdl:documentation>
+			<wsdl:input name="queryIn" message="cms:queryJobRequestMsg" />
+			<wsdl:output name="queryOut" message="cms:queryJobResponseMsg" />
+			<wsdl:fault name="fault" message="cms:FaultMsg" />
+		</wsdl:operation>
+	</wsdl:portType>
+    <wsdl:binding name="CaptureMediaBinding" type="cms:CaptureMedia">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    	<wsdl:operation name="capture">
+    		<soap:operation soapAction="http://capturemedia.fims.tv/capture" />
+    		<wsdl:input>
+    			<soap:body use="literal" />
+    		</wsdl:input>
+    		<wsdl:output>
+    			<soap:body use="literal" />
+    		</wsdl:output>
+    		<wsdl:fault name="captureFault">
+    			<soap:fault use="literal" name="captureFault" />
+    		</wsdl:fault>
+    	</wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CaptureMediaNotificationBinding" type="cms:CaptureMediaNotification">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    	<wsdl:operation name="notifyCaptureResult">
+    		<soap:operation soapAction="http://capturemedia.fims.tv/notifyCaptureResult" />
+    		<wsdl:input>
+    			<soap:body use="literal" />
+    		</wsdl:input>
+    	</wsdl:operation>
+    	<wsdl:operation name="notifyFault">
+    		<soap:operation soapAction="http://capturemedia.fims.tv/notifyFault" />
+    		<wsdl:input>
+    			<soap:body use="literal" />
+    		</wsdl:input>
+    	</wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CaptureMediaStatusBinding" type="cms:MediaServiceStatus">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    	<wsdl:operation name="manageJob">
+    		<soap:operation soapAction="http://capturemedia.fims.tv/manageJob" />
+    		<wsdl:input name="jobIn">
+    			<soap:body use="literal" />
+    		</wsdl:input>
+    		<wsdl:output name="jobOut">
+    			<soap:body use="literal" />
+    		</wsdl:output>
+    		<wsdl:fault name="fault">
+    			<soap:fault use="literal" name="fault" />
+    		</wsdl:fault>
+    	</wsdl:operation>
+    	<wsdl:operation name="manageQueue">
+    		<soap:operation soapAction="http://capturemedia.fims.tv/manageQueue" />
+    		<wsdl:input name="queueIn">
+    			<soap:body use="literal" />
+    		</wsdl:input>
+    		<wsdl:output name="queueOut">
+    			<soap:body use="literal" />
+    		</wsdl:output>
+    		<wsdl:fault name="fault">
+    			<soap:fault use="literal" name="fault" />
+    		</wsdl:fault>
+    	</wsdl:operation>
+    	<wsdl:operation name="queryJob">
+    		<soap:operation soapAction="http://capturemedia.fims.tv/queryJob" />
+    		<wsdl:input name="queryIn">
+    			<soap:body use="literal" />
+    		</wsdl:input>
+    		<wsdl:output name="queryOut">
+    			<soap:body use="literal" />
+    		</wsdl:output>
+    		<wsdl:fault name="fault">
+    			<soap:fault use="literal" name="fault" />
+    		</wsdl:fault>
+    	</wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CaptureMediaService">
+    	<wsdl:port name="CaptureMediaPort" binding="cms:CaptureMediaBinding">
+    		<soap:address location="http://host/path/CaptureMediaPort" />
+    	</wsdl:port>
+    	<wsdl:port name="CaptureMediaStatusPort" binding="cms:CaptureMediaStatusBinding">
+    		<soap:address location="http://host/path/CaptureMediaStatusPort" />
+    	</wsdl:port>
+    </wsdl:service>
+    <wsdl:service name="CaptureMediaNotificationService">
+    	<wsdl:port name="CaptureMediaNotificationPort" binding="cms:CaptureMediaNotificationBinding">
+    		<soap:address location="http://host/path/CaptureMediaNotificationPort" />
+    	</wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

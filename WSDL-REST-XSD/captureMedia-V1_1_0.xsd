@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+--> 
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
+	xmlns:cms="http://capturemedia.fims.tv" xmlns:tim="http://baseTime.fims.tv"
+	targetNamespace="http://capturemedia.fims.tv">
+	
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_1_0.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_1_0.xsd"/>
+  
+	<!-- **************************** FIMS-defined resources ****************************** -->
+	<complexType name="CaptureProfileType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Profile used by a capture media service to
+				capture media content. The profile specifies how to make the capture, what media format(s) to output,
+				and how it is processed.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="bms:ProfileType">
+				<sequence>
+					<element name="transformAtom" type="bms:TransformAtomType" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Set of parameters that describe 
+								the output media format for the captured clip.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+					<element name="transferAtom" type="bms:TransferAtomType" minOccurs="1" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Set of transfer parameters for
+								the capture service, used to specify the target location for the output.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+					<element name="outputFileNamePattern" type="string" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Specifies a name for the file and,
+								where applicable, a pattern for the names of the files to be output.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">If the name is not provided,
+								the service shall automatically generate a file name. 
+								The pattern should be specified using a regular expression (IEEE POSIX Basic Regular Expressions (BRE) standard)
+								to specify a pattern to build the output file name. The regular expression should allow to reference the following 
+								variables in the expression: 
+								- Profile name used for the transformation;
+								- Format name used for the transformation;
+								- Frame number;
+								- An index or counter which is incremented by 1 for each new file.</documentation>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Support or not for this parameter. 
+								When multiple output files are produced, include details of the patterns.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="CaptureJobType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Describes a capture job.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:JobType">
+				<sequence>
+					<element name="profiles" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Capture profiles associated with this job.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element name="captureProfile" type="cms:CaptureProfileType" minOccurs="1" maxOccurs="unbounded">
+									<annotation>
+										<documentation source="urn:x-fims:description">Capture profiles associated with this job.</documentation>
+										<documentation source="urn:x-fims:normativeRequirement"/>
+										<documentation source="urn:x-fims:serviceDescription"/>
+										<documentation source="urn:x-fims:contentOfServiceDescription"/>
+										<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="startProcess" type="bms:StartProcessType" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Specifies the system time at the start 
+								of the stream process.
+								There are the following four types to specify the time parameter of startProcess, 
+								which could need to be frame accurate:
+								- NoWait type: execute immediately;
+								- Time type: the time to start;
+								- TimeMark type: the time at which the TimeMark embedded in essence such as a timecode is detected;
+								- ServiceDefinedTime type: the time defined by a service.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">A service which supports Time and/or TimeMark type 
+								shall declare this in the Service Description</documentation>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Kinds of start process supported.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+					<element name="stopProcess" type="bms:StopProcessType" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Specifies the process stop time.
+								There are the following five types to specify the time parameter 
+								of stopProcess, which could need be to frame accurate:
+								- OpenEnd type: the time at which a process stop command (manageJobRequest) is received;
+								- Time type: the time to stop;
+								- TimeMark type: the time at which the TimeMark embedded in essence such as a timecode is detected;
+								- Duration type: the time at which point the specified duration has elapsed since startProcess;
+								- ServiceDefinedTime type: the time defined by a service.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Kinds of stop process supported.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+					<element name="sourceID" type="anyURI" minOccurs="0" maxOccurs="1">
+						<!--<element name="sourceID" type="anyURI" minOccurs="1" maxOccurs="1"> V_1_0_7-->
+						<annotation>
+							<documentation source="urn:x-fims:description">The identification of the source.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Configuration description included in the Service Description.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+							<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+						</annotation>
+					</element>
+					<element name="sourceType" type="cms:SourceType" minOccurs="0" maxOccurs="1">
+						<!--<element name="sourceType" type="cms:SourceType" minOccurs="1" maxOccurs="1">-->
+						<annotation>
+							<documentation source="urn:x-fims:description">Type of the source,
+								specified by the source type enumeration (e.g. "controllable" such as a VTR
+								or "uncontrolled" such as a feed).</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">If a service does 
+								not support the required feature type, it shall return either "Feature not supported" error code (SVC_S00_0015), 
+								or "Operation requested is not currently supported by the service or the device" error code (SVC_S00_0003).</documentation>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Configuration description included in the Service Description.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+							<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+						</annotation>
+					</element>
+					<element name="inPoint" type="cms:SourceInPointType" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">"In" point of a controllable capture
+								source, such as a VTR.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Support or not. 
+								If supported, the kinds of SourceInPointType.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+					<element name="outPoint" type="cms:SourceOutPointType" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">"Out" point of the controllable
+								capture source, such as VTR.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Support or not.
+								If supported, the kinds of SourceOutPointType.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+					<element name="splitOnTCBreak" type="boolean" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Whether the output is split
+								into multiple essence files whenever there is a timecode discontinuity.
+								Use the value "true" to specify that whenever a timecode discontinuity is 
+								found, the output is split into multiple essence files.
+								Use the value "false" to specify that even when a timecode discontinuity is found, 
+								the output is not split but is created as a single essence file.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Support or not.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- **************************** FIMS-defined enumerations **************************** -->
+	<simpleType name="SourceType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Whether a connected source is controllable or uncontrollable.
+			</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="controllable">
+				<annotation>
+					<documentation source="urn:x-fims:description">A controllable source, such as a VTR.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="uncontrolled">
+				<annotation>
+					<documentation source="urn:x-fims:description">An uncontrollable source, such as a feed.</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="CaptureErrorCodeType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Specific error codes for the capture service
+				- INF_S03_xxxx: Infrastructure errors (system, storage, network, memory, processor)
+				- DAT_S03_xxxx: Data errors (validation, missing,  duplication)
+				- SVC_S03_xxxx: Operation errors (existence, support, lock, connection, failure)
+				- SEC_S03_xxxx: Security errors (authentication, authorization)</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="SVC_S03_0001">
+				<annotation>
+					<documentation source="urn:x-fims:description">Invalid target media format.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S03_0002">
+				<annotation>
+					<documentation source="urn:x-fims:description">Inconsistent time constraints.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="DAT_S03_0001">
+				<annotation>
+					<documentation source="urn:x-fims:description">Invalid source ID.</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<!-- **************************** FIMS-defined control data types **************************** -->
+	<complexType name="SourceInPointType" abstract="true">
+		<annotation>
+			<documentation source="urn:x-fims:description">Kinds of source "In" point used as
+				a parameter for a capture process.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+	</complexType>
+	<complexType name="SourceInPointByCurrentType">
+		<annotation>
+			<documentation source="urn:x-fims:description">The current position of the
+				capture source used as the source "In" point.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceInPointType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="SourceInPointByTimeMarkType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Source "In" point specified by a
+				time mark in the capture source essence.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceInPointType">
+				<sequence>
+					<element name="timeMark" type="tim:TimeType" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Source "In" point specified by
+								a timecode or similar time mark.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="SourceInPointByBeginningType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Source "In" point is at the beginning
+				of the capture source, such as VTR tape.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceInPointType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="SourceOutPointType" abstract="true">
+		<annotation>
+			<documentation source="urn:x-fims:description">Kinds of source "Out" point used as
+				a parameter for a capture process.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+	</complexType>
+	<complexType name="SourceOutPointByDurationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Source "Out" point specified by the
+				total duration of material to capture.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceOutPointType">
+				<sequence>
+					<element name="duration" type="tim:DurationType" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Total duration of material to
+								capture, specified by timecode, real time or number of edit units.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="SourceOutPointByTimeMarkType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Source "Out" point specified by a
+				position in the capture source essence.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceOutPointType">
+				<sequence>
+					<element name="timeMark" type="tim:TimeType" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Source "Out" point specified by
+								a timecode or similar time mark.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="SourceOutPointByOpenEndType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Source "Out" point is not specified
+				and capture continues indefinitely until stop command (manageJobRequest) is received.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceOutPointType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="SourceOutPointByEndType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Source "Out" point is the end of
+				the capture source, such as VTR tape.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="cms:SourceOutPointType"/>
+		</complexContent>
+	</complexType>
+	<!-- **************************** FIMS-defined messages and faults **************************** -->
+	<complexType name="CaptureRequestType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A request to
+				the capture media service to transform content from a source
+				format to a target format.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="captureJob" type="cms:CaptureJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Set of the parameters that describe the output media format.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not applicable</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" use="required" type="bms:CurrentVersion">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="CaptureResponseType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A response to
+				a capture media service request for content capture from a feed source
+				to a target format.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="captureJob" type="cms:CaptureJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">A response to
+						a capture media service request for content capture from a feed source
+						to a target format.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" use="required" type="bms:CurrentVersion">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="CaptureFaultType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Fault
+				information for the capture media service. It extends the
+				base FaultType with a complementary extended code that allows service-specific 
+				error codes to be included if needed. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If
+				an exception is generated when the capture request message is submitted to the service, 
+				it shall respond with a message based on the CaptureFaultType.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+		</annotation>
+		<complexContent>
+			<extension base="bms:FaultType">
+				<sequence>
+					<element name="extendedCode" type="cms:CaptureErrorCodeType" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Extended error code for the 
+								capture fault.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">This element shall be set if
+								the service needs to provide service-specific error codes which
+								are not specified in the fault 'code'; element. In this
+								case, the code element shall be set to 'EXT_S00_0000' and
+								the extendedCode shall be set to one of the codes described in
+								CaptureErrorCodeType. If the 'code' element is set
+								to any other value than 'EXT_S00_0000' then this element
+								shall not be set.</documentation>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="CaptureNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Notification of the successful completion of a
+				capture job.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If one or more "notifyAt" 
+				elements are set for the associated capture job, then the service shall respond with a
+				notification to the specified endpoints when the job completes. (If notification is supported.)</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="captureJob" type="cms:CaptureJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes a capture job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" use="required" type="bms:CurrentVersion">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="CaptureFaultNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Fault
+				notification for the capture service, including
+				the related capture job and the fault code.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If one or more
+				"notifyAt" elements are set for the capture job and a failure
+				occurs during the job execution, then the service shall respond with
+				a capture fault notification to the endpoint specified by
+				'faultTo'.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
+		</annotation>
+		<sequence>
+			<sequence>
+				<element name="captureJob" type="cms:CaptureJobType" minOccurs="1" maxOccurs="1">
+					<annotation>
+						<documentation source="urn:x-fims:description">Describes a capture job.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+					</annotation>
+				</element>
+			</sequence>
+			<element name="fault" type="cms:CaptureFaultType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Fault information.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" use="required" type="bms:CurrentVersion">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<element name="captureRequest" type="cms:CaptureRequestType"/>
+	<element name="captureAck" type="cms:CaptureResponseType">
+		<annotation>
+			<documentation>This element represents the acknowledgment sent back from the capture media service when the capture job is submitted or a capture stop message is received. It is based on the BaseResponseType.</documentation>
+		</annotation>
+	</element>
+	<element name="captureFault" type="cms:CaptureFaultType"/>
+	<element name="captureNotification" type="cms:CaptureNotificationType"/>
+	<element name="captureFaultNotification" type="cms:CaptureFaultNotificationType"/>
+</schema>

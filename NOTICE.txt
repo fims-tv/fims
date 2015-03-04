@@ -1,0 +1,9 @@
+FIMS REST API Reference Implementation
+Copyright 2014 The European Broadcasting Union and the Advanced Media Workflow Association
+
+This software was developed by the Framework for Interoperable Media Services (FIMS) Task Force, a joint effort of the Advanced Media Workflow Association (AMWA) and the European Broadcasting Union (EBU).
+
+This product includes software developed at Quantel Ltd (http://www.quantel.com/).
+
+Portions of this software were originally developed at the Programming Methods Laboratory of the Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland as part of the Scala 2.9.2 distribution and were modified for inclusion in this distribution. See the Scala license at:
+    http://www.scala-lang.org/node/146
