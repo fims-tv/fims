@@ -52,6 +52,36 @@ limitations under the License.
 							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
 						</annotation>
 					</element>
+					<element name="contentPartAtom" type="bms:ContentPartAtomType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Set of parameters providing content part handling.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+					<element name="simpleEDLAtom" type="bms:SimpleEDLAtomType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Set of parameters specific to the transform service, providing simple composition (stitching) of segments.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+					<element name="wholeContentAtom" type="bms:WholeContentAtomType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Use this Atom to process whole BMContent(s). Equivalent to the operation in version 1.1</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
 					<element name="outputFileNamePattern" type="string" minOccurs="0" maxOccurs="1">
 						<annotation>
 							<documentation source="urn:x-fims:description">Specifies a name for the file and,
