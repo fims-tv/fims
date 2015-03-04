@@ -15,17 +15,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --> 
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
-	xmlns:tms="http://transfermedia.fims.tv" targetNamespace="http://transfermedia.fims.tv">
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_1_0.xsd"/>
-  
+	xmlns:tfms="http://transformmedia.fims.tv" targetNamespace="http://transformmedia.fims.tv">
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
+   
 	<!-- **************************** FIMS-defined resources ****************************** -->
-	<complexType name="TransferProfileType">
+	<complexType name="TransformProfileType">
 		<annotation>
-			<documentation source="urn:x-fims:description">Profile used by the transfer
-				media service to transfer files. The profile provides a mechanism to
-				specify service-specific information for each service. To specify multiple 
-				destinations, multiple profiles are used through the profiles element of 
-				the transfer job.</documentation>
+			<documentation source="urn:x-fims:description">Profile used by the transform media service to 
+				perform a transformation on media content. The profile specifies the media format to be output.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -33,10 +30,10 @@ limitations under the License.
 		<complexContent>
 			<extension base="bms:ProfileType">
 				<sequence>
-					<element name="transferAtom" type="bms:TransferAtomType" minOccurs="1" maxOccurs="unbounded">
+					<element name="transformAtom" type="bms:TransformAtomType" minOccurs="1" maxOccurs="1">
 						<annotation>
-							<documentation source="urn:x-fims:description">A set of parameters specific to the 
-								transfer media service, providing the transfer target destination.</documentation>
+							<documentation source="urn:x-fims:description">Set of parameters specific to the transform media service,
+								describing the media format to be output.</documentation>
 							<documentation source="urn:x-fims:normativeRequirement"/>
 							<documentation source="urn:x-fims:serviceDescription"/>
 							<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -44,13 +41,46 @@ limitations under the License.
 							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
 						</annotation>
 					</element>
+					<element name="transferAtom" type="bms:TransferAtomType" minOccurs="1" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Set of parameters specific to transfer
+								aspects of the transform service, providing a destination for output files.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+						</annotation>
+					</element>
+					<element name="outputFileNamePattern" type="string" minOccurs="0" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Specifies a name for the file and,
+								where applicable, a pattern for the names of the files to be output.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">If the name is not provided,
+								the service shall automatically generate a file name. 
+								The pattern should be specified using a regular expression (IEEE POSIX Basic Regular Expressions (BRE) standard)
+								to specify a pattern to build the output file name. The regular expression should allow to reference the following 
+								variables in the expression: 
+								- Source file name;
+								- Date;
+								- Profile name used for the transformation;
+								- Format name used for the transformation;
+								- Frame reference;
+								- AutoIncrementCounter that is incremented by 1 for each new file.</documentation>
+							<documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">Description: Support or not for this parameter. 
+								When multiple output files are produced, include details of the patterns.</documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
-	<complexType name="TransferJobType">
+	<complexType name="TransformJobType">
 		<annotation>
-			<documentation source="urn:x-fims:description">Describes a transfer job.</documentation>
+			<documentation source="urn:x-fims:description">Describes a transform job.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -60,7 +90,7 @@ limitations under the License.
 				<sequence>
 					<element name="profiles" minOccurs="0" maxOccurs="1">
 						<annotation>
-							<documentation source="urn:x-fims:description">Transfer profiles associated with
+							<documentation source="urn:x-fims:description">Transform profiles associated with
 								this job.</documentation>
 							<documentation source="urn:x-fims:normativeRequirement"/>
 							<documentation source="urn:x-fims:serviceDescription"/>
@@ -70,9 +100,9 @@ limitations under the License.
 						</annotation>
 						<complexType>
 							<sequence>
-								<element name="transferProfile" type="tms:TransferProfileType" minOccurs="1" maxOccurs="unbounded">
+								<element name="transformProfile" type="tfms:TransformProfileType" minOccurs="1" maxOccurs="unbounded">
 									<annotation>
-										<documentation source="urn:x-fims:description">Transfer profiles associated with this job.</documentation>
+										<documentation source="urn:x-fims:description">Transform profiles associated with this job.</documentation>
 										<documentation source="urn:x-fims:normativeRequirement"/>
 										<documentation source="urn:x-fims:serviceDescription"/>
 										<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -88,126 +118,40 @@ limitations under the License.
 		</complexContent>
 	</complexType>
 	<!-- **************************** FIMS-defined enumerations **************************** -->
-	<simpleType name="TransferErrorCodeType">
+	<simpleType name="TransformErrorCodeType">
 		<annotation>
-			<documentation source="urn:x-fims:description">Specific error codes for the
-				transfer service
-				- INF_S01_xxxx: Infrastructure errors (system, storage, network, memory, processor)
-				- DAT_S01_xxxx: Data errors (validation, missing, duplication)
-				- SVC_S01_xxxx: Operation errors (existence, support, lock, connection, failure)
-				- SEC_S01_xxxx: Security errors (authentication, authorization)
-			</documentation>
+			<documentation source="urn:x-fims:description">Specific error codes for the transform service
+				- INF_S02_xxxx: Infrastructure errors (system, storage, network, memory, processor)
+				- DAT_S02_xxxx: Data errors (validation, missing,  duplication)
+				- SVC_S02_xxxx: Operation errors (existence, support, lock, connection, failure)
+				- SEC_S02_xxxx: Security errors (authentication, authorization)</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 		</annotation>
 		<restriction base="string">
-			<enumeration value="DAT_S01_0001">
+			<enumeration value="SVC_S02_0001">
 				<annotation>
-					<documentation source="urn:x-fims:description">Invalid URI protocol specified
-						for Transport operations.</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="DAT_S01_0002">
-				<annotation>
-					<documentation source="urn:x-fims:description">Invalid OutpurDirectory or
-						Target URI path.</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="DAT_S01_0003">
-				<annotation>
-					<documentation source="urn:x-fims:description">Incorrect Hash. File received
-						does not have same hash as specified in the file hash value
-						property.</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0001">
-				<annotation>
-					<documentation source="urn:x-fims:description">Unsupported protocol.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0002">
-				<annotation>
-					<documentation source="urn:x-fims:description">Unsupported hash type.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0003">
-				<annotation>
-					<documentation source="urn:x-fims:description">Encryption not supported.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0004">
-				<annotation>
-					<documentation source="urn:x-fims:description">Authentication not supported.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0005">
-				<annotation>
-					<documentation source="urn:x-fims:description">Integrity check not supported.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0006">
-				<annotation>
-					<documentation source="urn:x-fims:description">File too large.</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0007">
-				<annotation>
-					<documentation source="urn:x-fims:description">Times not possible.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0008">
-				<annotation>
-					<documentation source="urn:x-fims:description">Incorrect file size.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0009">
-				<annotation>
-					<documentation source="urn:x-fims:description">Rejected by operator.
-					</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="SVC_S01_0010">
-				<annotation>
-					<documentation source="urn:x-fims:description">Transfer process ended
-						unexpectedly.</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="INF_S01_0001">
-				<annotation>
-					<documentation source="urn:x-fims:description">Network link with insufficient
-						bandwidth.</documentation>
-				</annotation>
-			</enumeration>
-			<enumeration value="INF_S01_0002">
-				<annotation>
-					<documentation source="urn:x-fims:description">Link timed out.</documentation>
+					<documentation source="urn:x-fims:description">Invalid target media format.</documentation>
 				</annotation>
 			</enumeration>
 		</restriction>
 	</simpleType>
 	<!-- **************************** FIMS-defined messages and faults **************************** -->
-	<complexType name="TransferRequestType">
+	<complexType name="TransformRequestType">
 		<annotation>
 			<documentation source="urn:x-fims:description">A request to
-				the transfer media service to transfer content from a source location to
-				a target location. </documentation>
+				the transform media service to transform content from a source
+				format to a target format.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
 		</annotation>
 		<sequence>
-			<element name="transferJob" type="tms:TransferJobType" minOccurs="1" maxOccurs="1">
+			<element name="transformJob" type="tfms:TransformJobType" minOccurs="1" maxOccurs="1">
 				<annotation>
-					<documentation source="urn:x-fims:description">Describes a transfer job.</documentation>
+					<documentation source="urn:x-fims:description">Describes a transform job.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
 					<documentation source="urn:x-fims:serviceDescription"/>
 					<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -223,20 +167,20 @@ limitations under the License.
 			</annotation>
 		</attribute>
 	</complexType>
-	<complexType name="TransferResponseType">
+	<complexType name="TransformResponseType">
 		<annotation>
-			<documentation source="urn:x-fims:description">An
-				acknowledgment sent back from the transfer media service when the
-				transfer job is submitted.</documentation>
+			<documentation source="urn:x-fims:description">Represents the
+				acknowledgment sent back from the transform media service when the
+				transform job is submitted.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
 		</annotation>
 		<sequence>
-			<element name="transferJob" type="tms:TransferJobType" minOccurs="1" maxOccurs="1">
+			<element name="transformJob" type="tfms:TransformJobType" minOccurs="1" maxOccurs="1">
 				<annotation>
-					<documentation source="urn:x-fims:description">Describes a transfer job.</documentation>
+					<documentation source="urn:x-fims:description">Describes a transform job.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
 					<documentation source="urn:x-fims:serviceDescription"/>
 					<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -252,29 +196,29 @@ limitations under the License.
 			</annotation>
 		</attribute>
 	</complexType>
-	<complexType name="TransferFaultType">
+	<complexType name="TransformFaultType">
 		<annotation>
 			<documentation source="urn:x-fims:description">Fault
-				information for the transfer media service.</documentation>
-			<documentation source="urn:x-fims:normativeRequirement">If an exception is generated
-				when the transfer request message is submitted to the service, 
-				it shall respond with a message based on the TransferFaultType.</documentation>
+				information for the transform media service.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If
+				an exception is generated when the transform request message is submitted to the service, 
+				it shall respond with a message based on the TransformFaultType.</documentation>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 		</annotation>
 		<complexContent>
 			<extension base="bms:FaultType">
 				<sequence>
-					<element name="extendedCode" type="tms:TransferErrorCodeType" minOccurs="0" maxOccurs="1">
+					<element name="extendedCode" type="tfms:TransformErrorCodeType" minOccurs="0">
 						<annotation>
-							<documentation source="urn:x-fims:description">Extended code for the
-								transfer fault.</documentation>
+							<documentation source="urn:x-fims:description">Transform service-specific 
+								error codes, as detailed in the TransformErrorCodeType.</documentation>
 							<documentation source="urn:x-fims:normativeRequirement">This element shall be set if
 								the service needs to provide service-specific error codes which
 								are not specified in the fault 'code' element. In this
 								case, the code element shall be set to 'EXT_S00_0000' and
 								the extendedCode shall be set to one of the codes described in
-								TransferErrorCodeType. If the 'code' element is set
+								TransformErrorCodeType. If the 'code'; element is set
 								to any other value than 'EXT_S00_0000'; then this element
 								shall not be set.</documentation>
 							<documentation source="urn:x-fims:serviceDescription"/>
@@ -287,21 +231,21 @@ limitations under the License.
 			</extension>
 		</complexContent>
 	</complexType>
-	<complexType name="TransferNotificationType">
+	<complexType name="TransformNotificationType">
 		<annotation>
 			<documentation source="urn:x-fims:description">Notification of the successful completion of a
-				transfer job.</documentation>
+				transform job.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement">If one or more "notifyAt" 
-				elements are set for the associated transfer job, then the service shall respond with a
+				elements are set for the associated transform job, then the service shall respond with a
 				notification to the specified endpoints when the job completes. (If notification is supported.)</documentation>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_1_0</documentation>
 		</annotation>
 		<sequence>
-			<element name="transferJob" type="tms:TransferJobType" minOccurs="1" maxOccurs="1">
+			<element name="transformJob" type="tfms:TransformJobType" minOccurs="1" maxOccurs="1">
 				<annotation>
-					<documentation source="urn:x-fims:description">Describes a transfer job.</documentation>
+					<documentation source="urn:x-fims:description">Describes a transform job.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
 					<documentation source="urn:x-fims:serviceDescription"/>
 					<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -317,15 +261,15 @@ limitations under the License.
 			</annotation>
 		</attribute>
 	</complexType>
-	<complexType name="TransferFaultNotificationType">
+	<complexType name="TransformFaultNotificationType">
 		<annotation>
 			<documentation source="urn:x-fims:description">Fault
-				notification for the transfer service, including
+				notification for the transform service, including
 				the related capture job and the fault code.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement">If one or more
-				"notifyAt" elements are set for the transfer job and a failure
+				"notifyAt" elements are set for the transform job and a failure
 				occurs during the job execution, then the service shall respond with
-				a transfer fault notification to the endpoint specified by
+				a transform fault notification to the endpoint specified by
 				'faultTo'.</documentation>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -333,9 +277,9 @@ limitations under the License.
 		</annotation>
 		<sequence>
 			<sequence>
-				<element name="transferJob" type="tms:TransferJobType" minOccurs="1" maxOccurs="1">
+				<element name="transformJob" type="tfms:TransformJobType" minOccurs="1" maxOccurs="1">
 					<annotation>
-						<documentation source="urn:x-fims:description">Describes a transfer job.</documentation>
+						<documentation source="urn:x-fims:description">Describes a transform job.</documentation>
 						<documentation source="urn:x-fims:normativeRequirement"/>
 						<documentation source="urn:x-fims:serviceDescription"/>
 						<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -344,7 +288,7 @@ limitations under the License.
 					</annotation>
 				</element>
 			</sequence>
-			<element name="fault" type="tms:TransferFaultType" minOccurs="1" maxOccurs="1">
+			<element name="fault" type="tfms:TransformFaultType" minOccurs="1" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">Fault information.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
@@ -362,57 +306,54 @@ limitations under the License.
 			</annotation>
 		</attribute>
 	</complexType>
-	<element name="transferRequest" type="tms:TransferRequestType">
+	<element name="transformRequest" type="tfms:TransformRequestType">
 		<annotation>
 			<documentation source="urn:x-fims:description">A request
-				to the transfer media service to transfer content from a source location
-				to a target location.</documentation>
+				to the transform media service for transforming content from a
+				source format to a target format.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 		</annotation>
 	</element>
-	<element name="transferAck" type="tms:TransferResponseType">
+	<element name="transformAck" type="tfms:TransformResponseType">
 		<annotation>
-			<documentation source="urn:x-fims:description">An
-				acknowledgment sent back from the transfer media service when the
-				transfer job is submitted.
-			</documentation>
+			<documentation source="urn:x-fims:description">Represents the
+				acknowledgment sent back from the transform media service when the
+				transform job is submitted.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 		</annotation>
 	</element>
-	<element name="transferFault" type="tms:TransferFaultType">
+	<element name="transformFault" type="tfms:TransformFaultType">
 		<annotation>
-			<documentation source="urn:x-fims:description">A fault notification
-				that may be sent by the transfer media service when a job is
-				submitted.</documentation>
+			<documentation source="urn:x-fims:description">A fault that may be sent by the
+				transform media service when a job is submitted.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
-			<documentation source="urn:x-fims:serviceDescription"/>
-			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:serviceDescription"></documentation>
+			<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
 		</annotation>
 	</element>
-	<element name="transferNotification" type="tms:TransferNotificationType">
+	<element name="transformNotification" type="tfms:TransformNotificationType">
 		<annotation>
 			<documentation source="urn:x-fims:description">A job
-				completion notification that the transfer media service sends to a
-				specified endpoint when the transfer job ends.</documentation>
-			<documentation source="urn:x-fims:normativeRequirement">This notification
-				shall be sent to all &quot;notifyAt&quot; elements associated with 
-				transfer job.</documentation>
+				completion notification that the transform media service sends to a
+				specified endpoint when the transform job ends.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">This notification shall be sent 
+				to all &quot;notifyAt&quot; element is associated with the transform job.</documentation>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 		</annotation>
 	</element>
-	<element name="transferFaultNotification" type="tms:TransferFaultNotificationType">
+	<element name="transformFaultNotification" type="tfms:TransformFaultNotificationType">
 		<annotation>
 			<documentation source="urn:x-fims:description">A fault
-				notification that the transfer media service sends to a specified
-				endpoint if the transfer job fails.</documentation>
-			<documentation source="urn:x-fims:normativeRequirement">This fault notification
-				shall be sent to all &quot;notifyAt&quot; elements associated with 
-				transfer job.</documentation>
+				notification that the transform media service sends to a specified
+				endpoint if the transform job fails.
+				</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">This fault notification shall be sent 
+				to all &quot;notifyAt&quot; element is associated with the transform job.</documentation>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 		</annotation>

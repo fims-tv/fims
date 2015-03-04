@@ -20,12 +20,12 @@ limitations under the License.
 
 	<wsdl:types>
 	    <schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_1_0.xsd">
+			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd">
 			</import>
 		</schema>
 
 		<schema targetNamespace="http://capturemedia.fims.tv" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://capturemedia.fims.tv">            
-            <include schemaLocation="captureMedia-V1_1_0.xsd" ></include>
+            <include schemaLocation="captureMedia-V1_2_0.xsd" ></include>
         </schema>	
     </wsdl:types>
     

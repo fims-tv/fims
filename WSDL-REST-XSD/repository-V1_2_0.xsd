@@ -34,7 +34,7 @@ Documentation needed for:
 
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
 	xmlns:rps="http://repository.fims.tv" targetNamespace="http://repository.fims.tv">
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_1_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
 
 	<!-- **************************** enumerations ************************ -->
 	<simpleType name="RepositoryErrorCodeType">

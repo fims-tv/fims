@@ -16,7 +16,7 @@ limitations under the License.
 -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:desc="http://description.fims.tv" xmlns:tim="http://baseTime.fims.tv" targetNamespace="http://description.fims.tv" elementFormDefault="qualified">
 	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
-	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_1_0.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
 	<element name="bmContentDescription" type="desc:bmContentDescriptionType"/>
 	<complexType name="bmContentDescriptionType">
 		<annotation>
