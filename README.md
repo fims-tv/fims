@@ -1,4 +1,4 @@
-FIMS Schema v1.1
+FIMS Schema v1.2
 ================
 
 Repository created by the FIMS Architecture Council for the management of
