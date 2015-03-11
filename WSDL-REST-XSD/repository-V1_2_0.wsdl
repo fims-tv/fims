@@ -645,7 +645,7 @@ ALL
     				<td class="firstColumn">CancelAddEssence</td>
     				<td>Attempts to cancel a given pending or in-progress AddEssence job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../essence</td>
+    				<td>.../essence/cancel-add</td> <!-- Change -->
     				<td class="firstColumn">rps:CancelAddEssenceRequestType</td>
     				<td>rps:CancelAddEssenceOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -655,8 +655,8 @@ ALL
     			<tr>
     				<td class="firstColumn">ReplaceContent</td>
     				<td>Updates an entire existing content element</td>
-    				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}</td>
+    				<td class="firstColumn">PUT</td> <!-- Change -->
+    				<td>.../content/{resourceId}/{version}</td> <!-- If version is omitted, latest version is referred to. Must reserve version-less route. -->
     				<td class="firstColumn">bms:BMContentType</td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -666,8 +666,8 @@ ALL
     			<tr>
     				<td class="firstColumn">UpdateContentProperties</td>
     				<td>Updates specific "metadata" properties of an existing content element </td>
-    				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}</td>
+    				<td class="firstColumn">PUT</td> <!-- Change --> 
+    				<td>.../content/properties/{resourceId}/{version}</td> <!-- Change -->
     				<td class="firstColumn">rps:PropertyInfosType</td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -678,8 +678,8 @@ ALL
     				<td class="firstColumn">Lock</td>
     				<td>Create a lock on a given resource or add a resource to an existing lock</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}</td>
-    				<td class="firstColumn"></td>
+    				<td>.../locktoken/{tokenId}</td> <!-- Problem: Do we need a tokenId here? -->
+    				<td class="firstColumn"></td> <!-- Problem: Need a body here! -->
     				<td>rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -689,8 +689,8 @@ ALL
     				<td class="firstColumn">UnLock</td>
     				<td>Disassociates given resources from a lock</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}/unlock</td>
-    				<td class="firstColumn"></td>
+    				<td>.../locktoken/{tokenId}/unlock</td> <!-- Problem: verb in the path -->
+    				<td class="firstColumn"></td> <!-- Problem: Need a body here! -->
     				<td>rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -700,8 +700,8 @@ ALL
     				<td class="firstColumn">ClearLock</td>
     				<td>Overrides a lock using a "SuperLockToken" acquired from the RCR</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}/clear</td>
-    				<td class="firstColumn"></td>
+    				<td>.../locktoken/{tokenId}/clear</td> <!-- Problem: verb in the path -->
+    				<td class="firstColumn"></td> <!-- Problem: Need a body here! -->
     				<td>rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
@@ -712,7 +712,7 @@ ALL
     				<td>Returns a list of all open locks known by the asset repository</td>
     				<td class="firstColumn">GET</td>
     				<td>.../locktoken</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn"></td> 
     				<td>List of rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
@@ -722,7 +722,7 @@ ALL
     				<td class="firstColumn">RemoveEssence</td>
     				<td>Marks a given set of essence files to be deleted</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../essence/{resourceId}/remove</td>
+    				<td>.../essence/{resourceId}/remove</td> 
     				<td class="firstColumn"></td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -777,7 +777,7 @@ ALL
     				<td class="firstColumn">CancelPurgeEssence</td>
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../essence</td>
+    				<td>.../essence/cancel-purge</td> <!-- Change -->
     				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td>
     				<td>rps:CancelPurgeEssenceOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -799,7 +799,7 @@ ALL
     				<td class="firstColumn">CancelPurgeContent</td>
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}/purge</td>
+    				<td>.../content/{resourceId}/{version}/purge/cancel-purge</td> <!-- Change and check why no body. -->
     				<td class="firstColumn"></td>
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -822,7 +822,7 @@ ALL
     				<td>Returns multiple content elements for the given set of assets</td>
     				<td class="firstColumn">GET</td>
     				<td>.../content</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn"></td> <!-- Problem: Where are the parameters!!!! -->
     				<td>List of bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -831,9 +831,9 @@ ALL
     			<tr>
     				<td class="firstColumn">RetrieveEssence</td>
     				<td>Copies one or more essence files specified by a BMEssenceLocator to a known supported destination by the repository</td>
-    				<td class="firstColumn">GET</td>
-    				<td>.../essence/{resourceId}</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">POST</td>
+    				<td>.../essence</td>
+    				<td class="firstColumn"></td> <!-- Check input body -->
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -842,9 +842,9 @@ ALL
     			<tr>
     				<td class="firstColumn">CancelRetrieveEssence</td>
     				<td>Attempts to cancel a pending or in-progress RetrieveEssence job</td>
-    				<td class="firstColumn">GET</td>
-    				<td>.../essence/{resourceId}</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">POST</td>
+    				<td>.../essence/cancel-retrieve</td> 
+    				<td class="firstColumn"></td> <!-- Problem: Check if there is a body and a job ID parameter. -->
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -853,7 +853,7 @@ ALL
     			<tr>
     				<td class="firstColumn">ContentQuery</td>
     				<td>Looks for repository assets that match the query parameters</td>
-    				<td class="firstColumn">GET</td>
+    				<td class="firstColumn">POST</td>
     				<td>.../query</td>
     				<td class="firstColumn">rps:ContentQueryRequestType</td>
     				<td> rps:ContentQueryResponseType</td>
