@@ -678,8 +678,8 @@ ALL
     				<td class="firstColumn">Lock</td>
     				<td>Create a lock on a given resource or add a resource to an existing lock</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}</td> <!-- Problem: Do we need a tokenId here? -->
-    				<td class="firstColumn"></td> <!-- Problem: Need a body here! -->
+    				<td>.../locktoken</td> <!-- Problem: Do we need a tokenId here? Answer: No. Use LockToken embedded in the message. -->
+    				<td class="firstColumn">rps:LockRequestType</td> <!-- Problem: Need a body here! Answer: Use LockRequestType without credentials. -->
     				<td>rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -689,8 +689,8 @@ ALL
     				<td class="firstColumn">UnLock</td>
     				<td>Disassociates given resources from a lock</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}/unlock</td> <!-- Problem: verb in the path -->
-    				<td class="firstColumn"></td> <!-- Problem: Need a body here! -->
+    				<td>.../locktoken/{tokenId}/unlock</td> <!-- Problem: verb in the path. Answer: Not ideal, but provides a specific route. -->
+    				<td class="firstColumn">rps:UnLockRequestType</td> <!-- Problem: Need a body here! Answer: Use UnLockRequestType without credentials. Path tokenID takes precendence over embedded toekn reference. -->
     				<td>rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -700,8 +700,8 @@ ALL
     				<td class="firstColumn">ClearLock</td>
     				<td>Overrides a lock using a "SuperLockToken" acquired from the RCR</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}/clear</td> <!-- Problem: verb in the path -->
-    				<td class="firstColumn"></td> <!-- Problem: Need a body here! -->
+    				<td>.../locktoken/{tokenId}/clear</td> <!-- Problem: verb in the path. Anwser. Not ideal, but provides a specific route. -->
+    				<td class="firstColumn">rps:ClearLockRequestType</td> <!-- Problem: Need a body here! Answer: Use ClearLickToken without credentials. Path tokenID takes precendence over embedded toekn reference.-->
     				<td>rps:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
@@ -800,7 +800,7 @@ ALL
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
     				<td>.../content/{resourceId}/{version}/purge/cancel-purge</td> <!-- Change in v1.2.0. Added sub-resource "cancel-purge" to disambiguate routing.  -->
-    				<td class="firstColumn"></td> <!--  Problem: Why no body here? -->
+    				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td> <!--  Problem: Why no body here? Answer: Use CancelPurgeRequestType.-->
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -820,9 +820,9 @@ ALL
     			<tr>
     				<td class="firstColumn">GetContentCollection</td>
     				<td>Returns multiple content elements for the given set of assets</td>
-    				<td class="firstColumn">GET</td>
-    				<td>.../content</td>
-    				<td class="firstColumn"></td> <!-- Problem: Where are the parameters!!!! -->
+    				<td class="firstColumn">POST</td> <!-- Change from GET in V1.2.0. -->
+    				<td>.../content/get-content-collection</td> <!-- Chagnge in V1.2.0. Added sub-resource path for routing. -->
+    				<td class="firstColumn">rps:GetContentCollectionRequestType</td> <!-- Problem: Where are the parameters!!!! Answer: POST a GetContentCollectionRequestType with all appropriate filters included. -->
     				<td>List of bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -832,8 +832,8 @@ ALL
     				<td class="firstColumn">RetrieveEssence</td>
     				<td>Copies one or more essence files specified by a BMEssenceLocator to a known supported destination by the repository</td>
     				<td class="firstColumn">POST</td><!--  Changed in V1.2.0. Changed from GET to POST. -->
-    				<td>.../essence</td>
-    				<td class="firstColumn"></td> <!-- Problem: Check input body -->
+    				<td>.../essence/retrieve</td> <!--  Change in V1.2.0. Otherwise in conflict with AddEssence. -->
+    				<td class="firstColumn">rps:RetrieveEssenceRequestType</td> <!-- Problem: Check input body. Answer: Use RetrieveEssenceRequestType. -->
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -844,7 +844,7 @@ ALL
     				<td>Attempts to cancel a pending or in-progress RetrieveEssence job</td>
     				<td class="firstColumn">POST</td> <!-- Changed in V1.2.0. Changed from GET to POST. -->
     				<td>.../essence/cancel-retrieve</td> <!--  Changed in V1.2.0. Replaced "/{resourceID}" path parameter with "cancel-retrieve". ResourceID now posted. -->
-    				<td class="firstColumn"></td> <!-- Problem: Check if there is a body and a job ID parameter. -->
+    				<td class="firstColumn">rps:CancelRetrieveEssenceRequestType</td> <!-- Problem: Check if there is a body and a job ID parameter. Answer: Use CancelRetrieveEssenceRequestType which contains necessary reference. -->
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>

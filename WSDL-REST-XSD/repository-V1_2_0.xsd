@@ -1568,7 +1568,7 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not Applicable</documentation>
 				</annotation>
 			</element>
-			<element name="token" type="bms:LockTokenType" minOccurs="1" maxOccurs="1">
+			<element name="token" type="bms:LockTokenType" minOccurs="0" maxOccurs="1"> <!-- Change to optional for V1.2.0. -->
 				<annotation>
 					<documentation source="urn:x-fims:description">
 						Parameter representing the token object to be passed to get access to the underline resource. 
@@ -1577,14 +1577,14 @@ Documentation needed for:
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
 					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
-					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory for SOAP only, REST uses path reference resource ID</documentation>
 					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
 				</annotation>
 			</element>
 			<element name="resourceReferences" type="bms:ResourceReferencesType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
-						Parameter representing the idenfier of the resource to be unlocked.
+						Parameter representing the identifier of the resource to be unlocked.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -1617,7 +1617,7 @@ Documentation needed for:
 	<complexType name="ClearLockRequestType">
 		<annotation>
 			<documentation source="urn:x-fims:description">
-				Synchronous request for the repository service to realease a LockTokenType with all included locked resources,
+				Synchronous request for the repository service to release a LockTokenType with all included locked resources,
 				which was acquired by another process or user.
 				A SuperLockTokenType must be requested from the RCR GetSuperLockToken operation 
 				and passed as part of the ClearLockRequestType.
@@ -1640,7 +1640,7 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not Applicable</documentation>
 				</annotation>
 			</element>
-			<element name="token" type="bms:LockTokenType" minOccurs="1" maxOccurs="1">
+			<element name="token" type="bms:LockTokenType" minOccurs="0" maxOccurs="1"> <!-- Change to optional for V1.2.0. -->
 				<annotation>
 					<documentation source="urn:x-fims:description">
 						Parameter representing the token object to be passed to get access to the underline resource. 
@@ -1649,14 +1649,14 @@ Documentation needed for:
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
 					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
-					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory for SOAP, path parameter for REST</documentation>
 					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
 				</annotation>
 			</element>
 			<element name="superToken" type="bms:SuperLockTokenType" minOccurs="1" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
-						Parameter reresenting the a special token defined in the RCR.  This parameter is required for to clear all the resources help by the given token.
+						Parameter representing the a special token defined in the RCR.  This parameter is required for to clear all the resources help by the given token.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
