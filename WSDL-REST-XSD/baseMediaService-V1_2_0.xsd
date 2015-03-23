@@ -225,7 +225,6 @@ limitations under the License.
             
             </annotation>
           </element>
-          
            <element name="notifyAt" type="bms:AsyncEndpointType" minOccurs="0"
 						maxOccurs="1">
             <annotation>
@@ -1736,14 +1735,239 @@ limitations under the License.
               <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
             </annotation>
           </element>
+          <element name="timelines" type="bms:TimelinesType" minOccurs="0" maxOccurs="1"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-<!-- LOOK AT SCOPE FOR BMCONTENTPARTSCOPE --> <!-- Problem: Missing documentation. -->
+  <!-- LOOK AT SCOPE FOR BMCONTENTPARTSCOPE -->
   <complexType name="QAReportReferencesType">
     <sequence>
       <element name="qaReportReference" type="bms:ResourceReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="SegmentType" abstract="true">
+       <annotation>
+          <documentation source="urn:x-fims:description">Segment is an abstract class used as a placeholder. Segment instances can be used to carry various types of time related metadata</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+   <complexContent>
+   	 <extension base="bms:ResourceType">
+   		<sequence>
+   			<element name="timelines" type="bms:TimelinesType" minOccurs="0" maxOccurs="1">
+       <annotation>
+          <documentation source="urn:x-fims:description">Recursion point</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+   			</element>
+   		</sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+    
+  <complexType name="TimelinesType">
+         <annotation>
+          <documentation source="urn:x-fims:description">This is the entry point to the tree containing all the time related metadata </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+    <sequence>
+      <element name="timeline" type="bms:TimelineType"  minOccurs="1" maxOccurs="unbounded">
+       <annotation>
+          <documentation source="urn:x-fims:description">More than one timeline can be defined for a single BMContent, so that different types of metadata can have their own decomposition</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  
+  <complexType name="TimelineType">
+         <annotation>
+          <documentation source="urn:x-fims:description">Timeline is the container for a temporal decomposition of the BMContent made of a list of instances of Segments</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+       <complexContent>
+   <extension base="bms:ResourceType">
+  	  <sequence>
+  		<element name="segment" type="bms:SegmentType" minOccurs="0" maxOccurs="unbounded">
+       <annotation>
+          <documentation source="urn:x-fims:description">List of segments used to carry various types of time related metadata</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+  		</element>
+  	  </sequence>	
+  	  <attributeGroup ref="bms:typeGroup"/>
+  	  </extension>
+  	  </complexContent>
+  </complexType>
+  <complexType name="BMContentPartType">
+       <annotation>
+          <documentation source="urn:x-fims:description">ContentPart is a type of segment used to carry various types of time related metadata</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">            
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+    <complexContent>
+      <extension base="bms:SegmentType">
+        <sequence>
+          <element name="start" type="tim:TimeType" minOccurs="0" maxOccurs="1">
+           <annotation>
+          <documentation source="urn:x-fims:description">start time of the content part with respect to the root BMContent</documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The start value must be in the range covered by the parent object
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+        </element>
+          <element name="duration" type="tim:DurationType" minOccurs="0" maxOccurs="1">
+         <annotation>
+          <documentation source="urn:x-fims:description">time duration of the content part </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The duration of the content part must be not greater than that of the parent object
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: no</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: optional</documentation>
+        </annotation>
+        </element>
+          <element name="spatialScope" type="string" minOccurs="0"></element>
+          <element name="bmContentPartFormat" type="bms:BMContentPartFormatType" minOccurs="0"
+            maxOccurs="1"></element>
+          <element name="descriptions" type="bms:DescriptionsType" minOccurs="0"
+            maxOccurs="1"></element>
+          <element name="origin" type="bms:OriginType" minOccurs="0"></element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BMContentPartFormatType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Description and format of a logical item of a content part.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    <complexContent>
+      <extension base="bms:ResourceType">
+        <sequence>
+          <element ref="bms:formatCollection" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">
+                Technical metadata describing this specific physical embodiment of the content. The
+                description contains the video, audio, data, and container formats of
+                the content format.
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+                Whether on request, it must be present, may be interpreted or is not applicable.
+              </documentation>
+              <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+              <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+            </annotation>
+          </element>
+          <element name="mimeType" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">
+                Multipurpose Internet Mail Extensions Media Type for the physical essence representation.
+                The MIME type can include any required or optional parameters after
+                the type, separated by semicolons. Note that this MIME type refers
+                to the overall type of media, for example a folder containing P2
+                card data or an AS-02 bundle both use MXF file formats, setting this
+                property to "application/mxf".
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement">
+                The format of the media type shall be as defined in IETF RFC 2046 and the MIME
+                type should be registered by IANA at
+                http://www.iana.org/assignments/media-types/index.html.
+              </documentation>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+                Whether on request, it must be present, may be interpreted or is not applicable.
+              </documentation>
+              <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+              <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+            </annotation>
+            <complexType>
+              <simpleContent>
+                <extension base="string">
+                  <attributeGroup ref="bms:typeGroup">
+                    <annotation>
+                      <documentation source="urn:x-fims:description">Defines a contextual type. </documentation>
+                    </annotation>
+                  </attributeGroup>
+                </extension>
+              </simpleContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OriginType">
+    <sequence>
+      <element name="start" type="tim:TimeType"  minOccurs="0" maxOccurs="1"></element>
+      <element name="duration" type="tim:DurationType"  minOccurs="0" maxOccurs="1"/>
+      <element name="bmContentIDRef" type="bms:UID"  minOccurs="0" maxOccurs="1"/>
+      <element name="bmContentFormatIDRef" type="bms:UID"  minOccurs="0" maxOccurs="1"/>
+>>>>>>> timecode-1-2
     </sequence>
   </complexType>
   <complexType name="DescriptionType">
@@ -1779,7 +2003,7 @@ limitations under the License.
   <complexType name="BMContentFormatType">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Description and locations of a phyisical representation of a logical item of content.
+        Description and locations of a physical representation of a logical item of content.
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -1910,6 +2134,7 @@ limitations under the License.
       </extension>
     </complexContent>
   </complexType>
+   
   <complexType name="BMEssenceLocatorType" abstract="true">
     <annotation>
       <documentation source="urn:x-fims:description">
@@ -2125,6 +2350,167 @@ limitations under the License.
   
   
   <!-- ****************************** FIMS-Defined Atoms ****************************** -->
+  <complexType name="ContentPartAtomType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Parameters specific to media services that can handle partial content. 
+        If this atom is used, the media part identified by the contentIDRef will be extracted to form a new essence. This essence will be described by a new BMContent object purposefully generated by the service.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    <complexContent>
+    <extension base="bms:BasePartType">
+    <sequence>
+      <element name="destinationContentID" type="bms:UID" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">optional ResourceID of the  BMContent that will be generated by the service. If not present the service will gnerate a new ID </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The contentIDRef must match that of a BMContent provided in the Job input parameters
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handiling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: no</documentation>
+        </annotation>
+      </element>
+    </sequence>
+    </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WholeContentAtomType">
+  <sequence>
+       <element name="sourceContentIDRef" type="bms:UID" minOccurs="1" maxOccurs="unbounded">
+        <annotation>
+          <documentation source="urn:x-fims:description">RefID of a source BMContent that must be processed as a whole </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The contentIDRef must match that of a BMContent provided in the Job input parameters
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handiling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: no</documentation>
+        </annotation>
+      </element> 
+          <element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Extension point.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+      <element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
+				maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Extension point.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>   
+  </sequence>
+  </complexType>
+  <complexType name="BasePartType">
+      <annotation>
+      <documentation source="urn:x-fims:description">       
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+  <sequence>
+      <element name="sourceContentIDRef" type="bms:UID" minOccurs="1" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">RefID of the source BMContent from which the part is extracted </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The contentIDRef must match that of a BMContent provided in the Job input parameters
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handiling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: no</documentation>
+        </annotation>
+      </element>
+      <element name="start" type="tim:TimeType" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">The start time of the source BMContentFormat from which the part is extracted </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The 0 point is the first frame/sample of the essence pointed to by the BMContentFormat
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handiling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: no</documentation>
+        </annotation>
+      </element>
+      <element name="duration" type="tim:DurationType" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">The duration time of the source BMContentFormat from which the part is extracted </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            The duration cannot be greater than the duration of the essence pointed to by the BMContentFormat minus the start point
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            if Content Part handiling is supported or not.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: no</documentation>
+        </annotation>
+      </element>
+      <element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Extension point.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+      <element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
+				maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Extension point.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+  </sequence>
+  </complexType>
+  <complexType name="OrderedPartType">
+      <annotation>
+      <documentation source="urn:x-fims:description">       
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+  <complexContent>
+  <extension base="bms:BasePartType">
+  <sequence>
+    <element name="position" type="integer" minOccurs="1" maxOccurs="1"> 
+    </element>
+  </sequence>
+  </extension>
+  </complexContent>
+  </complexType>
   <complexType name="TransferAtomType">
     <annotation>
       <documentation source="urn:x-fims:description">
@@ -2180,6 +2566,65 @@ limitations under the License.
         </annotation>
       </element>
     </sequence>
+  </complexType>
+  <complexType name="SimpleEDLAtomType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Parameters specific to trasform media services that can stitch together several media parts. 
+        If this atom is used, all the media parts identified by the included ContentPartAtom(s) will be extracted and stitched together according their position to form a single essence. This essence will be described by a new BMContent object purposefully generated by the service.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    <sequence>
+      <element name="orderedPart" type="bms:OrderedPartType" minOccurs="1" maxOccurs="unbounded">
+        <annotation>
+          <documentation source="urn:x-fims:description">A content part to be stitched </documentation>
+          <documentation source="urn:x-fims:normativeRequirement">
+            Use the attribute "position" to specify the position of the part in the list. Parts will be stitched sequentially without gaps or overlaps.
+          </documentation>
+          <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+          <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+            Kinds of destination supported.
+          </documentation>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: No</documentation>
+        </annotation>
+      </element>
+      <element name="destinationContentID" type="bms:UID" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Optional UID of the output BMContent generated by the service.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+      <element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Extension point.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+      <element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
+				maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">Extension point.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>   
+    </sequence>
+    
   </complexType>
   <complexType name="TransformAtomType">
     <annotation>
@@ -3407,6 +3852,14 @@ limitations under the License.
           <documentation source="urn:x-fims:statusDescription">Conflict.</documentation>
           <documentation source="urn:x-fims:notes">Current state of the resource does not permit the requested operation.</documentation>
           <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SVC_S00_0023">
+        <annotation>
+          <documentation source="urn:x-fims:description">Partial job failure. See inner faults for details.
+          </documentation>
+          <documentation source="urn:x-fims:notes">The requested job could not be fully completed.</documentation>
+          <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
         </annotation>
       </enumeration>
       <enumeration value="DAT_S00_0001">
@@ -4718,7 +5171,7 @@ limitations under the License.
       <element name="code" type="string" minOccurs="1" maxOccurs="1">
         <annotation>
           <documentation source="urn:x-fims:description">
-            Lower-level error code. This can be any value that is relevant to the appropriate subsystem
+            Lower-level error code. This can be any value that is relevant to the appropriate subsystem.
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -4748,6 +5201,34 @@ limitations under the License.
           <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
           <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
         </annotation>
+      </element>
+      <element name="source" minOccurs="0" maxOccurs="unbounded">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            This optional field can provide information about the source of the lower-level error.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not applicable</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>  
+        <complexType>
+          <sequence>
+            <element name="sourceID" type="anyURI">
+              <annotation>
+                <documentation>An identifier associated with the source.</documentation>
+              </annotation>
+            </element>
+            <element name="sourceName" type="string" minOccurs="0">
+              <annotation>
+                <documentation>
+                  a name associated with the source.
+                </documentation>
+              </annotation>
+            </element>
+          </sequence>
+        </complexType>
       </element>
     </sequence>
   </complexType>

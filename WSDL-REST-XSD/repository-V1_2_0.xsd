@@ -32,9 +32,10 @@ Documentation needed for:
 	Rcr Response
 -->
 
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	xmlns:rps="http://repository.fims.tv" targetNamespace="http://repository.fims.tv">
 	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
+	 <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
 
 	<!-- **************************** enumerations ************************ -->
 	<simpleType name="RepositoryErrorCodeType">
@@ -2350,6 +2351,42 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
 				</annotation>
 			</element>
+			<element name="start" type="tim:TimeType" minOccurs="0" maxOccurs="1">
+					<annotation>
+					<documentation source="urn:x-fims:description">
+						If a part is required this parameter provides the start position. If omitted but duration is specified start defaults to 0
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>
+			</element>
+			<element name="duration" type="tim:DurationType" minOccurs="0" maxOccurs="1">
+					<annotation>
+					<documentation source="urn:x-fims:description">
+						If a part is required this parameter provides the duration of the part. If omitted but start is specified duration defaults to the part from start to the end of the file
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>			
+			</element>
+			<element name="essenceName" type="string" minOccurs="0" maxOccurs="1">
+					<annotation>
+					<documentation source="urn:x-fims:description">
+						If a part is required this parameter provides the name of the essence file. If omitted but start or duration is specified the service will provide a name
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>			
+			</element>
 			<element name="notifyAt" type="bms:AsyncEndpointType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
@@ -4072,6 +4109,18 @@ Documentation needed for:
 				<annotation>
 					<documentation source="urn:x-fims:description">
 						Parameter representing the knownlocation object. It is configured in the RCR and contains information about physical path of the destination folder.    
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>
+			</element>
+			<element name = "sourceContent" type="bms:BMContentType" minOccurs="1"  maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">
+						Parameter containing the BMContent that describes the essence. Only the relevant BMContentFormat and essenceLocator should be included.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>

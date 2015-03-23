@@ -44,6 +44,26 @@ limitations under the License.
 							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
 						</annotation>
 					</element>
+					<element name="contentPartAtom" type="bms:ContentPartAtomType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">A set of parameters providing content part operation.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
+					<element name="wholeContentAtom" type="bms:WholeContentAtomType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Use this Atom for whole BMContent processing. Equivalent to the behavior in version 1.1</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+						</annotation>
+					</element>
 				</sequence>
 			</extension>
 		</complexContent>
