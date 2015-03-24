@@ -645,7 +645,7 @@ ALL
     				<td class="firstColumn">CancelAddEssence</td>
     				<td>Attempts to cancel a given pending or in-progress AddEssence job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../essence</td>
+    				<td>.../essence/cancel-add</td> <!-- Change for v1.2.0. New sub-resource "cancel-add" to disambiguate routing. -->
     				<td class="firstColumn">rps:CancelAddEssenceRequestType</td>
     				<td>rps:CancelAddEssenceOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -655,8 +655,8 @@ ALL
     			<tr>
     				<td class="firstColumn">ReplaceContent</td>
     				<td>Updates an entire existing content element</td>
-    				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}</td>
+    				<td class="firstColumn">PUT</td> <!-- Change for v1.2.0. POST changed to PUT. -->
+    				<td>.../content/{resourceId}/{version}</td> <!-- Note: If version is omitted then the latest version is referred to. The version-less route must be reserved. -->
     				<td class="firstColumn">bms:BMContentType</td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -666,8 +666,8 @@ ALL
     			<tr>
     				<td class="firstColumn">UpdateContentProperties</td>
     				<td>Updates specific "metadata" properties of an existing content element </td>
-    				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}</td>
+    				<td class="firstColumn">PUT</td> <!-- Change for v1.2.0. POST changed to PUT. --> 
+    				<td>.../content/properties/{resourceId}/{version}</td> <!-- Change for v1.2.0. Added properties sub-resource to disambiguate routing. -->
     				<td class="firstColumn">rps:PropertyInfosType</td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -675,23 +675,45 @@ ALL
     				<td class="firstColumn"></td>
     			</tr>
     			<tr>
-    				<td class="firstColumn">Lock</td>
-    				<td>Create a lock on a given resource or add a resource to an existing lock</td>
+    				<td class="firstColumn">Lock</td> <!-- Change for V1.2.0. POST a LockRequest to create a new lock. -->
+    				<td>Create a lock on the given resource or resources.</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}</td>
-    				<td class="firstColumn"></td>
-    				<td>rps:LockTokenType</td>
+    				<td>.../locktoken</td> 
+    				<td class="firstColumn">bms:LockTokenType</td> 
+    				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
     				<td class="firstColumn"></td>
     			</tr>
     			<tr>
-    				<td class="firstColumn">UnLock</td>
-    				<td>Disassociates given resources from a lock</td>
-    				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}/unlock</td>
+    				<td class="firstColumn">UpdateLock</td> <!-- New for V1.2.0. Added additional REST operation to create or update a lock token. -->
+    				<td>Create or update a lock on the given resource or resources.</td>
+    				<td class="firstColumn">PUT</td> <!-- Must replace complete information about the lock. -->
+    				<td>.../locktoken/{tokenId}</td> 
+    				<td class="firstColumn">bms:LockTokenType</td> 
+    				<td>bms:LockTokenType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
     				<td class="firstColumn"></td>
-    				<td>rps:LockTokenType</td>
+    			</tr>
+    			<tr>
+    				<td class="firstColumn">LockResource</td> <!-- New for V1.2.0. Add a resource or resources to an existing lock token by posting a resource reference. -->
+    				<td>Add a lock to a given resource or resources.</td>
+    				<td class="firstColumn">POST</td>
+    				<td>.../locktoken/{tokenId}</td> 
+    				<td class="firstColumn">bms:ResourceReferencesType</td> 
+    				<td>bms:LockTokenType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+    			<tr>
+    				<td class="firstColumn">UnLockResource</td> <!-- New for V1.2.0. Delete a resource or resources to an existing lock token by posting a resource reference. -->
+    				<td>Disassociates given resource from a lock</td> <!-- Less powerful than SOAP - can only do one at a time. PUT method also available. -->
+    				<td class="firstColumn">DELETE</td>
+    				<td>.../locktoken/{tokenId}/{resourceId}</td>
+    				<td class="firstColumn"></td> 
+       				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
     				<td class="firstColumn"></td>
@@ -700,9 +722,9 @@ ALL
     				<td class="firstColumn">ClearLock</td>
     				<td>Overrides a lock using a "SuperLockToken" acquired from the RCR</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}/clear</td>
-    				<td class="firstColumn"></td>
-    				<td>rps:LockTokenType</td>
+    				<td>.../locktoken/{tokenId}/clear</td> <!-- Change in V1.2.0. Problem: verb in the path. Anwser. Not ideal, but provides a specific route. -->
+    				<td class="firstColumn">rps:ClearLockRequestType</td> 
+    				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
     				<td class="firstColumn"></td>
@@ -713,7 +735,18 @@ ALL
     				<td class="firstColumn">GET</td>
     				<td>.../locktoken</td>
     				<td class="firstColumn"></td>
-    				<td>List of rps:LockTokenType</td>
+    				<td>List of bms:LockTokenType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
+    				<td class="firstColumn"></td>
+    			</tr>
+    			<tr>
+    				<td class="firstColumn">GetLock</td> <!-- New in V!.2.0. Adding the ability to query the details of a specific lock. Useful prior to update lock. -->
+    				<td>Returns the details of a specific lock</td>
+    				<td class="firstColumn">GET</td>
+    				<td>.../locktoken/{tokenID}</td>
+    				<td class="firstColumn"></td>
+    				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
     				<td class="firstColumn"></td>
@@ -777,7 +810,7 @@ ALL
     				<td class="firstColumn">CancelPurgeEssence</td>
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../essence</td>
+    				<td>.../essence/cancel-purge</td> <!-- Change in v1.2.0. Added sub-resource "cancel-purge" to disambiguate routing. -->
     				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td>
     				<td>rps:CancelPurgeEssenceOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -799,8 +832,8 @@ ALL
     				<td class="firstColumn">CancelPurgeContent</td>
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}/purge</td>
-    				<td class="firstColumn"></td>
+    				<td>.../content/{resourceId}/{version}/purge/cancel-purge</td> <!-- Change in v1.2.0. Added sub-resource "cancel-purge" to disambiguate routing.  -->
+    				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td> 
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -820,9 +853,9 @@ ALL
     			<tr>
     				<td class="firstColumn">GetContentCollection</td>
     				<td>Returns multiple content elements for the given set of assets</td>
-    				<td class="firstColumn">GET</td>
-    				<td>.../content</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">POST</td> <!-- Change from GET in V1.2.0. -->
+    				<td>.../content/get-content-collection</td> <!-- Chagnge in V1.2.0. Added sub-resource path for routing. -->
+    				<td class="firstColumn">rps:GetContentCollectionRequestType</td> 
     				<td>List of bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -831,9 +864,9 @@ ALL
     			<tr>
     				<td class="firstColumn">RetrieveEssence</td>
     				<td>Copies one or more essence files specified by a BMEssenceLocator to a known supported destination by the repository</td>
-    				<td class="firstColumn">GET</td>
-    				<td>.../essence/{resourceId}</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">POST</td><!--  Changed in V1.2.0. Changed from GET to POST. -->
+    				<td>.../essence/retrieve</td> <!--  Change in V1.2.0. Otherwise in conflict with AddEssence. -->
+    				<td class="firstColumn">rps:RetrieveEssenceRequestType</td> 
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -842,9 +875,9 @@ ALL
     			<tr>
     				<td class="firstColumn">CancelRetrieveEssence</td>
     				<td>Attempts to cancel a pending or in-progress RetrieveEssence job</td>
-    				<td class="firstColumn">GET</td>
-    				<td>.../essence/{resourceId}</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">POST</td> <!-- Changed in V1.2.0. Changed from GET to POST. -->
+    				<td>.../essence/cancel-retrieve</td> <!--  Changed in V1.2.0. Replaced "/{resourceID}" path parameter with "cancel-retrieve". ResourceID now posted. -->
+    				<td class="firstColumn">rps:CancelRetrieveEssenceRequestType</td> 
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -853,10 +886,10 @@ ALL
     			<tr>
     				<td class="firstColumn">ContentQuery</td>
     				<td>Looks for repository assets that match the query parameters</td>
-    				<td class="firstColumn">GET</td>
+    				<td class="firstColumn">POST</td>
     				<td>.../query</td>
     				<td class="firstColumn">rps:ContentQueryRequestType</td>
-    				<td> rps:ContentQueryResponseType</td>
+    				<td>rps:ContentQueryResponseType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
     				<td class="firstColumn"></td>
@@ -1264,8 +1297,7 @@ ALL
 	<wsdl:portType name="Rcr">
 		<wsdl:documentation>The RCR (Repository Capabilities Registry) provides "meta" information about the Repository.
 		
-		
-			<h4>REST Mapping for Repository Capabilities Registry</h4>
+			<h4>REST Mapping for Repository Capabilities Registry</h4> <!-- Change in V1.2.0. Using GET with sub-resource rather than posting a specific RCR request type. -->
 			<table>
 				<tr>
 					<th width="10%">Capability</th>
@@ -1282,8 +1314,8 @@ ALL
 					<td class="firstColumn">GetRepositoryState</td>
 					<td>Returns the current state of the Repository service</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetRepositoryStateRequestType</td>
+					<td>.../repository/state</td>
+					<td class="firstColumn"/>
 					<td>rps:GetRepositoryStateResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1293,8 +1325,8 @@ ALL
 					<td class="firstColumn">GetStorageAvailableCapacity</td>
 					<td>Returns the current capacities of the Repository storage components</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetStorageAvailableCapacityRequestType</td>
+					<td>.../repository/capacity</td>
+					<td class="firstColumn"/>
 					<td>rps:GetStorageAvailableCapacityResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1302,10 +1334,10 @@ ALL
 				</tr>
 				<tr>
 					<td class="firstColumn">GetPerformanceIndicator</td>
-					<td>Reeturns the an indication of the current performance level of the Repository</td>
+					<td>Returns the an indication of the current performance level of the Repository</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetPerformanceIndicatorRequestType</td>
+					<td>.../repository/performance</td>
+					<td class="firstColumn"/>
 					<td>rps:GetPerformanceIndicatorResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1315,8 +1347,8 @@ ALL
 					<td class="firstColumn">GetRepositoryReport</td>
 					<td>Returns a implementation-specific health or general condition report in HTML format</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetRepositoryReportRequestType</td>
+					<td>.../repository/report</td>
+					<td class="firstColumn"/>
 					<td>rps:GetRepositoryReportResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1326,8 +1358,8 @@ ALL
 					<td class="firstColumn">GetGeneralCapability</td>
 					<td>Returns the set of "capabilities" of the Repository</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetGeneralCapabilityRequestType</td>
+					<td>.../repository/capabilities</td>
+					<td class="firstColumn"/>
 					<td>rps:GetGeneralCapabilityResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1337,8 +1369,8 @@ ALL
 					<td class="firstColumn">GetSchemaExtensions</td>
 					<td>Returns the set of asset metadata schema extensions supported by the Repository</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetSchemaExtensionsRequestType</td>
+					<td>.../repository/extensions</td>
+					<td class="firstColumn"/>
 					<td>rps:GetSchemaExtensionsResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1348,8 +1380,8 @@ ALL
 					<td class="firstColumn">GetUpdatableProperties</td>
 					<td>Returns the set of asset metadata properties that can be updated by the Repository</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetUpdatablePropertiesRequestType</td>
+					<td>.../repository/properties/updatable</td>
+					<td class="firstColumn"/>
 					<td>rps:GetUpdatablePropertiesResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1359,8 +1391,8 @@ ALL
 					<td class="firstColumn">GetQueryResultsetDefinitions</td>
 					<td>Returns a set of implementation-specific defined result sets retuned by the Query operation</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetQueryResultsetDefinitionsRequestType</td>
+					<td>.../repository/query/reslutset/definitons</td>
+					<td class="firstColumn"/>
 					<td>rps:GetQueryResultsetDefinitionsResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1370,8 +1402,8 @@ ALL
 					<td class="firstColumn">GetSearchableProperties</td>
 					<td>Returns the set of asset metadata properties that can be queried by the Repository</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetSearchablePropertiesRequestType</td>
+					<td>.../repository/properties/searchable</td>
+					<td class="firstColumn"/>
 					<td>rps:GetSearchablePropertiesResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1381,8 +1413,8 @@ ALL
 					<td class="firstColumn">GetRepositoryDefinitions</td>
 					<td>Returns a set of implementation-specific internal storage volumes</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetRepositoryDefinitionsRequestType</td>
+					<td>.../repository/definitions</td>
+					<td class="firstColumn"/>
 					<td>rps:GetRepositoryDefinitionsResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1392,8 +1424,8 @@ ALL
 					<td class="firstColumn">GetSuperLockToken</td>
 					<td>Returns a "super" token to override existing locks</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetSuperLockTokenRequestType</td>
+					<td>.../repository/superLockTocken</td>
+					<td class="firstColumn"/>
 					<td>rps:GetSuperLockTokenResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
@@ -1403,8 +1435,8 @@ ALL
 					<td class="firstColumn">GetSupportedStatus</td>
 					<td>Returns the Repository-supported statuses (base and custom) for content and essence</td>
 					<td class="firstColumn">GET</td>
-					<td>.../repository</td>
-					<td class="firstColumn">rps:GetSupportedStatusRequestType</td>
+					<td>.../repository/status/supported</td>
+					<td class="firstColumn"/>
 					<td>rps:GetSupportedStatusResponseType</td>
 					<td class="firstColumn">rps:RepositoryFaultType</td>
 					<td>{Repository Credentials}</td>
