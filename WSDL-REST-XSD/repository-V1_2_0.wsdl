@@ -1297,8 +1297,7 @@ ALL
 	<wsdl:portType name="Rcr">
 		<wsdl:documentation>The RCR (Repository Capabilities Registry) provides "meta" information about the Repository.
 		
-		
-			<h4>REST Mapping for Repository Capabilities Registry</h4>
+			<h4>REST Mapping for Repository Capabilities Registry</h4> <!-- Change in V1.2.0. Using GET with sub-resource rather than posting a specific RCR request type. -->
 			<table>
 				<tr>
 					<th width="10%">Capability</th>
@@ -1335,7 +1334,7 @@ ALL
 				</tr>
 				<tr>
 					<td class="firstColumn">GetPerformanceIndicator</td>
-					<td>Reeturns the an indication of the current performance level of the Repository</td>
+					<td>Returns the an indication of the current performance level of the Repository</td>
 					<td class="firstColumn">GET</td>
 					<td>.../repository/performance</td>
 					<td class="firstColumn"/>
