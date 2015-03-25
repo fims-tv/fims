@@ -105,7 +105,7 @@ limitations under the License.
     <annotation>
       <documentation source="urn:x-fims:description">
         The source or target of a reference to a distinct resource. 
-        Resources include queues, jobs, assets, descriptions, formats, and profiles.
+        Resources include queues, jobs, assets, descriptions, formats, profiles, reports, templates, etc.
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -1961,13 +1961,12 @@ limitations under the License.
       </extension>
     </complexContent>
   </complexType>
-  <complexType name="OriginType">
+  <complexType name="OriginType"> <!-- Problem: Documentation required. -->
     <sequence>
       <element name="start" type="tim:TimeType"  minOccurs="0" maxOccurs="1"></element>
       <element name="duration" type="tim:DurationType"  minOccurs="0" maxOccurs="1"/>
       <element name="bmContentIDRef" type="bms:UID"  minOccurs="0" maxOccurs="1"/>
       <element name="bmContentFormatIDRef" type="bms:UID"  minOccurs="0" maxOccurs="1"/>
->>>>>>> timecode-1-2
     </sequence>
   </complexType>
   <complexType name="DescriptionType">
@@ -2058,10 +2057,11 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
-          <element name="hash" type="bms:HashType" minOccurs="0" maxOccurs="1">
+          <element name="hash" type="bms:HashType" minOccurs="0" maxOccurs="unbounded">
             <annotation>
               <documentation source="urn:x-fims:description">
-                Hash code value calculated for the physical essence representation.
+                Hash code value calculated for the physical essence representation. There may be different hash 
+                codes calculated using different methods/functions at different stages in the workflow.
               </documentation>
               <documentation source="urn:x-fims:normativeRequirement">
                 If the essence location is a package rather than a single file and the hash is
