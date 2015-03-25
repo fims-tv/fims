@@ -18,8 +18,7 @@ limitations under the License.
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
 	xmlns:qar="http://mediaqar.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	xmlns:qat="http://mediaqat.fims.tv" xmlns:desc="http://description.fims.tv"
-	targetNamespace="http://mediaqar.fims.tv"
-	elementFormDefault="qualified">
+	targetNamespace="http://mediaqar.fims.tv" elementFormDefault="qualified">
 	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
 	<import namespace="http://description.fims.tv" schemaLocation="description-V1_2_0.xsd"/>
 	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
@@ -59,25 +58,50 @@ limitations under the License.
 		<complexContent>
 			<extension base="bms:ResourceType">
 				<sequence>
-					<element name="BMContentReference" type="bms:ResourceReferenceType"
-						minOccurs="0" maxOccurs="1">
-						<annotation>
-							<documentation source="urn:x-fims:description">A reference to the
-								BMContent the qaReport refers to.</documentation>
-							<documentation source="urn:x-fims:normativeRequirement">Normative
-								requirement: </documentation>
-							<documentation source="urn:x-fims:serviceDescription"> Service
-								description: Required </documentation>
-							<documentation source="urn:x-fims:contentOfServiceDescription">
-								Description: A reference to BMContent that has been
-								analysed.</documentation>
-							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
-								Request: Mandatory</documentation>
-							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
-								Response: Mandatory</documentation>
-							<documentation source="urn:x-fims:introducedInVersion">Introduced In
-								Version: 1_2_0</documentation>
-						</annotation>
+					<element name="BMContentReference">
+						<complexType>
+							<complexContent>
+								<extension base="bms:ResourceReferenceType">
+									<annotation>
+										<documentation source="urn:x-fims:description">A reference
+											to the BMContent the qaReport refers to. Further
+											identification is provided through an associated hash
+											code usch as a checksum.</documentation>
+										<documentation source="urn:x-fims:normativeRequirement"
+											>Normative requirement: </documentation>
+										<documentation source="urn:x-fims:serviceDescription">
+											Service description: Required </documentation>
+										<documentation
+											source="urn:x-fims:contentOfServiceDescription">
+											Description: A reference to BMContent that has been
+											analysed.</documentation>
+										<documentation source="urn:x-fims:inclusionInRequest"
+											>Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse"
+											>Inclusion In Response: Mandatory</documentation>
+										<documentation source="urn:x-fims:introducedInVersion"
+											>Introduced In Version: 1_2_0</documentation>
+									</annotation>
+									<sequence>
+										<element name="hash" type="bms:HashType">
+											<annotation>
+												<documentation source="urn:x-fims:description"> Hash code value calculated for the
+													physical essence representation.</documentation>
+												<documentation source="urn:x-fims:normativeRequirement"/>
+												<documentation source="urn:x-fims:serviceDescription">Service Description:
+													Required</documentation>
+												<documentation source="urn:x-fims:contentOfServiceDescription">Description: Whether on
+													request, it must be present, may be interpreted or is not applicable. </documentation>
+												<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+													Optional</documentation>
+												<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+													Optional</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
 					</element>
 					<element name="checkResult" type="boolean" minOccurs="0" maxOccurs="1">
 						<annotation>
@@ -220,16 +244,63 @@ limitations under the License.
 												Normative Requirement: Compliant with FIMS
 												qaTemplate.xsd </documentation>
 											<documentation source="urn:x-fims:serviceDescription"/>
-											<documentation source="urn:x-fims:contentOfServiceDescription"/>
-											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
-											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
-											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+											<documentation
+												source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest"
+												>Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse"
+												>Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion"
+												>Introduced In Version: 1_2_0</documentation>
 										</annotation>
 									</element>
 								</sequence>
 							</complexType>
 						</element>
 					</choice>
+					<element name="qaReportAssociatedResource" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">A reference to an
+								external resource/file defining the template.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description:</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: a reference to a test template. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+						</annotation>
+						<complexType>
+							<complexContent>
+								<extension base="bms:ResourceReferenceType">
+									<attributeGroup ref="bms:typeGroup">
+										<annotation>
+											<documentation source="urn:x-fims:description">To define
+												the type of resource associated with the qaReport,
+												e.g. a pdf version of the report..</documentation>
+											<documentation source="urn:x-fims:normativeRequirement"/>
+											<documentation source="urn:x-fims:serviceDescription">
+												Service description:</documentation>
+											<documentation
+												source="urn:x-fims:contentOfServiceDescription">
+												Description: the type of resource associated with
+												the report. </documentation>
+											<documentation source="urn:x-fims:inclusionInRequest"
+												>Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse"
+												>Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion"
+												>Introduced In Version: 1_2_0</documentation>
+										</annotation>
+									</attributeGroup>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
 				</sequence>
 				<attribute name="qaReportGroupID" type="string">
 					<annotation>
@@ -589,9 +660,8 @@ limitations under the License.
 				<annotation>
 					<documentation source="urn:x-fims:description">Name of the output
 						parameter.</documentation>
-					<documentation source="urn:x-fims:normativeRequirement">
-						Normative requirement: required
-					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"> Normative requirement:
+						required </documentation>
 					<documentation source="urn:x-fims:serviceDescription"/>
 					<documentation source="urn:x-fims:contentOfServiceDescription"/>
 					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
