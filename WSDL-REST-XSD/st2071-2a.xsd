@@ -54,13 +54,20 @@
         </xs:restriction>
     </xs:simpleType>
     
-    <xs:complexType name="MapEntry" mixed="true">
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute name="key" type="xs:string" use="required" />
-                <xs:attribute name="type" type="tns:DATA_TYPE" use="required" />
-            </xs:extension>
-        </xs:simpleContent>
+    <xs:complexType name="MapEntry"> <!-- Fix to MapEntry from Steve Posick. -->
+        <xs:choice minOccurs="0" maxOccurs="1">
+            <xs:element ref="tns:Boolean"/>
+            <xs:element ref="tns:String"/>
+            <xs:element ref="tns:Integer"/>
+            <xs:element ref="tns:Float"/>
+            <xs:element ref="tns:DateTime"/>
+            <xs:element ref="identity:URI"/>
+            <xs:element ref="tns:Map"/>
+            <xs:element ref="tns:Blob"/>
+            <xs:any namespace="##other" processContents="lax"/>
+        </xs:choice>
+        <xs:attribute name="key" type="xs:string" use="required"/>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
     </xs:complexType>
     
     <xs:element name="MapEntry" type="tns:MapEntry" />
