@@ -2308,6 +2308,10 @@ Documentation needed for:
 				Asynchronous request for the repository service to retrieve 
 				the physical bytes representation of an essence to a given known location.
 				Known locations can be obtained from the RCR getGeneralCapabilty operation.
+				Since version 1.2 it is possible to retrieve partial essence, that is to extract clips from larger essence files. This is accomplished by defining a time interval
+				using the start and duration parameters. In this case instead of copying the essence file stored in the repository, the service will generate a new essence file 
+				with the same characteristics of the original one but containing only the segment specified. The name of the new file can be provided in the request, otehrwise it will be generated 
+				by the service.
 			</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"></documentation>
 			<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -2354,7 +2358,7 @@ Documentation needed for:
 			<element name="start" type="tim:TimeType" minOccurs="0" maxOccurs="1">
 					<annotation>
 					<documentation source="urn:x-fims:description">
-						If a part is required this parameter provides the start position. If omitted but duration is specified start defaults to 0
+						If a part is required this parameter provides the start position. If omitted start defaults to 0
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -2366,7 +2370,7 @@ Documentation needed for:
 			<element name="duration" type="tim:DurationType" minOccurs="0" maxOccurs="1">
 					<annotation>
 					<documentation source="urn:x-fims:description">
-						If a part is required this parameter provides the duration of the part. If omitted but start is specified duration defaults to the part from start to the end of the file
+						If a part is required this parameter provides the duration of the part. If omitted duration defaults to the part from start to the end of the essence
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
