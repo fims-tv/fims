@@ -54,14 +54,14 @@
         </xs:restriction>
     </xs:simpleType>
     
-    <xs:complexType name="MapEntry"> <!-- Fix to MapEntry from Steve Posick. -->
+    <xs:complexType name="MapEntryType"> <!-- Fix to MapEntry from Steve Posick. -->
         <xs:choice minOccurs="0" maxOccurs="1">
             <xs:element ref="tns:Boolean"/>
             <xs:element ref="tns:String"/>
             <xs:element ref="tns:Integer"/>
             <xs:element ref="tns:Float"/>
             <xs:element ref="tns:DateTime"/>
-            <xs:element ref="identity:URI"/>
+            <xs:element ref="tns:URI"/>  <!--Changed By Loic-->
             <xs:element ref="tns:Map"/>
             <xs:element ref="tns:Blob"/>
             <xs:any namespace="##other" processContents="lax"/>
@@ -70,7 +70,7 @@
         <xs:anyAttribute namespace="##other" processContents="lax"/>
     </xs:complexType>
     
-    <xs:element name="MapEntry" type="tns:MapEntry" />
+    <xs:element name="MapEntry" type="tns:MapEntryType" />
     
     <xs:complexType name="Entries">
         <xs:sequence>
@@ -148,6 +148,11 @@
     
     <xs:element name="String" type="xs:string" />
     
+<!--    Added By Loic to resolve Map Entry Issue--> 
+    <xs:element name="Integer" type="xs:integer" />
+    <xs:element name="Float" type="xs:float" />
+    <xs:element name="Blob" type="xs:base64Binary " />
+    
     <!-- END The types defined in this section are NOT part of the MDC standard, but are needed for MDCF types -->
     <xs:element name="MIMEType" type="xs:string" />
     <xs:element name="Height" type="xs:unsignedShort" />
@@ -163,4 +168,6 @@
     <xs:element name="FramedTime" type="tns:FramedTime" substitutionGroup="tns:DateTime" />
     <xs:element name="Image" type="tns:Image" />
     <xs:element name="Map" type="tns:Map" />
+    <xs:element name="URI" type="identity:URI"/> <!--Added By Loic-->
+    
 </xs:schema>

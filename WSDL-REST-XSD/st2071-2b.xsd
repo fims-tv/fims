@@ -5,6 +5,8 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	elementFormDefault="qualified"
 	attributeFormDefault="unqualified" >
+
+	
 	
     <xs:simpleType name="URI">
     	<xs:restriction base="xs:anyURI" />
@@ -54,7 +56,8 @@
     
     <xs:simpleType name="UCN">
     	<xs:restriction base="tns:RN">
-    		<xs:pattern value="urn:smpte:ucn:.*:([\d\w\+\-_\p{Zs}]+_v[0-9]+(\.[0-9]+)*)?"></xs:pattern>
+    	<!--	<xs:pattern value="urn:smpte:ucn:.*:([\d\w\+\-_\p{Zs}]+_v[0-9]+(\.[0-9]+)*)?"></xs:pattern>-->
+    		<xs:pattern value="urn:smpte:ucn:.*"></xs:pattern> <!-- Changed By Loic-->
     	</xs:restriction>
     </xs:simpleType>
     
