@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema 
-    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2014/device" 
-    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2014/device" 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/device" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/device" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2014/identity" 
-    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2014/types"
-    xmlns:event="http://www.smpte-ra.org/schemas/st2071/2014/event"
-    xmlns:query="http://www.smpte-ra.org/schemas/st2071/2014/query"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:event="http://www.smpte-ra.org/schemas/st2071/2015/event"
+    xmlns:query="http://www.smpte-ra.org/schemas/st2071/2015/query"
     elementFormDefault="qualified"
-    attributeFormDefault="unqualified" >
+    attributeFormDefault="unqualified" version="1.1" >
     
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/types"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
         schemaLocation="st2071-2a.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/identity"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
         schemaLocation="st2071-2b.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/event"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/event"
         schemaLocation="st2071-2e.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/query"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/query"
         schemaLocation="st2071-2h.xsd" />
 
     <xs:complexType name="DeviceInformation">

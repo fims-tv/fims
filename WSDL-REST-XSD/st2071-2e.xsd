@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema 
-    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2014/event" 
-    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2014/event" 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/event" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/event" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2014/types"
-    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2014/identity" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
     elementFormDefault="qualified"
-    attributeFormDefault="unqualified" >
+    attributeFormDefault="unqualified" version="1.1" >
     
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/types"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
         schemaLocation="st2071-2a.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/identity"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
         schemaLocation="st2071-2b.xsd" />
 
     <xs:complexType name="StatusEvent">

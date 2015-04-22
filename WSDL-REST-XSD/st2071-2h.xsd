@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema 
-    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2014/query" 
-    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2014/query" 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/query" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/query" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2014/types"
-    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2014/identity"
-    xmlns:mode="http://www.smpte-ra.org/schemas/st2071/2014/mode"
-    xmlns:media="http://www.smpte-ra.org/schemas/st2071/2014/media" 
-    xmlns:device="http://www.smpte-ra.org/schemas/st2071/2014/device" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+    xmlns:mode="http://www.smpte-ra.org/schemas/st2071/2015/mode"
+    xmlns:media="http://www.smpte-ra.org/schemas/st2071/2015/media" 
+    xmlns:device="http://www.smpte-ra.org/schemas/st2071/2015/device" 
     elementFormDefault="qualified"
-    attributeFormDefault="unqualified" >
+    attributeFormDefault="unqualified" version="1.1" >
     
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/types"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
         schemaLocation="st2071-2a.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/identity"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
         schemaLocation="st2071-2b.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/mode"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/mode"
         schemaLocation="st2071-2f.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/media"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/media"
         schemaLocation="st2071-2g.xsd" />
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/device"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/device"
         schemaLocation="st2071-2c.xsd" />
     
     <xs:complexType name="Expression" abstract="true">
