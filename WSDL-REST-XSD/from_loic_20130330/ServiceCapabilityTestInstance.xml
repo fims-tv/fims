@@ -1,9 +1,9 @@
-<ServiceInformation xmlns="http://www.smpte-ra.org/schemas/st2071/2014/service"
-          xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2014/identity"
-          xmlns:types="http://www.smpte-ra.org/schemas/st2071/2014/types"
+<ServiceInformation xmlns="http://www.smpte-ra.org/schemas/st2071/2015/service"
+          xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+          xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.smpte-ra.org/schemas/st2071/2014/service
-          file:st2071-2q.xsd">
+          xsi:schemaLocation="http://www.smpte-ra.org/schemas/st2071/2015/service
+          file:../st2071-2q.xsd">
   <identity:USN>urn:smpte:usn:com.bloomberg.ny:type="instance";repository=1</identity:USN>
   
 

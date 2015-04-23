@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema 
-    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2014/types"
-    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2014/types"
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/types"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2014/identity" 
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
     elementFormDefault="qualified"
-    attributeFormDefault="unqualified" >
+    attributeFormDefault="unqualified" version="1.1" >
     
-    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2014/identity"
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
         schemaLocation="st2071-2b.xsd" />
     
     <xs:simpleType name="uint50">
@@ -22,19 +22,6 @@
             <xs:minInclusive value="0" />
             <xs:maxInclusive value="18446744073709551615" />
         </xs:restriction>
-    </xs:simpleType>
-    
-    <xs:simpleType name="DATA_TYPE">
-    	<xs:restriction base="xs:string">
-            <xs:enumeration value="BOOLEAN" />
-            <xs:enumeration value="STRING" /> 
-            <xs:enumeration value="INTEGER" />
-            <xs:enumeration value="FLOAT" />
-            <xs:enumeration value="DATETIME" />
-            <xs:enumeration value="URI" />
-    	    <xs:enumeration value="MAP" />
-    	    <xs:enumeration value="BLOB" />
-    	</xs:restriction>
     </xs:simpleType>
     
     <xs:simpleType name="STATUS">
@@ -54,20 +41,21 @@
         </xs:restriction>
     </xs:simpleType>
     
-    <xs:complexType name="MapEntryType"> <!-- Fix to MapEntry from Steve Posick. -->
+    <xs:complexType name="MapEntryType">
         <xs:choice minOccurs="0" maxOccurs="1">
-            <xs:element ref="tns:Boolean"/>
-            <xs:element ref="tns:String"/>
-            <xs:element ref="tns:Integer"/>
-            <xs:element ref="tns:Float"/>
-            <xs:element ref="tns:DateTime"/>
-            <xs:element ref="tns:URI"/>  <!--Changed By Loic-->
-            <xs:element ref="tns:Map"/>
-            <xs:element ref="tns:Blob"/>
+            <xs:element ref="tns:Boolean" />
+            <xs:element ref="tns:String" />
+            <xs:element ref="tns:Integer" />
+            <xs:element ref="tns:Float" />
+            <xs:element ref="tns:DateTime" />
+            <xs:element ref="tns:Time" />
+            <xs:element ref="tns:URI" />
+            <xs:element ref="tns:Map" />
+            <xs:element ref="tns:Blob" />
             <xs:any namespace="##other" processContents="lax"/>
         </xs:choice>
-        <xs:attribute name="key" type="xs:string" use="required"/>
-        <xs:anyAttribute namespace="##other" processContents="lax"/>
+        <xs:attribute name="key" type="xs:string" use="required" />
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
     </xs:complexType>
     
     <xs:element name="MapEntry" type="tns:MapEntryType" />
@@ -148,12 +136,14 @@
     
     <xs:element name="String" type="xs:string" />
     
-<!--    Added By Loic to resolve Map Entry Issue--> 
     <xs:element name="Integer" type="xs:integer" />
-    <xs:element name="Float" type="xs:float" />
-    <xs:element name="Blob" type="xs:base64Binary " />
     
-    <!-- END The types defined in this section are NOT part of the MDC standard, but are needed for MDCF types -->
+    <xs:element name="Float" type="xs:decimal" />
+    
+    <xs:element name="Blob" type="xs:base64Binary" />
+    
+    <xs:element name="Time" type="xs:time" />
+    
     <xs:element name="MIMEType" type="xs:string" />
     <xs:element name="Height" type="xs:unsignedShort" />
     <xs:element name="Width" type="xs:unsignedShort" />
@@ -162,12 +152,11 @@
     <xs:element name="Attributes" type="tns:Map" />
     <xs:element name="Capability" type="tns:Capability" />
     <xs:element name="Capabilities" type="tns:Capabilities" />
-    <xs:element name="DATA_TYPE" type="tns:DATA_TYPE" />
     <xs:element name="STATUS" type="tns:STATUS" />
     <xs:element name="DateTime" type="tns:DateTime" />
     <xs:element name="FramedTime" type="tns:FramedTime" substitutionGroup="tns:DateTime" />
     <xs:element name="Image" type="tns:Image" />
     <xs:element name="Map" type="tns:Map" />
-    <xs:element name="URI" type="identity:URI"/> <!--Added By Loic-->
+    <xs:element name="URI" type="identity:URI"/>
     
 </xs:schema>
