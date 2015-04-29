@@ -2964,6 +2964,18 @@ limitations under the License.
             <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
           </annotation>
         </attributeGroup>
+        <attribute name="unit" type="string">
+          <annotation>
+            <documentation source="urn:x-fims:description">
+              To specify the unit in which the technical attribute is expressed.
+            </documentation>
+            <documentation source="urn:x-fims:normativeRequirement"/>
+            <documentation source="urn:x-fims:serviceDescription"/>
+            <documentation source="urn:x-fims:contentOfServiceDescription"/>
+            <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+            <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+          </annotation>
+        </attribute>
       </extension>
     </simpleContent>
   </complexType>
