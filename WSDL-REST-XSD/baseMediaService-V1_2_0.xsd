@@ -1675,8 +1675,7 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
-<!-- ##################################### also in BMContentPart ??-->
-          <element name="qaReportReferences" type="bms:QAReportReferencesType">
+          <element name="qaReportReferences" type="bms:QAReportReferencesType" minOccurs="0">
             <annotation>
               <documentation source="urn:x-fims:description">
                 List of different qaReports associated with the BMContent.
