@@ -4184,6 +4184,18 @@ limitations under the License.
           <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
         </annotation>
       </enumeration>
+     <enumeration value="DAT_S00_0021">
+        <annotation>
+          <documentation source="urn:x-fims:description">Unsupported media type requested in Accept header.
+            REST Status: 415 Unsupported Media Type</documentation>
+          <documentation source="urn:x-fims:statusCode">415</documentation>
+          <documentation source="urn:x-fims:statusDescription">Unsupported Media Type</documentation>
+          <documentation source="urn:x-fims:notes">
+            The requested media tye
+          </documentation>
+          <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+        </annotation>
+      </enumeration>
       <enumeration value="EXT_S00_0000">
         <annotation>
           <documentation source="urn:x-fims:description">Extended code. See extended error code for details.</documentation>
@@ -5684,12 +5696,20 @@ limitations under the License.
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
       <documentation source="urn:x-fims:contentOfServiceDescription"/>
-    </annotation>    <complexType>
+      <documentation source="urn:x-fims:modifiedInVersion">Modified In Version: 1_2_0</documentation>
+    </annotation>    
+    <complexType>
       <sequence>
-        <element ref="bms:videoFormat" minOccurs="0"/>
-        <element ref="bms:audioFormat" minOccurs="0"/>
-        <element ref="bms:dataFormat" minOccurs="0"/>
-        <element ref="bms:containerFormat" minOccurs="0"/>
+        <element ref="bms:videoFormat" minOccurs="0" maxOccurs="unbounded"/>
+        <element ref="bms:audioFormat" minOccurs="0" maxOccurs="unbounded"/>
+        <element ref="bms:dataFormat" minOccurs="0" maxOccurs="unbounded"/>
+        <element ref="bms:containerFormat" minOccurs="0" maxOccurs="unbounded"/>
+        <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
+          <annotation>
+            <documentation source="urn:x-fims:description">This is allows for any future elements or new format types to be backward compatible.</documentation>
+            <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+          </annotation>
+        </any>
       </sequence>
     </complexType>
   </element>
