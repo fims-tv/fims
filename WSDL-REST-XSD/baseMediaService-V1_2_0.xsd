@@ -2200,6 +2200,20 @@ limitations under the License.
               </simpleContent>
             </complexType>
           </element>
+          <element name="technicalAttribute" type="bms:TechnicalAttributeType"
+            minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">
+                User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+                more information.
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+              <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
