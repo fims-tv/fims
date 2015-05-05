@@ -2431,6 +2431,80 @@ limitations under the License.
       </extension>
     </complexContent>
   </complexType>
+  <complexType name="filterType">
+    <annotation>
+      <documentation source="urn:x-fims:description">Complex type for describing filters of any kind</documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+      <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+    </annotation>
+    <sequence>
+      <element name="trackIdRef" maxOccurs="unbounded">
+        <annotation>
+          <documentation source="urn:x-fims:description">Reference to the audio- or videotrack the filter will be applied to</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+        </annotation>
+      </element>
+      <element name="filterProfile">
+        <annotation>
+          <documentation source="urn:x-fims:description">The filter profile that should be applied</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+        </annotation>
+        <complexType>
+          <attributeGroup ref="bms:typeGroup"/>
+        </complexType>
+      </element>
+      <element name="filterSetting" minOccurs="0" maxOccurs="unbounded">
+        <annotation>
+          <documentation source="urn:x-fims:description">Additional settings and attributes for a filter</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element name="technicalAttribute" type="bms:TechnicalAttributeType" minOccurs="0" maxOccurs="unbounded">
+              <annotation>
+                <documentation source="urn:x-fims:description">
+                  User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+                  more information.
+                </documentation>
+                <documentation source="urn:x-fims:normativeRequirement"/>
+                <documentation source="urn:x-fims:serviceDescription"/>
+                <documentation source="urn:x-fims:contentOfServiceDescription"/>
+                <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+                <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+              </annotation>
+            </element>
+          </sequence>
+          <attribute name="filterAttributeOrder">
+            <annotation>
+              <documentation source="urn:x-fims:description">Order of the filter attribute</documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+            </annotation>
+          </attribute>
+          <attributeGroup ref="bms:typeGroup"/>
+        </complexType>
+      </element>
+    </sequence>
+    <attribute name="filterOrder">
+      <annotation>
+        <documentation>Order of the aplayence of filter</documentation>
+      </annotation>
+    </attribute>
+    <attributeGroup ref="bms:typeGroup"/>
+  </complexType>
   
   
   <!-- ****************************** FIMS-Defined Atoms ****************************** -->
@@ -2788,6 +2862,7 @@ limitations under the License.
           <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
         </annotation>
       </element>
+      <element name="filter" type="bms:filterType" minOccurs="0" maxOccurs="unbounded"/>
       <element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
         <annotation>
           <documentation source="urn:x-fims:description">Extension point.</documentation>
