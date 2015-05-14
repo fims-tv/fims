@@ -4,7 +4,7 @@
  xmlns:desc="http://description.fims.tv"
  xmlns:tim="http://baseTime.fims.tv"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://transformmedia.fims.tv file:/C:/Users/gd/Desktop/timecode-V1_2_RC1_TC/transformMedia-V1_2_RC1_TC.xsd" version="1_1_0">
+ xsi:schemaLocation="http://transformmedia.fims.tv ../transformMedia-V1_2_0.xsd" version="1_2_0">
     <transformJob>
                 <bms:resourceID></bms:resourceID>
                 <bms:bmObjects>
