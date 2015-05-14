@@ -1,0 +1,288 @@
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/service" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/service" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:device="http://www.smpte-ra.org/schemas/st2071/2015/device"
+    xmlns:event="http://www.smpte-ra.org/schemas/st2071/2015/event"
+    xmlns:query="http://www.smpte-ra.org/schemas/st2071/2015/query"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+        schemaLocation="st2071-2a.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/device"
+        schemaLocation="st2071-2c.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/event"
+        schemaLocation="st2071-2e.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/query"
+        schemaLocation="st2071-2h.xsd" />
+    
+    <xs:simpleType name="SERVICE_STATE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="STARTING" />
+            <xs:enumeration value="STARTED" /> 
+            <xs:enumeration value="STOPPING" />
+            <xs:enumeration value="STOPPED" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="ServiceInformation">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Type" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:State" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="identity:URLs" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Attributes" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:ValidTill" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Created" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:CreatedBy" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="ServiceInformation" type="tns:ServiceInformation" />
+    
+    <xs:complexType name="ServiceInformations">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceInformation" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="ServiceInformations" type="tns:ServiceInformations" />
+    
+    <xs:complexType name="ServiceTemplate">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Attributes" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="Type" type="tns:ServiceTemplate" />
+    <xs:element name="ServiceTemplate" type="tns:ServiceTemplate" />
+    
+    <xs:complexType name="ServiceTemplates">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceTemplate" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="State" type="tns:SERVICE_STATE" />
+    <xs:element name="ServiceTemplates" type="tns:ServiceTemplates" />
+    
+    <xs:element name="Attributes" type="types:Map" />
+    <xs:element name="Created" type="types:DateTime" />
+    <xs:element name="CreatedBy" type="xs:string" />
+    <xs:element name="ValidTill" type="types:DateTime" />
+    
+    <!-- WSDL Elements and Types -->
+    <xs:complexType name="ServiceException">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="identity:USN" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="ServiceException" type="tns:ServiceException" substitutionGroup="types:Exception" />
+    
+    <xs:complexType name="ServiceNotFound">
+        <xs:complexContent>
+            <xs:extension base="tns:ServiceException">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="ServiceNotFound" type="tns:ServiceNotFound" substitutionGroup="types:Exception" />
+    
+    <xs:complexType name="ServiceInformationsResponse">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceInformations" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="ServiceInformationResponse">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceInformation" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="ServiceTemplatesResponse">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceTemplates" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="QueryRequest">
+        <xs:sequence>
+            <xs:element ref="query:QueryExpression" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="ServiceInformationRequest">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceInformation" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="USNRequest">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="getUSN">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getUSN" type="tns:getUSN" />
+    
+    <xs:complexType name="getUSNResponse">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getUSNResponse" type="tns:getUSNResponse" />
+    
+    <xs:complexType name="getType">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getType" type="tns:getType" />
+    
+    <xs:complexType name="getTypeResponse">
+        <xs:sequence>
+            <xs:element ref="tns:ServiceTemplate" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getTypeResponse" type="tns:getTypeResponse"/>
+    
+    <xs:complexType name="getState">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getState" type="tns:getState" />
+    
+    <xs:complexType name="getStateResponse">
+        <xs:sequence>
+            <xs:element ref="tns:State" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getStateResponse" type="tns:getStateResponse"/>
+
+    <xs:complexType name="getURLs">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getURLs" type="tns:getURLs" />
+    
+    <xs:complexType name="getURLsResponse">
+        <xs:sequence>
+            <xs:element ref="identity:URLs" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getURLsResponse" type="tns:getURLsResponse" />
+    
+    <xs:complexType name="getAttributes">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getAttributes" type="tns:getAttributes" />
+    
+    <xs:complexType name="getAttributesResponse">
+        <xs:sequence>
+            <xs:element ref="tns:Attributes" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getAttributesResponse" type="tns:getAttributesResponse"/>
+    
+    <xs:complexType name="getCapabilities">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getCapabilities" type="tns:getCapabilities" />
+    
+    <xs:complexType name="getCapabilitiesResponse">
+        <xs:sequence>
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getCapabilitiesResponse" type="tns:getCapabilitiesResponse"/>
+
+    <xs:complexType name="getNamespaces">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getNamespaces" type="tns:getNamespaces" />
+    
+    <xs:complexType name="getNamespacesResponse">
+        <xs:sequence>
+            <xs:element ref="identity:USNs" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getNamespacesResponse" type="tns:getNamespacesResponse" />
+    
+    <xs:element name="listTemplates" type="tns:QueryRequest" />
+    
+    <xs:element name="listTemplatesResponse" type="tns:ServiceTemplatesResponse"/>
+    
+    <xs:complexType name="create">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Map" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="create" type="tns:create" />
+    
+    <xs:complexType name="USNResponse">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="createResponse" type="tns:USNResponse" />
+    
+    <xs:complexType name="destroy">
+        <xs:sequence>
+            <xs:element ref="identity:USN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="destroy" type="tns:destroy" />
+    
+    <xs:complexType name="EmptyResponse">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="destroyResponse" type="tns:EmptyResponse" />
+    
+    <xs:element name="lookup" type="tns:USNRequest" />
+    
+    <xs:element name="lookupResponse" type="tns:ServiceInformationResponse"/>
+    
+    <xs:element name="bind" type="tns:ServiceInformationRequest" />
+    
+    <xs:element name="bindResponse" type="tns:EmptyResponse" />
+    
+    <xs:element name="unbind" type="tns:USNRequest" />
+    
+    <xs:element name="unbindResponse" type="tns:EmptyResponse" />
+    
+    <xs:element name="search" type="tns:QueryRequest" />
+    
+    <xs:element name="searchResponse" type="tns:ServiceInformationsResponse"/>
+</xs:schema>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/mode" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/mode" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+    xmlns:event="http://www.smpte-ra.org/schemas/st2071/2015/event"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+        schemaLocation="st2071-2a.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/event"
+        schemaLocation="st2071-2e.xsd" />
+    
+    <xs:complexType name="Mode">
+        <xs:sequence>
+            <xs:element ref="tns:Name" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Modes">
+        <xs:sequence>
+            <xs:element ref="tns:Mode" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+     
+    <xs:complexType name="InvalidMode">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="tns:Mode" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+     
+    <xs:complexType name="ModeException">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="tns:Mode" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="ModeEvent">
+        <xs:complexContent>
+            <xs:extension base="event:StatusEvent">
+                <xs:sequence>
+                    <xs:element ref="identity:RN" />
+                    <xs:element ref="tns:Mode" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="Name" type="xs:string" />
+    <xs:element name="ActiveMode" type="tns:Mode" />
+
+    <xs:element name="Mode" type="tns:Mode" />
+    <xs:element name="Modes" type="tns:Modes" />
+    <xs:element name="InvalidMode" type="tns:InvalidMode" substitutionGroup="types:Exception" />
+    <xs:element name="ModeEvent" type="tns:ModeEvent" substitutionGroup="event:Event"/>
+    <xs:element name="ModeException" type="tns:ModeException" substitutionGroup="types:Exception" />
+    
+    <!-- WSDL Elements and Types -->
+    <xs:complexType name="getModes">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getModes" type="tns:getModes" />
+    
+    <xs:complexType name="getModesResponse">
+        <xs:sequence>
+            <xs:element ref="tns:Modes" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getModesResponse" type="tns:getModesResponse"/>
+    
+    <xs:complexType name="getActiveMode">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getActiveMode" type="tns:getActiveMode" />
+    
+    <xs:complexType name="getActiveModeResponse">
+        <xs:sequence>
+            <xs:element ref="tns:Mode" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getActiveModeResponse" type="tns:getActiveModeResponse"/>
+    
+    <xs:complexType name="changeMode">
+        <xs:sequence>
+            <xs:element ref="tns:Mode" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="changeMode" type="tns:changeMode" />
+    
+    <xs:complexType name="changeModeResponse">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="changeModeResponse" type="tns:changeModeResponse"/>
+</xs:schema>

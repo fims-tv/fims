@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/query" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/query" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+    xmlns:mode="http://www.smpte-ra.org/schemas/st2071/2015/mode"
+    xmlns:media="http://www.smpte-ra.org/schemas/st2071/2015/media" 
+    xmlns:device="http://www.smpte-ra.org/schemas/st2071/2015/device" 
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+        schemaLocation="st2071-2a.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/mode"
+        schemaLocation="st2071-2f.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/media"
+        schemaLocation="st2071-2g.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/device"
+        schemaLocation="st2071-2c.xsd" />
+    
+    <xs:complexType name="Expression" abstract="true">
+    </xs:complexType>
+    
+    <xs:element name="Expression" type="tns:Expression" />
+    
+    <xs:complexType name="QueryExpression" abstract="true">
+        <xs:sequence>
+            <xs:element ref="tns:Expression" minOccurs="0" maxOccurs="1" />
+            <xs:element ref="tns:PAGE" minOccurs="0" maxOccurs="1" />
+            <xs:element ref="tns:SORT_BY" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="QueryExpression" type="tns:QueryExpression" />
+    
+    <xs:complexType name="InvalidQuery">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="tns:QueryExpression" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="NOT">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:sequence>
+                    <xs:element ref="tns:Expression" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="NOT" type="tns:NOT" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="AND">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:sequence>
+                    <xs:element ref="tns:Expression" minOccurs="2" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="AND" type="tns:AND" substitutionGroup="tns:Expression" />
+    
+    <xs:complexType name="OR">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:sequence>
+                    <xs:element ref="tns:Expression" minOccurs="2" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="OR" type="tns:OR" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="EQUALS">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element ref="tns:Object" />
+                    <xs:element ref="tns:Time" />
+                    <xs:element ref="tns:Number" />
+                </xs:choice>
+                <xs:attribute name="field" type="xs:string" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="EQUALS" type="tns:EQUALS" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="GREATER_THAN">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element ref="tns:Object" />
+                    <xs:element ref="tns:Time" />
+                    <xs:element ref="tns:Number" />
+                </xs:choice>
+                <xs:attribute name="field" type="xs:string" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="GREATER_THAN" type="tns:GREATER_THAN" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="LESS_THAN">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element ref="tns:Object" />
+                    <xs:element ref="tns:Time" />
+                    <xs:element ref="tns:Number" />
+                </xs:choice>
+                <xs:attribute name="field" type="xs:string" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="LESS_THAN" type="tns:LESS_THAN" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="MATCHES">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:sequence>
+                    <xs:element ref="tns:RegExp" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+                <xs:attribute name="field" type="xs:string" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="CONTAINS" type="tns:CONTAINS" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="CONTAINS">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element ref="media:MediaPointer" minOccurs="1" maxOccurs="1" />
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="MATCHES" type="tns:MATCHES" substitutionGroup="tns:Expression" />
+
+    <xs:complexType name="IMPLEMENTS">
+        <xs:complexContent>
+            <xs:extension base="tns:Expression">
+                <xs:sequence>
+                    <xs:element ref="mode:Mode" minOccurs="0" maxOccurs="1" />
+                    <xs:element ref="tns:Interfaces" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="IMPLEMENTS" type="tns:IMPLEMENTS" substitutionGroup="tns:Expression" />
+    
+    <xs:complexType name="PAGE">
+        <xs:attribute name="page_size" type="xs:positiveInteger" use="required" />
+        <xs:attribute name="offset" type="xs:positiveInteger" use="optional" />
+    </xs:complexType>
+    
+    <xs:complexType name="SORT_BY">
+        <xs:attribute name="field" type="xs:string" use="required" />
+        <xs:attribute name="descending" type="xs:boolean" default="false" use="optional" />
+    </xs:complexType>
+    
+    <xs:element name="Interfaces" type="types:Capabilities" />
+    <xs:element name="RegExp" type="xs:string" />
+    <xs:element name="Object" type="xs:anyType" />
+    <xs:element name="Time" type="types:DateTime" />
+    <xs:element name="Number" type="xs:decimal" />
+                    
+    <xs:element name="PAGE" type="tns:PAGE" />
+    <xs:element name="SORT_BY" type="tns:SORT_BY" />
+    <xs:element name="InvalidQuery" type="tns:InvalidQuery" substitutionGroup="types:Exception" />
+    
+    <!-- WSDL Elements and Types -->
+</xs:schema>

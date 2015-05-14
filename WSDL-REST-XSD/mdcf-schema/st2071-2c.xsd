@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/device" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/device" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:event="http://www.smpte-ra.org/schemas/st2071/2015/event"
+    xmlns:query="http://www.smpte-ra.org/schemas/st2071/2015/query"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+        schemaLocation="st2071-2a.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/event"
+        schemaLocation="st2071-2e.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/query"
+        schemaLocation="st2071-2h.xsd" />
+
+    <xs:complexType name="DeviceInformation">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="identity:URLs" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Name" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Online" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Attributes" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:ValidTill" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="DeviceInformations">
+        <xs:sequence>
+            <xs:element ref="tns:DeviceInformation" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DeviceEvent">
+        <xs:complexContent>
+            <xs:extension base="event:StatusEvent">
+                <xs:sequence>
+                    <xs:element ref="tns:Device" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="DeviceEvent" type="tns:DeviceEvent" substitutionGroup="event:Event" />
+    
+    <xs:complexType name="DeviceException">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="identity:UDN" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="DeviceNotFound">
+        <xs:complexContent>
+            <xs:extension base="tns:DeviceException">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="DeviceNotBound">
+        <xs:complexContent>
+            <xs:extension base="tns:DeviceException">
+                <xs:sequence>
+                    <xs:element ref="tns:ParentUDN" maxOccurs="1" />
+                    <xs:element ref="identity:URLs" maxOccurs="1" />
+                    <xs:element ref="tns:Name" maxOccurs="1" />
+                    <xs:element ref="types:Capabilities" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="DeviceNotUnbound">
+        <xs:complexContent>
+            <xs:extension base="tns:DeviceException">
+                <xs:sequence>
+                    <xs:element ref="tns:ParentUDN" maxOccurs="1" />
+                    <xs:element ref="identity:URLs" maxOccurs="1" />
+                    <xs:element ref="tns:Name" maxOccurs="1" />
+                    <xs:element ref="types:Capabilities" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="DeviceAlreadyBound">
+        <xs:complexContent>
+            <xs:extension base="tns:DeviceException">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="Online" type="xs:boolean" />
+    <xs:element name="ValidTill" type="types:DateTime" />
+    <xs:element name="Device" type="tns:DeviceInformation" />
+    <xs:element name="ParentUDN" type="identity:UDN" />
+    <xs:element name="Name" type="xs:string" />
+    
+    <xs:element name="DeviceInformation" type="tns:DeviceInformation" />
+    <xs:element name="DeviceInformations" type="tns:DeviceInformations" />
+    <xs:element name="DeviceException" type="tns:DeviceException" substitutionGroup="types:Exception" />
+    <xs:element name="DeviceNotFound" type="tns:DeviceNotFound" substitutionGroup="types:Exception" />
+    <xs:element name="DeviceNotBound" type="tns:DeviceNotBound" substitutionGroup="types:Exception" />
+    <xs:element name="DeviceNotUnbound" type="tns:DeviceNotUnbound" substitutionGroup="types:Exception" />
+    <xs:element name="DeviceAlreadyBound" type="tns:DeviceAlreadyBound" substitutionGroup="types:Exception" />
+    
+    <!-- WSDL Elements and Types -->
+    <xs:complexType name="getUDN">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getUDN" type="tns:getUDN" />
+    
+    <xs:complexType name="getURLs">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getURLs" type="tns:getURLs" />
+    
+    <xs:complexType name="getName">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getName" type="tns:getName" />
+    
+    <xs:complexType name="getOnline">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getOnline" type="tns:getOnline" />
+    
+    <xs:complexType name="getAttributes">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getAttributes" type="tns:getAttributes" />
+    
+    <xs:complexType name="getCapabilities">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getCapabilities" type="tns:getCapabilities" />
+    
+    <xs:complexType name="getParentDeviceDirectory">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getParentDeviceDirectory" type="tns:getParentDeviceDirectory" />
+    
+    <xs:complexType name="getNamespaces">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getNamespaces" type="tns:getNamespaces" />
+    
+    <xs:complexType name="ancestors">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="ancestors" type="tns:ancestors" />
+    
+    <xs:complexType name="lookup">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="lookup" type="tns:lookup" />
+    
+    <xs:complexType name="parent">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="parent" type="tns:parent" />
+    
+    <xs:complexType name="UDNFilter">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="query:QueryExpression" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="children" type="tns:UDNFilter" />
+    
+    <xs:element name="siblings" type="tns:UDNFilter" />
+    
+    <xs:element name="search" type="tns:UDNFilter" />
+    
+    <xs:element name="UDN" type="identity:UDN" />
+    <xs:element name="URLs" type="identity:URLs" />
+    
+    <xs:complexType name="bind">
+        <xs:sequence>
+            <xs:element ref="tns:UDN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:ParentUDN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:URLs" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="bind" type="tns:bind" />
+    
+    <xs:complexType name="unbind">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="unbind" type="tns:unbind" />
+    
+    <xs:complexType name="setOnline">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="types:Boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="setOnline" type="tns:setOnline" />
+    
+    <xs:complexType name="getUDNResponse">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getUDNResponse" type="tns:getUDNResponse"/>
+    
+    <xs:complexType name="getURLsResponse">
+        <xs:sequence>
+            <xs:element ref="identity:URLs" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getURLsResponse" type="tns:getURLsResponse"/>
+    
+    <xs:complexType name="getNameResponse">
+        <xs:sequence>
+            <xs:element ref="types:String" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getNameResponse" type="tns:getNameResponse"/>
+    
+    <xs:complexType name="getOnlineResponse">
+        <xs:sequence>
+            <xs:element ref="types:Boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getOnlineResponse" type="tns:getOnlineResponse"/>
+    
+    <xs:complexType name="getAttributesResponse">
+        <xs:sequence>
+            <xs:element ref="types:Attributes" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getAttributesResponse" type="tns:getAttributesResponse"/>
+    
+    <xs:complexType name="getCapabilitiesResponse">
+        <xs:sequence>
+            <xs:element ref="types:Capabilities" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getCapabilitiesResponse" type="tns:getCapabilitiesResponse"/>
+    
+    <xs:element name="getParentDeviceDirectoryResponse" type="tns:DeviceInformationResponse"/>
+    
+    <xs:complexType name="getNamespacesResponse">
+        <xs:sequence>
+            <xs:element ref="identity:UDNs" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getNamespacesResponse" type="tns:getNamespacesResponse"/>
+    
+    <xs:complexType name="DeviceInformationsResponse">
+        <xs:sequence>
+            <xs:element ref="tns:DeviceInformations" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="DeviceInformationResponse">
+        <xs:sequence>
+            <xs:element ref="tns:DeviceInformation" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="ancestorsResponse" type="tns:DeviceInformationsResponse"/>
+    
+    <xs:element name="childrenResponse" type="tns:DeviceInformationsResponse"/>
+    
+    <xs:element name="lookupResponse" type="tns:DeviceInformationResponse"/>
+    
+    <xs:element name="parentResponse" type="tns:DeviceInformationResponse"/>
+    
+    <xs:element name="siblingsResponse" type="tns:DeviceInformationsResponse"/>
+    
+    <xs:element name="searchResponse" type="tns:DeviceInformationsResponse"/>
+    
+    <xs:complexType name="bindResponse">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="bindResponse" type="tns:bindResponse"/>
+    
+    <xs:complexType name="unbindResponse">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="unbindResponse" type="tns:unbindResponse"/>
+    
+    <xs:complexType name="setOnlineResponse">
+        <xs:sequence>
+            <xs:element ref="types:Boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="setOnlineResponse" type="tns:setOnlineResponse"/>
+    
+    <xs:complexType name="DeviceNotFoundFault">
+        <xs:sequence>
+            <xs:element ref="tns:DeviceNotFound" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

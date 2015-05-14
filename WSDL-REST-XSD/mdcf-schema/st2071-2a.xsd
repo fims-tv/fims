@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+    
+    <xs:simpleType name="uint50">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="1125899906842623" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="uint64">
+        <xs:restriction base="xs:nonNegativeInteger">
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="18446744073709551615" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="STATUS">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OK" />
+            <xs:enumeration value="WARNING" />
+            <xs:enumeration value="ERROR" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="OFFSET_TYPE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SECOND" />
+            <xs:enumeration value="MICROSECOND" />
+            <xs:enumeration value="BYTE" />
+            <xs:enumeration value="FRAME" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="MapEntryType">
+        <xs:choice minOccurs="0" maxOccurs="1">
+            <xs:element ref="tns:Boolean" />
+            <xs:element ref="tns:String" />
+            <xs:element ref="tns:Integer" />
+            <xs:element ref="tns:Float" />
+            <xs:element ref="tns:DateTime" />
+            <xs:element ref="tns:Time" />
+            <xs:element ref="tns:URI" />
+            <xs:element ref="tns:Map" />
+            <xs:element ref="tns:Blob" />
+            <xs:any namespace="##other" processContents="lax"/>
+        </xs:choice>
+        <xs:attribute name="key" type="xs:string" use="required" />
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
+    </xs:complexType>
+    
+    <xs:element name="MapEntry" type="tns:MapEntryType" />
+    
+    <xs:complexType name="Entries">
+        <xs:sequence>
+            <xs:element ref="tns:MapEntry" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="Entries" type="tns:Entries" />
+    
+    <xs:complexType name="Map">
+    	<xs:sequence>
+    	    <xs:element ref="tns:Entries" minOccurs="1" maxOccurs="1" />
+    	</xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="DateTime" >
+        <xs:simpleContent>
+            <xs:extension base="xs:dateTime" />
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="FramedTime" >
+        <xs:simpleContent>
+           <xs:extension base="tns:DateTime">
+               <xs:attribute name="frame" type="tns:uint50" use="required" />
+               <xs:attribute name="frame_rate" type="tns:uint50" use="required" />
+               <xs:attribute name="scale" type="tns:uint50" use="required" />
+               <xs:attribute name="total_frames" type="tns:uint64" default="0" />
+           </xs:extension>
+       </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="Image">
+        <xs:sequence>
+            <xs:element ref="tns:MIMEType" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Height" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Width" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Data" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Capability">
+        <xs:sequence>
+            <xs:element ref="identity:UCN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Attributes" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="identity:URLs" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Capabilities">
+        <xs:sequence>
+            <xs:element ref="tns:Capability" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- BEGIN The types defined in this section are NOT part of the MDC standard, but are needed for MDCF types -->
+    <xs:complexType abstract="true" name="Exception">
+        <xs:sequence>
+            <xs:element ref="tns:Message" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="Exception" type="tns:Exception" />
+    
+    <xs:simpleType name="UUID">
+        <xs:restriction base="xs:anyURI">
+            <xs:length value="45"/>
+            <xs:pattern value="urn:uuid:[a-fA-F0-9]{8}(\-[a-fA-F0-9]{4}){3}\-[a-fA-F0-9]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:element name="Message" type="xs:string" />
+    
+    <xs:element name="Boolean" type="xs:boolean" />
+    
+    <xs:element name="String" type="xs:string" />
+    
+    <xs:element name="Integer" type="xs:integer" />
+    
+    <xs:element name="Float" type="xs:decimal" />
+    
+    <xs:element name="Blob" type="xs:base64Binary" />
+    
+    <xs:element name="Time" type="xs:time" />
+    
+    <xs:element name="MIMEType" type="xs:string" />
+    <xs:element name="Height" type="xs:unsignedShort" />
+    <xs:element name="Width" type="xs:unsignedShort" />
+    <xs:element name="Data" type="xs:base64Binary" />
+    
+    <xs:element name="Attributes" type="tns:Map" />
+    <xs:element name="Capability" type="tns:Capability" />
+    <xs:element name="Capabilities" type="tns:Capabilities" />
+    <xs:element name="STATUS" type="tns:STATUS" />
+    <xs:element name="DateTime" type="tns:DateTime" />
+    <xs:element name="FramedTime" type="tns:FramedTime" substitutionGroup="tns:DateTime" />
+    <xs:element name="Image" type="tns:Image" />
+    <xs:element name="Map" type="tns:Map" />
+    <xs:element name="URI" type="identity:URI"/>
+    
+</xs:schema>

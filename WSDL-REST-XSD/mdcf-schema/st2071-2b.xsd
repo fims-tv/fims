@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+	xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified" version="1.1" >
+	
+    <xs:simpleType name="URI">
+    	<xs:restriction base="xs:anyURI" />
+    </xs:simpleType>
+    
+    <xs:simpleType name="URL">
+    	<xs:restriction base="tns:URI">
+    		<xs:pattern value="\c+:.*"></xs:pattern>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="URN">
+    	<xs:restriction base="tns:URI">
+    		<xs:pattern value="(urn:)?\c+:.*"></xs:pattern>
+    	</xs:restriction>
+    </xs:simpleType>
+	
+	<xs:simpleType name="RN">
+		<xs:restriction base="tns:URN">
+			<xs:pattern value="(urn:)?smpte:u[cdms]n:(([\w\d_!&amp;^$@\*\(\)\-\s\P{P}])+(\.([\w\d_!&amp;^$@\*\(\)\-\s\P{P}])+)*)?:.*(#([\w\d_!&amp;^$@\*\(\)\-\.\s\P{P}])*)?"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="RNWithAttributes">
+		<xs:restriction base="tns:RN">
+			<xs:pattern value="(urn:)?smpte:u[dms]n:(([\w\d_!&amp;^$@\*\(\)\-\s\P{P}])+(\.([\w\d_!&amp;^$@\*\(\)\-\s\P{P}])+)*)?:(.+(=((&quot;.*&quot;)|(.+))([;,]((&quot;.*&quot;)|(.+)))*)?)?(#([\w\d_!&amp;^$@\*\(\)\-\.\s\P{P}])*)?"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	
+    <xs:simpleType name="UDN">
+    	<xs:restriction base="tns:RNWithAttributes">
+    		<xs:pattern value="(urn:)?smpte:udn:.*"></xs:pattern>
+    	</xs:restriction>
+    </xs:simpleType>
+	
+	<xs:simpleType name="USN">
+		<xs:restriction base="tns:RNWithAttributes">
+			<xs:pattern value="(urn:)?smpte:usn:.*:.*"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	
+    <xs:simpleType name="UMN">
+    	<xs:restriction base="tns:RNWithAttributes">
+    		<xs:pattern value="(urn:)?smpte:umn:.*:.*"></xs:pattern>
+    	</xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="UCN">
+    	<xs:restriction base="tns:RN">
+    		<xs:pattern value="(urn:)?smpte:ucn:([\w\d_!&amp;^$@\*\(\)\-\.\s\P{P}])*:(([\w\d_!&amp;^$@\*\(\)\-\.\s\P{P}])*_v\d(.\d)*(#([\w\d_!&amp;^$@\*\(\)\-\.\s\P{P}])*)?)?"></xs:pattern>
+    	</xs:restriction>
+    </xs:simpleType>
+    
+	<xs:complexType name="URIs">
+		<xs:sequence>
+			<xs:element ref="tns:URI" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+    
+	<xs:complexType name="URNs">
+		<xs:sequence>
+			<xs:element ref="tns:URN" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+    
+	<xs:complexType name="URLs">
+		<xs:sequence>
+			<xs:element ref="tns:URL" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+    
+	<xs:complexType name="UDNs">
+		<xs:sequence>
+			<xs:element ref="tns:UDN" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="USNs">
+		<xs:sequence>
+			<xs:element ref="tns:USN" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="UMNs">
+		<xs:sequence>
+			<xs:element ref="tns:UMN" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+    
+	<xs:complexType name="UCNs">
+		<xs:sequence>
+			<xs:element ref="tns:UCN" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+    
+	<xs:element name="RN" type="tns:RN" />
+	<xs:element name="URI" type="tns:URI" />
+	<xs:element name="URL" type="tns:URL" substitutionGroup="tns:URI" />
+	<xs:element name="URN" type="tns:URN" substitutionGroup="tns:URI" />
+	<xs:element name="USN" type="tns:USN" substitutionGroup="tns:RN" />
+	<xs:element name="UDN" type="tns:UDN" substitutionGroup="tns:RN" />
+	<xs:element name="UMN" type="tns:UMN" substitutionGroup="tns:RN" />
+	<xs:element name="UCN" type="tns:UCN" substitutionGroup="tns:URN" />
+	<xs:attribute name="ucn" type="tns:UCN" />
+	<xs:element name="URIs" type="tns:URIs" />
+	<xs:element name="URLs" type="tns:URLs" />
+	<xs:element name="URNs" type="tns:URNs" />
+	<xs:element name="USNs" type="tns:USNs" />
+	<xs:element name="UDNs" type="tns:UDNs" />
+	<xs:element name="UMNs" type="tns:UMNs" />
+	<xs:element name="UCNs" type="tns:UCNs" />
+</xs:schema>
+

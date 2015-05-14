@@ -1,0 +1,204 @@
+<ServiceInformation xmlns="http://www.smpte-ra.org/schemas/st2071/2015/service"
+          xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+          xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.smpte-ra.org/schemas/st2071/2015/service ../mdcf-schema/st2071-2q.xsd">
+  <identity:USN>urn:smpte:usn:fims.tv:type="instance";repository=1</identity:USN>
+  
+<!-- List of capabilities listed by the QA team:  
+
+  * Add non-standard (non-FIMS) input and output supported formats (templates, reports) -> through FIMS resourcereferences
+ 
+  * EBUQC cards ( already listed) but also QC features not covered by the EBUCards -> through FIMS resourcereferences
+ 
+  * there should be a property indicating whether a service is fully automatic or interactive.
+ 
+  * List of EBU Cards supported by Service (Card Name, ID) and key functionalities (for non-standard features such as input/output 
+    and possible values -> look at open structure like defined in ebu qc card parameters in http://ebu.io/qc/parameters/types/)
+ 
+  * Maximum number of concurrent jobs
+ 
+  * Path to QA Folder reports
+ 
+  * Source folder path for QA input (could be * if every path is supported)
+ 
+  * Max timeout for QA job execution
+ 
+  * Tool information
+
+  * Return list of supported encoding and container formats
+ 
+  * Return list of supported subtitles formats -->
+
+  <Type>
+    <identity:USN>urn:smpte:usn:tv.fims:type="template";QA</identity:USN>
+    <Attributes>
+      <types:Entries>
+        <types:MapEntry key="version"><types:Float>1.2</types:Float></types:MapEntry>
+      </types:Entries>
+    </Attributes>
+    <types:Capabilities>
+
+      <types:Capability>
+        <identity:UCN>urn:smpte:ucn:tv.fims:QA_v1.2</identity:UCN>
+        <types:Attributes>
+          <types:Entries>
+            <types:MapEntry key="nonStandardTemplates">
+              <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="1"> <!--  XPointer to element definition. -->
+                  <types:URI>http://mediaqa.mediamedics.tv/schemas/hygiene.xsd#xpointer(//elemennt[@name="htemplate"])</types:URI></types:MapEntry>  
+                </types:Entries>
+              </types:Map>  
+			</types:MapEntry>
+            <types:MapEntry key="nonStandardReports">
+             <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="1"> <!--  Alternative 1: XPointer to element definition. -->
+                     <types:URI>http://mediaqa.mediamedics.tv/schemas/hygiene.xsd#xpointer(//element[@name="hreport"])</types:URI></types:MapEntry>  
+                  <types:MapEntry key="2"> <!--  Namespace reference to element. -->
+                     <types:String>{http://mediaqa.mediamedics.tv/schemas/hygiene}drep</types:String></types:MapEntry>  
+               </types:Entries>
+              </types:Map>  
+            </types:MapEntry>
+            <types:MapEntry key="supportedEBUCards">
+             <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="0001W"> <!-- Do we need to carry the version number as well? -->
+                    <types:String>Active Format Description (wrapper)</types:String></types:MapEntry> 
+                  <types:MapEntry key="0007B"> <!-- Do we need to carry the version number as well? -->
+                    <types:String>Audio Service Correlation (baseband)</types:String></types:MapEntry> 
+                  <types:MapEntry key="0015B"> <!-- Do we need to carry the version number as well? -->
+                    <types:String> Black Bars (baseband)</types:String></types:MapEntry> 
+               </types:Entries>
+              </types:Map>  
+            </types:MapEntry>
+            <types:MapEntry key="supportedNonEBUQCFeatures">
+              <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="1"> 
+                    <types:Map>
+                      <types:Entries>
+                        <types:MapEntry key="name"><types:String>>Red Bars (baseband)</types:String></types:MapEntry>
+                        <types:MapEntry key="id"><types:String>mh042</types:String></types:MapEntry>
+                        <types:MapEntry key="version"><types:String>v3.76</types:String></types:MapEntry>
+                        <types:MapEntry key="definition"><types:String>System shall check for the presence and size of 
+                          red bars in the video essence</types:String></types:MapEntry>
+                        <types:MapEntry key="inputValues">
+                          <types:Map>
+                            <types:Entries>
+                              <types:MapEntry key="RedBarMinimumSizeVertical">
+                                <types:Map>
+                                  <types:Entries>
+                                    <types:MapEntry key="name"><types:String>Red Bar Minimum Size Vertical</types:String></types:MapEntry>
+                                    <types:MapEntry key="description"><types:String>Minimum size of red bar from top and bottom of the 
+                                      frame before an event is generated</types:String></types:MapEntry>
+                                    <types:MapEntry key="type"><types:String>integer</types:String></types:MapEntry> <!-- See http://ebu.io/qc/parameters/types/ -->
+                                  </types:Entries>
+                                </types:Map>
+                              </types:MapEntry>
+                              <types:MapEntry key="ActivePictureCentral">
+                                <types:Map>
+                                  <types:Entries>
+                                    <types:MapEntry key="name"><types:String>Active Picture Central</types:String></types:MapEntry>
+                                    <types:MapEntry key="description"><types:String>Check if the active picture is centered between 
+                                      the bar types</types:String></types:MapEntry>
+                                    <types:MapEntry key="type"><types:String>boolean</types:String></types:MapEntry> <!-- See http://ebu.io/qc/parameters/types/ -->                                
+                                  </types:Entries>
+                                </types:Map>
+                              </types:MapEntry>
+                            </types:Entries>
+                          </types:Map>
+                        </types:MapEntry>
+                      </types:Entries>
+                    </types:Map>
+                  </types:MapEntry> 
+               </types:Entries>
+              </types:Map>  
+            </types:MapEntry>
+            <types:MapEntry key="serviceKind">
+              <types:String>fullyAutomatic</types:String> <!--  either "fullyAutomatic or "interactive" -->
+            </types:MapEntry>
+            <types:MapEntry key="toolInformation"> <!-- Follows structure of "qar:ToolInformationType" -->
+              <types:Map>
+                <types:Entries>
+                  <types:MapEntry key="name"><types:String>Media Hygiene</types:String></types:MapEntry>
+                  <types:MapEntry key="vendor"><types:String>Media Medics</types:String></types:MapEntry>
+                  <types:MapEntry key="version"><types:String>v17.3 release 27</types:String></types:MapEntry>
+                  <types:MapEntry key="family"><types:String>Media Healthcare Suite</types:String></types:MapEntry>
+                  <types:MapEntry key="url"><types:URI>http://www.mediamedics.tv/products/hygiene</types:URI></types:MapEntry>
+                </types:Entries>
+              </types:Map>
+            </types:MapEntry>
+            <types:MapEntry key="supportedContainerFormats"> <!--  Sufficient for a user to interpret. No formal enumeration. -->
+              <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="1"><types:String>MXF OP-1a</types:String></types:MapEntry>
+                  <types:MapEntry key="2"><types:String>MOV</types:String></types:MapEntry>
+                  <types:MapEntry key="3"><types:String>MPEG-TS</types:String></types:MapEntry>
+                </types:Entries>
+              </types:Map>  
+            </types:MapEntry>
+             <types:MapEntry key="supportedEncodingFormats"> <!--  Sufficient for a user to interpret. No formal enumeration. -->
+              <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="1"><types:String>H.264</types:String></types:MapEntry>
+                  <types:MapEntry key="2"><types:String>DVCPro 100</types:String></types:MapEntry>
+                  <types:MapEntry key="3"><types:String>BWAV</types:String></types:MapEntry>
+                  <types:MapEntry key="3"><types:String>AAC</types:String></types:MapEntry>
+                </types:Entries>
+              </types:Map>  
+            </types:MapEntry>
+            <types:MapEntry key="supportedSubtitleFormats"> <!--  Sufficient for a user to interpret. No formal enumeration. -->
+              <types:Map>  
+                <types:Entries>
+                  <types:MapEntry key="1"><types:String>EIA-608</types:String></types:MapEntry>
+                  <types:MapEntry key="2"><types:String>CEA-708</types:String></types:MapEntry>
+                  <types:MapEntry key="3"><types:String>DVB</types:String></types:MapEntry>
+                </types:Entries>
+              </types:Map>  
+            </types:MapEntry>
+           </types:Entries>
+        </types:Attributes>
+        <identity:URLs/>
+      </types:Capability>
+
+      <types:Capability>
+        <identity:UCN>urn:smpte:ucn:org.fims:QA_v1.2#MediaQARequest</identity:UCN>
+        <types:Attributes>
+          <types:Entries>
+            <types:MapEntry key="maxConcurrentJobs">
+              <types:Integer>10</types:Integer></types:MapEntry>
+            <types:MapEntry key="maxJobTimeoutSeconds">
+              <types:Integer>300</types:Integer></types:MapEntry>  
+            <types:MapEntry key="reportFolder"> <!-- Could use URI here -->
+              <types:String>c:\mediaHygiene\reports</types:String></types:MapEntry>
+            <types:MapEntry key="sourceFolders"> <!--  Space separated list for multiple entries. -->
+              <types:String>c:\mediaHygieve\hot c:\qaInputs</types:String></types:MapEntry>
+		   </types:Entries>
+        </types:Attributes>
+        <identity:URLs/>
+      </types:Capability>
+   </types:Capabilities>  
+  </Type>
+  
+  <!--Section added by Loic for schema validation to work-->
+  <State>STARTED</State>
+  <identity:URLs></identity:URLs>
+  <Attributes>
+    <types:Entries></types:Entries>
+  </Attributes>
+  <types:Capabilities>
+    <types:Capability>
+      <identity:UCN>urn:smpte:ucn:org.fims:QA_v1.2</identity:UCN>
+      <types:Attributes>
+        <types:Entries></types:Entries>
+      </types:Attributes>
+      <identity:URLs></identity:URLs>
+    </types:Capability>
+  </types:Capabilities>
+  
+  <ValidTill>2015-05-12T18:14:51.0</ValidTill>
+  <Created>2015-05-12T18:13:51.0</Created>
+  <CreatedBy>Fims QA Demo</CreatedBy>
+</ServiceInformation>
