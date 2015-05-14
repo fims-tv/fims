@@ -22,7 +22,8 @@ limitations under the License.
 	elementFormDefault="qualified">
   <import namespace="http://description.fims.tv" schemaLocation="description-V1_2_0.xsd"/>
   <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
-  <import namespace="http://www.smpte-ra.org/schemas/st2071/2015/service" schemaLocation="st2071-2q.xsd"/> <!-- New in V1.2.0. TODO: Update location to point at SMPTE website. -->
+  <import namespace="http://www.smpte-ra.org/schemas/st2071/2015/service" schemaLocation="mdcf-schema/st2071-2q.xsd"/> <!-- New in V1.2.0. --> 
+      <!-- TODO: Update location to point at SMPTE RA website when schemas have completed FCD and are available online. -->
   <!-- ****************************** FIMS Current Version ****************************** -->
   <simpleType name="CurrentVersion">
     <annotation>
