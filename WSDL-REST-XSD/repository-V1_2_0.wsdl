@@ -656,7 +656,7 @@ ALL
     				<td class="firstColumn">ReplaceContent</td>
     				<td>Updates an entire existing content element</td>
     				<td class="firstColumn">PUT</td> <!-- Change for v1.2.0. POST changed to PUT. -->
-    				<td>.../content/{resourceId}/{version}</td> <!-- Note: If version is omitted then the latest version is referred to. The version-less route must be reserved. -->
+    				<td>.../content/{resourceId}/{revisionID}</td> <!-- Note: If version is omitted then the latest version is referred to. The version-less route must be reserved. -->
     				<td class="firstColumn">bms:BMContentType</td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -667,7 +667,7 @@ ALL
     				<td class="firstColumn">UpdateContentProperties</td>
     				<td>Updates specific "metadata" properties of an existing content element </td>
     				<td class="firstColumn">PUT</td> <!-- Change for v1.2.0. POST changed to PUT. --> 
-    				<td>.../content/properties/{resourceId}/{version}</td> <!-- Change for v1.2.0. Added properties sub-resource to disambiguate routing. -->
+    				<td>.../content/properties/{resourceId}/{revisionID}</td> <!-- Change for v1.2.0. Added properties sub-resource to disambiguate routing. -->
     				<td class="firstColumn">rps:PropertyInfosType</td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -777,7 +777,7 @@ ALL
     				<td class="firstColumn">RemoveContent</td>
     				<td>Marks a given set of content elements to be deleted</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}/remove</td>
+    				<td>.../content/{resourceId}/{revisionID}/remove</td>
     				<td class="firstColumn"></td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -788,7 +788,7 @@ ALL
     				<td class="firstColumn">UnRemoveContent</td>
     				<td> "Unmarks" a given set of content elements for deletion</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}/unremove</td>
+    				<td>.../content/{resourceId}/{revisionID}/unremove</td>
     				<td class="firstColumn"></td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -821,7 +821,7 @@ ALL
     				<td class="firstColumn">PurgeContent</td>
     				<td>Permanently deletes marked content elements from a repository</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}/purge</td>
+    				<td>.../content/{resourceId}/{revisionID}/purge</td>
     				<td class="firstColumn">rps:PurgeContentRequestType</td>
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -832,7 +832,7 @@ ALL
     				<td class="firstColumn">CancelPurgeContent</td>
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../content/{resourceId}/{version}/purge/cancel-purge</td> <!-- Change in v1.2.0. Added sub-resource "cancel-purge" to disambiguate routing.  -->
+    				<td>.../content/{resourceId}/{revisionID}/purge/cancel-purge</td> <!-- Change in v1.2.0. Added sub-resource "cancel-purge" to disambiguate routing.  -->
     				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td> 
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
@@ -843,7 +843,7 @@ ALL
     				<td class="firstColumn">GetContent</td>
     				<td>Returns a single content element for the given asset</td>
     				<td class="firstColumn">GET</td>
-    				<td>.../content/{resourceId}/{version}</td>
+    				<td>.../content/{resourceId}/{revisionID}</td>
     				<td class="firstColumn"></td>
     				<td>bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
