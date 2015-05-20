@@ -600,7 +600,7 @@ ALL
     				<td class="firstColumn">GenerateUniqueID</td>
     				<td>Generate a Unique ID within the scope of a given repository
     				</td>
-    				<td class="firstColumn">POST</td>
+    				<td class="firstColumn">GET</td>
     				<td>.../resourceId</td>
     				<td class="firstColumn"></td>
     				<td>bms:ResourceReferenceType</td>
