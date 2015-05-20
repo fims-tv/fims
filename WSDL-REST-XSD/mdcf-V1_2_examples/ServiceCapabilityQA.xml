@@ -173,7 +173,7 @@
               <types:Integer>300</types:Integer></types:MapEntry>  
             <types:MapEntry key="reportFolder"> <!-- Could use URI here -->
               <types:String>c:\mediaHygiene\reports</types:String></types:MapEntry>
-            <types:MapEntry key="sourceFolders"> <!--  Space separated list for multiple entries. -->
+            <types:MapEntry key="sourceFolders"> <!-- Space separated list for multiple entries. Use * for any folder. -->
               <types:String>c:\mediaHygieve\hot c:\qaInputs</types:String></types:MapEntry>
 		   </types:Entries>
         </types:Attributes>
