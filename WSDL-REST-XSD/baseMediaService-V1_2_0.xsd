@@ -4077,6 +4077,8 @@ limitations under the License.
         <annotation>
           <documentation source="urn:x-fims:description">Content Part processing not supported.
           </documentation>
+          <documentation source="urn:x-fims:statusCode">403</documentation>
+          <documentation source="urn:x-fims:statusDescription">Forbidden.</documentation>
           <documentation source="urn:x-fims:notes">The service is not able to extract content parts.</documentation>
           <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
         </annotation>
@@ -4085,6 +4087,8 @@ limitations under the License.
         <annotation>
           <documentation source="urn:x-fims:description">Multiple Content Parts not supported.
           </documentation>
+          <documentation source="urn:x-fims:statusCode">403</documentation>
+          <documentation source="urn:x-fims:statusDescription">Forbidden.</documentation>
           <documentation source="urn:x-fims:notes">The service can process only a single Content Part per job.</documentation>
           <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
         </annotation>
@@ -4092,8 +4096,10 @@ limitations under the License.
       <enumeration value="SVC_S00_0026">
         <annotation>
           <documentation source="urn:x-fims:description">Content Part cannot be generated.
-          </documentation>
-          <documentation source="urn:x-fims:notes">The requested content part cannot be extracted.</documentation>
+            REST Status: 400 Bad Request</documentation>
+          <documentation source="urn:x-fims:statusCode">400</documentation>
+          <documentation source="urn:x-fims:statusDescription">Bad request.</documentation>
+          <documentation source="urn:x-fims:notes">The requested content part cannot be extracted. </documentation>
           <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
         </annotation>
       </enumeration>
@@ -4101,6 +4107,8 @@ limitations under the License.
         <annotation>
           <documentation source="urn:x-fims:description">Composite content not supported.
           </documentation>
+          <documentation source="urn:x-fims:statusCode">403</documentation>
+          <documentation source="urn:x-fims:statusDescription">Forbidden.</documentation>
           <documentation source="urn:x-fims:notes">The service does not support simple EDL processing.</documentation>
           <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
         </annotation>
@@ -4268,9 +4276,9 @@ limitations under the License.
            <enumeration value="DAT_S00_0018">
         <annotation>
           <documentation source="urn:x-fims:description">Rounded boundaries of content part.
-            REST Status:</documentation>
-          <documentation source="urn:x-fims:statusCode"></documentation>
-          <documentation source="urn:x-fims:statusDescription"></documentation>
+            REST Status: 400 Bad Request</documentation>
+          <documentation source="urn:x-fims:statusCode">400</documentation>
+          <documentation source="urn:x-fims:statusDescription">Bad request.</documentation>
           <documentation source="urn:x-fims:notes">
             The boundaries of the generated content part differ from the request.
           </documentation>
