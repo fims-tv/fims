@@ -625,7 +625,7 @@ ALL
     				<td class="firstColumn">POST</td>
     				<td>.../essencePlaceholder</td>
     				<td class="firstColumn">rps:AddEssencePlaceHolderRequestType</td>
-    				<td>rps:AddEssenceOperationAckType</td>
+    				<td>rps:AddEssencePlaceholderResponseType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
     				<td class="firstColumn"></td>
@@ -800,7 +800,7 @@ ALL
     				<td>Permanently deletes marked essence files from essence storage</td>
     				<td class="firstColumn">POST</td>
     				<td>.../essence/{resourceId}/purge</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">rps:PurgeEssenceRequestType</td>
     				<td>rps:PurgeEssenceOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -822,7 +822,7 @@ ALL
     				<td>Permanently deletes marked content elements from a repository</td>
     				<td class="firstColumn">POST</td>
     				<td>.../content/{resourceId}/{version}/purge</td>
-    				<td class="firstColumn"></td>
+    				<td class="firstColumn">rps:PurgeContentRequestType</td>
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>

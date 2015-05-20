@@ -2030,10 +2030,11 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not Applicable</documentation>
 				</annotation>
 			</element>
-			<element name="essenceLocator" type="bms:BMEssenceLocatorType" minOccurs="1" maxOccurs="1">
+			<element name="essenceLocator" type="bms:BMEssenceLocatorType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
-						Parameter representing the essence to be purged.
+						Parameter representing the essence to be purged. This parameter shall be provided in SOAP
+						requests. It shall not be provided in REST requests as the resource ID is in the path.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -2099,10 +2100,11 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not Applicable</documentation>
 				</annotation>
 			</element>
-			<element name="content" type="bms:BMContentType" minOccurs="1" maxOccurs="1">
+			<element name="content" type="bms:BMContentType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
-						Parameter representing the content to be purged.
+						Parameter representing the content to be purged. This parameter shall be provided in SOAP
+						requests. It shall not be provided in REST requests as the resource ID is in the path.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
