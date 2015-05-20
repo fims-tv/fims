@@ -43,10 +43,12 @@
         <identity:UCN>urn:smpte:ucn:tv.fims:QA_v1.2</identity:UCN>
         <types:Attributes>
           <types:Entries>
-            <types:MapEntry key="nonStandardTemplates">
+            <types:MapEntry key="nonStandardTemplates"> <!-- Standard templates defined within FIMS are assumed to be supported. 
+                                                             This describes additional capability. -->
               <types:Map>  
                 <types:Entries>
-                  <types:MapEntry key="1"> <!--  XPointer to element definition. -->
+                  <types:MapEntry key="1"> <!-- May be a MIME type (string), reference to a document that describes a template (URI) or an 
+                                                XML scheme reference (URI).  -->
                   <types:URI>http://mediaqa.mediamedics.tv/schemas/hygiene.xsd#xpointer(//elemennt[@name="htemplate"])</types:URI></types:MapEntry>  
                 </types:Entries>
               </types:Map>  
@@ -54,21 +56,21 @@
             <types:MapEntry key="nonStandardReports">
              <types:Map>  
                 <types:Entries>
-                  <types:MapEntry key="1"> <!--  Alternative 1: XPointer to element definition. -->
-                     <types:URI>http://mediaqa.mediamedics.tv/schemas/hygiene.xsd#xpointer(//element[@name="hreport"])</types:URI></types:MapEntry>  
-                  <types:MapEntry key="2"> <!--  Namespace reference to element. -->
-                     <types:String>{http://mediaqa.mediamedics.tv/schemas/hygiene}drep</types:String></types:MapEntry>  
+                  <types:MapEntry key="1">
+                     <types:URI>http://mediaqa.mediamedics.tv/reports/reportFormat.pdf</types:URI></types:MapEntry>  
+                  <types:MapEntry key="2"> 
+                     <types:String>application/json</types:String></types:MapEntry>  
                </types:Entries>
               </types:Map>  
             </types:MapEntry>
             <types:MapEntry key="supportedEBUCards">
              <types:Map>  
                 <types:Entries>
-                  <types:MapEntry key="0001W"> <!-- Do we need to carry the version number as well? -->
+                  <types:MapEntry key="https://ebu.io/qc/tests/0001W/versions/2-0/"> <!-- Key is full URL to online card database, including version number. --> 
                     <types:String>Active Format Description (wrapper)</types:String></types:MapEntry> 
-                  <types:MapEntry key="0007B"> <!-- Do we need to carry the version number as well? -->
+                  <types:MapEntry key="https://ebu.io/qc/tests/0007B/versions/2-0/">
                     <types:String>Audio Service Correlation (baseband)</types:String></types:MapEntry> 
-                  <types:MapEntry key="0015B"> <!-- Do we need to carry the version number as well? -->
+                  <types:MapEntry key="https://ebu.io/qc/tests/0015B/versions/2-0/"> 
                     <types:String> Black Bars (baseband)</types:String></types:MapEntry> 
                </types:Entries>
               </types:Map>  
@@ -79,7 +81,7 @@
                   <types:MapEntry key="1"> 
                     <types:Map>
                       <types:Entries>
-                        <types:MapEntry key="name"><types:String>>Red Bars (baseband)</types:String></types:MapEntry>
+                        <types:MapEntry key="name"><types:String>Red Bars (baseband)</types:String></types:MapEntry>
                         <types:MapEntry key="id"><types:String>mh042</types:String></types:MapEntry>
                         <types:MapEntry key="version"><types:String>v3.76</types:String></types:MapEntry>
                         <types:MapEntry key="definition"><types:String>System shall check for the presence and size of 
