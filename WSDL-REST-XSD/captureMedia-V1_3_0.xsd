@@ -18,8 +18,8 @@ limitations under the License.
 	xmlns:cms="http://capturemedia.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	targetNamespace="http://capturemedia.fims.tv">
 	
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
-	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_3_0.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_3_0.xsd"/>
   
 	<!-- **************************** FIMS-defined resources ****************************** -->
 	<complexType name="CaptureProfileType">

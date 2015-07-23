@@ -20,11 +20,11 @@ limitations under the License.
 	xmlns:qar="http://mediaqar.fims.tv" xmlns:qat="http://mediaqat.fims.tv"
 	xmlns:desc="http://description.fims.tv" targetNamespace="http://mediaqa.fims.tv"
 	elementFormDefault="qualified">
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
-	<import namespace="http://description.fims.tv" schemaLocation="description-V1_2_0.xsd"/>
-	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
-	<import namespace="http://mediaqar.fims.tv" schemaLocation="qaReport-V1_2_0.xsd"/>
-	<import namespace="http://mediaqat.fims.tv" schemaLocation="qaTemplate-V1_2_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_3_0.xsd"/>
+	<import namespace="http://description.fims.tv" schemaLocation="description-V1_3_0.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_3_0.xsd"/>
+	<import namespace="http://mediaqar.fims.tv" schemaLocation="qaReport-V1_3_0.xsd"/>
+	<import namespace="http://mediaqat.fims.tv" schemaLocation="qaTemplate-V1_3_0.xsd"/>
 
 
 

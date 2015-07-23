@@ -21,13 +21,13 @@ limitations under the License.
 
 	<wsdl:types>
 		<schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"
+			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_3_0.xsd"
 			> </import>
 		</schema>
 
 		<schema targetNamespace="http://mediaqa.fims.tv"
 			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mqas="http://mediaqa.fims.tv">
-			<include schemaLocation="mediaQA-V1_2_0.xsd"/>
+			<include schemaLocation="mediaQA-V1_3_0.xsd"/>
 		</schema>
 	</wsdl:types>
 
