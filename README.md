@@ -32,7 +32,7 @@ The main starting point for FIMS is the Word Document Technical Specification `F
 
 ## License
 
-FIMS is released unded an the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0), as detailed in files [LICENSE.txt](LICENSE.txt) and [NOTICE.txt](/NOTICE.txt/).
+FIMS is released unded an the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0), as detailed in files [LICENSE.txt](/LICENSE.txt/) and [NOTICE.txt](/NOTICE.txt/).
 
 Copyright 2015 The European Broadcasting Union and the Advanced Media Workflow Association 
 
