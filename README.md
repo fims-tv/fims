@@ -1,6 +1,6 @@
 # FIMS v1.3 - development branch
 
-This repository contains the version 1.2 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) 
+This repository contains the version 1.3 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) 
 [Framework for Interoparable Media Services (FIMS)](http://www.fims.tv). The specification has been approved 
 by both sponsoring organisations.
 
@@ -27,7 +27,7 @@ quality control, with support for partial content and servive capability descrip
 
 ## What's in the package
 
-The main starting point for FIMS is the Word Document Technical Specification `FIMS 1.2 Technical Specification - General  Description.doc`. Technical specification is contained in the [`WSDL-REST-XSD`](./WSDL-REST-XSD) folder. Note that the REST documentation is embedded within the equivalent WSDL file.
+The main starting point for FIMS is the Word Document Technical Specification `FIMS 1.3 Technical Specification - General  Description.doc`. Technical specification is contained in the [`WSDL-REST-XSD`](./WSDL-REST-XSD) folder. Note that the REST documentation is embedded within the equivalent WSDL file.
 
 ### Examples
 
