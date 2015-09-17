@@ -44,7 +44,7 @@ Some simple [examples](/example/README.md/) are provided in the `example` folder
 
 ## License
 
-FIMS is released unded an the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0), as detailed in 
+FIMS is released under an the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0), as detailed in 
 files [LICENSE.txt](/LICENSE.txt/) and [NOTICE.txt](/NOTICE.txt/).
 
 The user’s attention is called to the possibility that implementation and compliance with this specification may require use 
