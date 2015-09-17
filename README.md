@@ -34,13 +34,11 @@ A number of other minor enhancements and improvements were made, including an up
 
 ## What's in the package
 
-The main starting point for FIMS is the Word Document Technical Specification `FIMS 1.2 Technical Specification - General 
-Description.doc`. Technical specification is contained in the `WSDL-REST-XSD` folder. Note that the REST documentation is 
-embedded within the equivalent WSDL file.
+The main starting point for FIMS is the [Word Document Technical Specification] `FIMS 1.2 Technical Specification - General  Description.doc`. Technical specification is contained in the [`WSDL-REST-XSD`](./WSDL-REST-XSD) folder. Note that the REST documentation is embedded within the equivalent WSDL file.
 
 ### Examples
 
-Some simple [examples](/example/README.md/) are provided in the `example` folder.
+Some simple [examples](/example/README.md/) are provided in the [`example`](./example) folder.
 
 ## License
 
@@ -54,5 +52,6 @@ Directors, shall not be responsible for identifying patents for which a license 
 or for conducting inquiries into the legal validity or scope of those patents that are brought to its attention.
 
 Copyright 2015 The European Broadcasting Union 
+
 Copyright 2015 Advanced Media Workflow Association 
 
