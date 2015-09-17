@@ -1,10 +1,15 @@
 # FIMS v1.2
 
-This repository contains the version 1.2 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) [Framework for Interoparable Media Services (FIMS)](http://www.fims.tv). The specification has been approved by both sponsoring organisations.
+This repository contains the version 1.2 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) 
+[Framework for Interoparable Media Services (FIMS)](http://www.fims.tv). The specification has been approved 
+by both sponsoring organisations.
 
 ## FIMS Overview
 
-FIMS is a vendor-neutral common framework for implementing Interoperable Media Services using a Service Oriented Architecture (SOA) based system for use in broadcast, production, post production, media distribution, and media archive applications. The framework supports interoperability, interchangeability and reusability of media specific services.
+FIMS is a vendor-neutral common framework for implementing Interoperable Media Services using a Service 
+Oriented Architecture (SOA) based system for use in broadcast, production, post production, media distribution, 
+and media archive applications. The framework supports interoperability, interchangeability and reusability of 
+media specific services.
 
 This framework covers the following system and management requirements: 
 
@@ -13,7 +18,8 @@ This framework covers the following system and management requirements:
 * behaviour and communication, 
 * content and time awareness.
 
-This version of the specification addresses media services for capture, transform, transfer, repository and quality control, with support for partial content and servive capability description.
+This version of the specification addresses media services for capture, transform, transfer, repository and 
+quality control, with support for partial content and servive capability description.
 
 ## Significant updates
 
@@ -28,7 +34,13 @@ A number of other minor enhancements and improvements were made, including an up
 
 ## What's in the package
 
-The main starting point for FIMS is the Word Document Technical Specification `FIMS 1.2 Technical Specification - General Description.doc`. Technical specification is contained in the `WSDL-REST-XSD` folder. Note that the REST documentation is embedded witnin the equivalent WSDL file.
+The main starting point for FIMS is the Word Document Technical Specification `FIMS 1.2 Technical Specification - General 
+Description.doc`. Technical specification is contained in the `WSDL-REST-XSD` folder. Note that the REST documentation is 
+embedded within the equivalent WSDL file.
+
+### Examples
+
+Some simple [examples](/example/README.md/) are provided in the `example` folder.
 
 ## License
 
