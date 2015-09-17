@@ -4,7 +4,7 @@
    xmlns:bms="http://base.fims.tv"
    xmlns:tfms="http://transformmedia.fims.tv"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://transformmedia.fims.tv ../transformMedia-V1_2_0.xsd"  version="1_2_0">
+   xsi:schemaLocation="http://transformmedia.fims.tv ../../WSDL-REST-XSD/transformMedia.xsd"  version="1_2_0">
    <transformJob xmlns="">
       <resourceID xmlns="http://base.fims.tv"></resourceID>
       <bmObjects xmlns="http://base.fims.tv">
