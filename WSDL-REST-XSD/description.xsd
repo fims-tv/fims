@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSpy v2015 rel. 3 sp1 (x64) (http://www.altova.com) by Tormod Værvågen (private) -->
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -19,7 +18,7 @@ limitations under the License.
 	xmlns:tim="http://baseTime.fims.tv" targetNamespace="http://description.fims.tv"
 	elementFormDefault="qualified">
 	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
-	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_3_0.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
 	<!--**Import new version-->
 	<element name="bmContentDescription" type="desc:bmContentDescriptionType"/>
 	<complexType name="bmContentDescriptionType">

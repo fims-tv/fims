@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -18,8 +18,8 @@ limitations under the License.
 	xmlns:cms="http://capturemedia.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	targetNamespace="http://capturemedia.fims.tv">
 	
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_3_0.xsd"/>
-	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_3_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
   
 	<!-- **************************** FIMS-defined resources ****************************** -->
 	<complexType name="CaptureProfileType">

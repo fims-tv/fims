@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -20,8 +20,8 @@ limitations under the License.
 	xmlns:service="http://www.smpte-ra.org/schemas/st2071/2015/service"
 	targetNamespace="http://base.fims.tv"
 	elementFormDefault="qualified">
-  <import namespace="http://description.fims.tv" schemaLocation="description-V1_3_0.xsd"/>
-  <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_3_0.xsd"/>
+  <import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
+  <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
   <import namespace="http://www.smpte-ra.org/schemas/st2071/2015/service" schemaLocation="mdcf-schema/st2071-2q.xsd"/> <!-- New in V1.2.0. --> 
       <!-- TODO: Update location to point at SMPTE RA website when schemas have completed FCD and are available online. -->
   <!-- ****************************** FIMS Current Version ****************************** -->
@@ -37,7 +37,7 @@ limitations under the License.
       <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_1_0</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="1_3_0">
+      <enumeration value="1_2_0">
         <annotation>
           <documentation source="urn:x-fims:description">
             This is the current FIMS version. Clients should use this value when determining 
