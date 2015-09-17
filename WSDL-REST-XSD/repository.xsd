@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -15,27 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --> 
 
-<!--
-Documentation needed for:
-1. (Assigned To: XXX)
-	enumerations
-	entities
-	Query Request Parameters
-	
-2. (Assigned To: YYY)
-	Repository Request
-	Repository Response
-	
-3. (Assigned To: ZZZ)
-	Rcr
-	Rcr Request
-	Rcr Response
--->
-
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	xmlns:rps="http://repository.fims.tv" targetNamespace="http://repository.fims.tv">
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
-	 <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	 <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
 
 	<!-- **************************** enumerations ************************ -->
 	<simpleType name="RepositoryErrorCodeType">

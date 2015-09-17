@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -15,23 +16,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --> 
 
-<!--
-Documentation needed for:
-ALL
--->
-
-<wsdl:definitions name="repository" targetNamespace="http://repository.fims.tv"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema"
-	xmlns:bms="http://base.fims.tv" xmlns:rps="http://repository.fims.tv" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions 
+    name="repository" 
+    targetNamespace="http://repository.fims.tv"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:bms="http://base.fims.tv" 
+	xmlns:rps="http://repository.fims.tv" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 	
 	<wsdl:types>
 	    <schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd">
+			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd">
 			</import>
 		</schema>
 
 		<schema targetNamespace="http://repository.fims.tv" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://repository.fims.tv">
-			<include schemaLocation="repository-V1_2_0.xsd" ></include>
+			<include schemaLocation="repository.xsd" ></include>
         </schema>		
     </wsdl:types>
 	<!-- **************************** fault message **************************** -->
