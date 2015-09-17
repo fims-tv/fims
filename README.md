@@ -23,18 +23,11 @@ quality control, with support for partial content and servive capability descrip
 
 ## Significant updates
 
-Four significant additions were made between v1.1 and v1.2 of the specification:
-
-1. Added a new media Quality Assurance service.
-2. Support for partial content, particularly for transfer, transform and QC operations from the FIMS _Timecode project_.
-3. Enhancements and corrections to the REST mappings.
-4. Added service capability description description aligned with the SMPTE 2072 Media Device and Control Framework.
-
-A number of other minor enhancements and improvements were made, including an update of the EBUCore description metadata.
+    The significant changes made to make FIMS v1.3 will be listed here.
 
 ## What's in the package
 
-The main starting point for FIMS is the [Word Document Technical Specification] `FIMS 1.2 Technical Specification - General  Description.doc`. Technical specification is contained in the [`WSDL-REST-XSD`](./WSDL-REST-XSD) folder. Note that the REST documentation is embedded within the equivalent WSDL file.
+The main starting point for FIMS is the Word Document Technical Specification `FIMS 1.2 Technical Specification - General  Description.doc`. Technical specification is contained in the [`WSDL-REST-XSD`](./WSDL-REST-XSD) folder. Note that the REST documentation is embedded within the equivalent WSDL file.
 
 ### Examples
 
