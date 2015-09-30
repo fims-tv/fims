@@ -1,4 +1,4 @@
-# FIMS v1.3 - development branch
+# FIMS v1.3 - FIMS test subgroup branch
 
 This repository contains the version 1.3 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) 
 [Framework for Interoparable Media Services (FIMS)](http://www.fims.tv). The specification has been approved 
