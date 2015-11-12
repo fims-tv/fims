@@ -1649,6 +1649,22 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
+          
+          
+          <element name="groupRelation" type="bms:GroupRelationType" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">Described the relation between the BMContent objects               </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+          
+          
+          
         </sequence>
       </extension>
     </complexContent>
@@ -1738,6 +1754,36 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
+
+
+          <element name="relations" type="bms:BMContentRelationType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains the strongly type relationship to other BMContent Objects
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+
+
+          <element name="tags" type="bms:TagType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains collection of tags
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+
+
           <element name="status" type="bms:BMContentStatusType" minOccurs="0" maxOccurs="1">
             <annotation>
               <documentation source="urn:x-fims:description">The logical content status may be New, Online, Offine, 
@@ -2114,6 +2160,33 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
+          
+          <element name="relations" type="bms:BMContentFormatRelationType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains the strongly type relationship to other BMContentFormat Objects
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+          
+          <element name="tags" type="bms:TagType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains collection of tags
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+          
           <element ref="bms:formatCollection" minOccurs="0" maxOccurs="1">
             <annotation>
               <documentation source="urn:x-fims:description">
@@ -2270,6 +2343,35 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
+          
+          
+          <element name="relations" type="bms:BMEssenceLocatorRelationType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains the strongly type relationship to other BMEssenceLocator Objects
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+          
+          <element name="tags" type="bms:TagType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains collection of tags
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
+          
+          
           <element name="locatorInfo" type="string" minOccurs="0" maxOccurs="1">
             <annotation>
               <documentation source="urn:x-fims:description">
@@ -8378,4 +8480,314 @@ limitations under the License.
       </annotation>
     </anyAttribute>
   </complexType>
+
+
+<!--Modifications for FIMS REP2-0-->
+
+
+
+  
+  <complexType name="BMContentRelationType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Nature of the relation between two objects of the same type.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    
+        <sequence>
+          <element name="linkedObject" type="bms:BMContentType">
+            <annotation>
+              <documentation source="urn:x-fims:description">
+                User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+                more information.
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+              <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+            </annotation>
+          </element>
+          
+          <element name="relationType" type="bms:RelationTypeType">
+            <annotation>
+              <documentation source="urn:x-fims:description">
+                User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+                more information.
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+              <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+            </annotation>
+          </element>
+        </sequence>
+    </complexType>
+
+
+  <complexType name="BMContentFormatRelationType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Nature of the relation between two objects of the same type.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    
+    <sequence>
+      <element name="linkedObject" type="bms:BMContentFormatType">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+      
+      <element name="relationType" type="bms:RelationTypeType">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  
+  
+  <complexType name="BMEssenceLocatorRelationType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Nature of the relation between two objects of the same type.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    
+    <sequence>
+      <element name="linkedObject" type="bms:BMEssenceLocatorType">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+      
+      <element name="relationType" type="bms:RelationTypeType">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  
+  
+
+  <complexType name="RelationTypeType" abstract="true">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Characteristics of files, video, audio, and ancillary data.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    <complexContent>
+      <extension base="bms:ResourceType">
+        <sequence>
+          
+          <element name="name" type="string" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+            </annotation>
+          </element>
+          
+          
+          
+          <element name="code" type="string" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+            </annotation>
+          </element>
+          <element name="description" type="string" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">The Resource Type Description value.</documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+            </annotation>
+          </element>
+          <element name="InvertedRelationType" type="bms:RelationTypeType" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <documentation source="urn:x-fims:description">The Resource Type Description value.</documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription"/>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+            </annotation>
+          </element>         
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+ 
+ 
+  <complexType name="GroupRelationType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Nature of the relation between  a group of objects of the same type.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    <complexContent>
+      
+      <extension base="bms:ResourceType">
+    <sequence>
+
+      <element name="name" type="string" minOccurs="1" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+
+
+      <element name="code" type="string" minOccurs="1" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+      <element name="description" type="string" minOccurs="0" maxOccurs="1">
+        <annotation>
+          <documentation source="urn:x-fims:description">The Resource Type Description value.</documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest"/>
+          <documentation source="urn:x-fims:inclusionInResponse"/>
+        </annotation>
+      </element>
+    
+    
+    </sequence>
+      </extension>
+        </complexContent>
+  </complexType>
+  
+ 
+  <complexType name="TagType">
+    <annotation>
+      <documentation source="urn:x-fims:description">
+        Nature of the relation between two objects of the same type.
+      </documentation>
+      <documentation source="urn:x-fims:normativeRequirement"/>
+      <documentation source="urn:x-fims:serviceDescription"/>
+      <documentation source="urn:x-fims:contentOfServiceDescription"/>
+    </annotation>
+    
+    <sequence>
+      <element name="name" type="string">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+
+      <element name="value" type="string">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+
+
+      <element name="subtag" type="bms:TagType">
+        <annotation>
+          <documentation source="urn:x-fims:description">
+            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
+            more information.
+          </documentation>
+          <documentation source="urn:x-fims:normativeRequirement"/>
+          <documentation source="urn:x-fims:serviceDescription"/>
+          <documentation source="urn:x-fims:contentOfServiceDescription"/>
+          <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+          <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  
+
+
+
 </schema>
