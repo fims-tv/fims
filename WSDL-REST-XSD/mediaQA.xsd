@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
+	xmlns:mqas="http://mediaqa.fims.tv" xmlns:tim="http://baseTime.fims.tv"
+	xmlns:qar="http://mediaqar.fims.tv" xmlns:qat="http://mediaqat.fims.tv"
+	xmlns:desc="http://description.fims.tv" targetNamespace="http://mediaqa.fims.tv"
+	elementFormDefault="qualified">
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	<import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
+	<import namespace="http://mediaqar.fims.tv" schemaLocation="qaReport.xsd"/>
+	<import namespace="http://mediaqat.fims.tv" schemaLocation="qaTemplate.xsd"/>
+
+
+
+
+	<!-- @@@@@@@@@@@@@@@@@@@@ -->
+	<!-- GLOBAL COMPLEX TYPES -->
+	<!-- @@@@@@@@@@@@@@@@@@@@ -->
+	<!-- **************************** FIMS-defined resources ****************************** -->
+	<!-- qa PROFILE -->
+	<complexType name="QaProfileType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Profile used by the quality analysis
+				service to perform an analyzis on the media content. The profile specifies a qaAtom
+				per individual test to be performed .</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:ProfileType">
+				<sequence>
+					<choice>
+						<annotation>
+							<documentation source="urn:x-fims:description">To provide information on
+								the quality analysis profile (scope and analysis parameters) used to
+								perform the test. A choice between a reference to an external resource/file or embedding the template file.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description: </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: a reference to a the test template, or an element embedding the test template. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+						</annotation>
+						<element name="qaTemplateReference" type="bms:ResourceReferenceType"
+							minOccurs="0">
+							<annotation>
+								<documentation source="urn:x-fims:description">A reference to an external resource/file defining the template.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"/>
+								<documentation source="urn:x-fims:serviceDescription"> Service
+									description:</documentation>
+								<documentation source="urn:x-fims:contentOfServiceDescription">
+									Description: a reference to a test template. </documentation>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_2_0</documentation>
+							</annotation>
+						</element>
+						<element name="qaTemplateFile">
+							<annotation>
+								<documentation>An element used to embed a qaTemplate file.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement">
+									Normative Requirement: the embedded file shall be compliant with FIMS qaTemplate.xsd
+								</documentation>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_2_0</documentation>
+							</annotation>
+							<complexType>
+								<sequence>
+									<element ref="qat:qaTemplate" minOccurs="0">
+										<annotation>
+											<documentation>A qaTemplate can be embedded here as file compliant with the fims qaTemplate.xsd schema.</documentation>
+											<documentation source="urn:x-fims:normativeRequirement">
+												Normative Requirement: the embedded file shall be compliant with FIMS qaTemplate.xsd
+											</documentation>
+											<documentation source="urn:x-fims:serviceDescription"/>
+											<documentation source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+												Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+												Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In
+												Version: 1_2_0</documentation>
+										</annotation>										
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</choice>
+					<choice>
+						<element name="qaReportReference" type="bms:ResourceReferenceType"
+							minOccurs="0">
+							<annotation>
+								<documentation>A job may be based on the information provided in a
+								previous qaReport including the previous test qaTemplate. The qaReportReference
+								points to an external qareport resource.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"/>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+							</annotation>
+						</element>
+						<element name="qaReportFile">
+							<annotation>
+								<documentation>A job may be based on the information provided in a
+								previous qaReport including the previous test qaTemplate. The qaReportFile
+								Can be embedded here as file compliant with the fims qaReport schema.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement">
+								Normative Requirement: the embedded file shall be compliant with FIMS qareport.xsd
+							</documentation>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+							</annotation>
+							<complexType>
+								<sequence>
+									<element ref="qar:qaReport" minOccurs="0">
+										<annotation>
+											<documentation>A qaReport can be embedded here as file compliant with the fims qaReport.xsd schema.</documentation>
+											<documentation source="urn:x-fims:normativeRequirement">
+												Normative Requirement: the embedded file shall be compliant with FIMS qaReport.xsd
+											</documentation>
+											<documentation source="urn:x-fims:serviceDescription"/>
+											<documentation source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+												Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+												Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In
+												Version: 1_2_0</documentation>
+										</annotation>										
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</choice>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="QaJobType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Describes a quality analysis
+				job for only one BMContent as an input.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">
+				Normative requirement: Only one BMContent object is analysed at a time.
+			</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:JobType">
+				<sequence>
+					<element name="profile" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Quality analysis profiles
+								associated with this job.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element name="qaProfile" type="mqas:QaProfileType" minOccurs="1"
+									maxOccurs="1">
+									<annotation>
+										<documentation source="urn:x-fims:description">Profile set
+											of instructions for the QA engine to perform quality
+											analysis on the supplied content.</documentation>
+										<documentation source="urn:x-fims:normativeRequirement"/>
+										<documentation source="urn:x-fims:serviceDescription"/>
+										<documentation source="urn:x-fims:contentOfServiceDescription"/>
+										<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+										<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- **************************** FIMS-defined enumerations **************************** -->
+	<simpleType name="QaErrorCodeType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Specific error codes for the quality
+				analysis service - INF_S05_xxxx: Infrastructure errors (system, storage, network,
+				memory, processor) - DAT_S05_xxxx: Data errors (validation, missing, duplication) -
+				SVC_S05_xxxx: Operation errors (existence, support, lock, connection, failure) -
+				SEC_S05_xxxx: Security errors (authentication, authorization)</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="DAT_S05_0001">
+				<annotation>
+					<documentation source="urn:x-fims:description">Report not
+						available.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="DAT_S05_0002">
+				<annotation>
+					<documentation source="urn:x-fims:description">Template not
+						available.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0001">
+				<annotation>
+					<documentation source="urn:x-fims:description">Encryption not supported. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0002">
+				<annotation>
+					<documentation source="urn:x-fims:description">Authentication not supported. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0003">
+				<annotation>
+					<documentation source="urn:x-fims:description">File too large.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0004">
+				<annotation>
+					<documentation source="urn:x-fims:description">Scope out of bounds. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0005">
+				<annotation>
+					<documentation source="urn:x-fims:description">Scope not supported. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0006">
+				<annotation>
+					<documentation source="urn:x-fims:description">Rejected by operator. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0007">
+				<annotation>
+					<documentation source="urn:x-fims:description">Quality analysis ended
+						unexpectedly.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0008">
+				<annotation>
+					<documentation source="urn:x-fims:description">Unsupported
+						template.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S05_0009">
+				<annotation>
+					<documentation source="urn:x-fims:description">Unsupported item or
+						items.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<!-- **************************** FIMS-defined messages and faults **************************** -->
+	<complexType name="QaRequestType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A request to the quality analysis media
+				service to analyze content as specified in the qaTemplate and
+				qaAtoms.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="qaJob" type="mqas:QaJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes a quality analysis
+						job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Not applicable</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current FIMS schema
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_2_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="QaResponseType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Represents the acknowledgment sent back
+				from the quality analysis media service when the quality analysis job is
+				submitted.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="qaJob" type="mqas:QaJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes a quality analysis
+						job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not
+						applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current FIMS schema
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_2_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="QaFaultType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Fault information for the quality
+				analysis media service.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If an exception is generated
+				when the quality analysis request message is submitted to the service, it shall
+				respond with a message based on the qaFaultType.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:FaultType">
+				<sequence>
+					<element name="extendedCode" type="mqas:QaErrorCodeType" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">Quality analysis
+								service-specific error codes, as detailed in the
+								qaErrorCodeType.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">This element
+								shall be set if the service needs to provide service-specific error
+								codes which are not specified in the fault 'code' element. In this
+								case, the code element shall be set to 'EXT_S00_0000' and the
+								extendedCode shall be set to one of the codes described in
+								qaErrorCodeType. If the 'code'; element is set to any other value
+								than 'EXT_S00_0000'; then this element shall not be
+								set.</documentation>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Not applicable</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="QaNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Notification of the successful completion
+				of a quality analysis job.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If one or more "notifyAt"
+				elements are set for the associated quality analysis job, then the service shall
+				respond with a notification to the specified endpoints when the job completes. (If
+				notification is supported.)</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="qaJob" type="mqas:QaJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes a quality analysis
+						job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not
+						applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_2_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="QaFaultNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Fault notification for the quality
+				anlysis service, including the related capture job and the fault
+				code.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If one or more "notifyAt"
+				elements are set for the quality analysis job and a failure occurs during the job
+				execution, then the service shall respond with a quality analysis fault notification
+				to the endpoint specified by 'faultTo'.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+		<sequence>
+			<sequence>
+				<element name="qaJob" type="mqas:QaJobType" minOccurs="1" maxOccurs="1">
+					<annotation>
+						<documentation source="urn:x-fims:description">Describes a quality analysis
+							job.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+							Not applicable</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+							Response: Mandatory</documentation>
+						<documentation source="urn:x-fims:introducedInVersion">Introduced In
+							Version: 1_2_0</documentation>
+					</annotation>
+				</element>
+			</sequence>
+			<element name="fault" type="mqas:QaFaultType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Fault
+						information.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not
+						applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_2_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_2_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<element name="qaRequest" type="mqas:QaRequestType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A request to the quality analysis media
+				service for analyzing content as defined in a qaTemplate and assocciated
+				qaAtoms.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+	</element>
+	<element name="qaAck" type="mqas:QaResponseType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Represents the acknowledgment sent back
+				from the quality analysis media service when the quality analysis job is
+				submitted.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+	</element>
+	<element name="qaFault" type="mqas:QaFaultType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A fault that may be sent by the quality
+				analysis media service when a job is submitted.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+	</element>
+	<element name="qaNotification" type="mqas:QaNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A job completion notification that the
+				quality analysis media service sends to a specified endpoint when the quality
+				analysis job ends.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">This notification shall be sent
+				to all "notifyAt" element is associated with the quality analysis
+				job.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+	</element>
+	<element name="qaFaultNotification" type="mqas:QaFaultNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A fault notification that the quality
+				analysis media service sends to a specified endpoint if the quality analysis job
+				fails. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement">This fault notification shall be
+				sent to all "notifyAt" element is associated with the quality analysis
+				job.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_2_0</documentation>
+		</annotation>
+	</element>
+</schema>

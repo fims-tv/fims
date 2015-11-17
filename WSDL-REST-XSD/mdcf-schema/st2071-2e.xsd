@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/event" 
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/event" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+        schemaLocation="st2071-2a.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+
+    <xs:complexType name="StatusEvent">
+        <xs:complexContent>
+            <xs:extension base="tns:Event">
+                <xs:sequence>
+                    <xs:element ref="tns:Ready" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="types:STATUS" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:Message" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Event">
+        <xs:sequence>
+            <xs:element ref="tns:Type" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="identity:RN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:EventTime" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="Ready" type="xs:boolean" />
+    <xs:element name="Message" type="xs:string" />
+    <xs:element name="Type" type="xs:string" />
+    <xs:element name="EventTime" type="types:DateTime"/>
+    <xs:element name="Timeout" type="xs:unsignedInt" />
+    
+    <xs:element name="StatusEvent" type="tns:StatusEvent" substitutionGroup="tns:Event" />
+    <xs:element name="Event" type="tns:Event" />
+    
+    <!-- WSDL Elements and Types -->
+    <xs:complexType name="getStatus">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getStatus" type="tns:getStatus" />
+    
+    <xs:complexType name="getStatusResponse">
+        <xs:sequence>
+            <xs:element ref="tns:StatusEvent" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getStatusResponse" type="tns:getStatusResponse" />
+    
+    <xs:complexType name="URIParameter">
+        <xs:sequence>
+            <xs:element ref="identity:URI" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="UDNParameter">
+        <xs:sequence>
+            <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="poll" type="tns:URIParameter" />
+    
+    <xs:complexType name="pollResponse">
+        <xs:sequence>
+            <xs:element ref="tns:Event" minOccurs="0" maxOccurs="1" />
+            <!-- xs:any minOccurs="0" maxOccurs="1" / --> <!-- Use of any, for Any Event Type -->
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="pollResponse" type="tns:pollResponse" />
+    
+    <xs:element name="registerCallback" type="tns:URIParameter" />
+    
+    <xs:complexType name="registerCallbackResponse">
+        <xs:sequence>
+            <xs:element ref="types:Boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="registerCallbackResponse" type="tns:registerCallbackResponse" />
+    
+    <xs:element name="unregisterCallback" type="tns:URIParameter" />
+    
+    <xs:complexType name="unregisterCallbackResponse">
+        <xs:sequence>
+            <xs:element ref="types:Boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="unregisterCallbackResponse" type="tns:unregisterCallbackResponse" />
+    
+    <xs:complexType name="callback">
+        <xs:sequence>
+            <xs:element ref="tns:Event" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="callback" type="tns:callback" />
+    
+    <xs:element name="registered" type="tns:URIParameter" />
+    
+    <xs:element name="unregistered" type="tns:URIParameter" />
+    
+    <xs:element name="heartbeat" type="tns:UDNParameter" />
+    
+    <xs:complexType name="heartbeatResponse">
+        <xs:sequence>
+            <xs:element ref="types:Boolean" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="heartbeatResponse" type="tns:heartbeatResponse" />
+</xs:schema>

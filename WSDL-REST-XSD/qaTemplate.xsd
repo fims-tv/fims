@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -19,9 +19,9 @@ limitations under the License.
 	xmlns:qat="http://mediaqat.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	xmlns:desc="http://description.fims.tv" targetNamespace="http://mediaqat.fims.tv"
 	elementFormDefault="qualified">
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
-	<import namespace="http://description.fims.tv" schemaLocation="description-V1_2_0.xsd"/>
-	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime-V1_2_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	<import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
 
 	<element name="qaTemplate" type="qat:QaTemplateType"/>
 

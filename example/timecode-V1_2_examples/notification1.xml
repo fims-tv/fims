@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+
+<tfms:transformNotification xmlns:bms="http://base.fims.tv"
+ xmlns:tfms="http://transformmedia.fims.tv"
+ xmlns:desc="http://description.fims.tv"
+ xmlns:tim="http://baseTime.fims.tv"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://transformmedia.fims.tv ../../WSDL-REST-XSD/transformMedia.xsd" version="1_2_0">
+    <transformJob>
+                <bms:resourceID></bms:resourceID>
+                <bms:bmObjects>
+                    <bms:bmObject>
+                        <bms:resourceID></bms:resourceID>
+                        <bms:bmContents>
+                            <bms:bmContent>
+                                <bms:resourceID>urn:smpte:ul:11111111.22222222.33333333.55555556</bms:resourceID>
+                                <bms:bmContentFormats>
+                                    <bms:bmContentFormat>
+                                        <bms:resourceID></bms:resourceID>
+                                        <bms:bmEssenceLocators>
+                                            <bms:bmEssenceLocator xsi:type="bms:SimpleFileLocatorType">
+                                                <bms:resourceID></bms:resourceID>
+                                            </bms:bmEssenceLocator>
+                                        </bms:bmEssenceLocators>
+                                    </bms:bmContentFormat>
+                                </bms:bmContentFormats>
+                                <bms:qaReportReferences></bms:qaReportReferences>
+                                <bms:timelines>
+                                   
+                                    <bms:timeline>
+                                        <bms:resourceID>urn:smpte:ul:99999999.22222222.33333333.55555556</bms:resourceID>
+                                        <bms:segment xsi:type="bms:BMContentPartType" >
+                                            <bms:resourceID></bms:resourceID>
+                                            <bms:origin>
+                                                <bms:start><tim:timecode>00:00:00:00</tim:timecode></bms:start>
+                                                <bms:duration><tim:timecode>00:00:10:00</tim:timecode></bms:duration>
+                                                <bms:bmContentIDRef>urn:smpte:ul:11111111.22222222.33333333.55555555</bms:bmContentIDRef>
+                                                <bms:bmContentFormatIDRef></bms:bmContentFormatIDRef>
+                                            </bms:origin>
+                                        </bms:segment>
+                                    </bms:timeline>
+                                </bms:timelines>
+                            </bms:bmContent>
+                            <bms:bmContent>
+                                <bms:resourceID>urn:smpte:ul:11111111.22222222.33333333.55555557</bms:resourceID>
+                                <bms:qaReportReferences></bms:qaReportReferences>
+                                <bms:timelines>
+                                   
+                                    <bms:timeline>
+                                        <bms:resourceID></bms:resourceID>
+                                        <bms:segment xsi:type="bms:BMContentPartType">
+                                            <bms:resourceID></bms:resourceID>
+                                            <bms:start><tim:timecode>00:00:00:00</tim:timecode></bms:start>
+                                            <bms:duration><tim:timecode>00:00:15:00</tim:timecode></bms:duration>
+                                            <bms:origin>
+                                                <bms:bmContentIDRef>urn:smpte:ul:11111111.22222222.33333333.55555555</bms:bmContentIDRef>
+                                            </bms:origin>
+                                        </bms:segment>
+                                        <bms:segment xsi:type="bms:BMContentPartType">
+                                            <bms:resourceID></bms:resourceID>
+                                            <bms:start><tim:timecode>00:00:15:01</tim:timecode></bms:start>
+                                            <bms:duration><tim:timecode>00:00:10:00</tim:timecode></bms:duration>
+                                            <bms:origin>
+                                                <bms:start><tim:timecode >00:00:00:10</tim:timecode></bms:start>
+                                                <bms:duration><tim:timecode >00:00:10:00</tim:timecode></bms:duration>
+                                                <bms:bmContentIDRef>urn:smpte:ul:11111111.22222222.33333333.66666666</bms:bmContentIDRef>
+                                            </bms:origin>
+                                        </bms:segment>
+                                    </bms:timeline>
+                                </bms:timelines>
+                            </bms:bmContent>
+                            <bms:bmContent>
+                                <bms:resourceID>urn:smpte:ul:11111111.22222222.33333333.77777777</bms:resourceID>
+                                <bms:bmContentFormats>
+                                    <bms:bmContentFormat>
+                                        <bms:resourceID></bms:resourceID>
+                                    </bms:bmContentFormat>
+                                </bms:bmContentFormats>
+                                <bms:qaReportReferences></bms:qaReportReferences>
+                                
+                            </bms:bmContent>
+                            <bms:bmContent>
+                                <bms:resourceID>urn:smpte:ul:11111111.22222222.33333333.44444444</bms:resourceID>
+                                <bms:bmContentFormats>
+                                    <bms:bmContentFormat>
+                                        <bms:resourceID></bms:resourceID>
+                                    </bms:bmContentFormat>
+                                </bms:bmContentFormats>
+                                <bms:qaReportReferences></bms:qaReportReferences>
+                                
+                            </bms:bmContent>
+                        </bms:bmContents>
+                    </bms:bmObject>
+                </bms:bmObjects>
+    </transformJob>
+</tfms:transformNotification>

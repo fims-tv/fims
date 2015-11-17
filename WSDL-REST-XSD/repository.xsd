@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -15,26 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --> 
 
-<!--
-Documentation needed for:
-1. (Assigned To: XXX)
-	enumerations
-	entities
-	Query Request Parameters
-	
-2. (Assigned To: YYY)
-	Repository Request
-	Repository Response
-	
-3. (Assigned To: ZZZ)
-	Rcr
-	Rcr Request
-	Rcr Response
--->
-
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv" xmlns:tim="http://baseTime.fims.tv"
 	xmlns:rps="http://repository.fims.tv" targetNamespace="http://repository.fims.tv">
-	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService-V1_2_0.xsd"/>
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	 <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
 
 	<!-- **************************** enumerations ************************ -->
 	<simpleType name="RepositoryErrorCodeType">
@@ -2029,10 +2013,11 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not Applicable</documentation>
 				</annotation>
 			</element>
-			<element name="essenceLocator" type="bms:BMEssenceLocatorType" minOccurs="1" maxOccurs="1">
+			<element name="essenceLocator" type="bms:BMEssenceLocatorType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
-						Parameter representing the essence to be purged.
+						Parameter representing the essence to be purged. This parameter shall be provided in SOAP
+						requests. It shall not be provided in REST requests as the resource ID is in the path.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -2098,10 +2083,11 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Not Applicable</documentation>
 				</annotation>
 			</element>
-			<element name="content" type="bms:BMContentType" minOccurs="1" maxOccurs="1">
+			<element name="content" type="bms:BMContentType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">
-						Parameter representing the content to be purged.
+						Parameter representing the content to be purged. This parameter shall be provided in SOAP
+						requests. It shall not be provided in REST requests as the resource ID is in the path.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -2307,6 +2293,10 @@ Documentation needed for:
 				Asynchronous request for the repository service to retrieve 
 				the physical bytes representation of an essence to a given known location.
 				Known locations can be obtained from the RCR getGeneralCapabilty operation.
+				Since version 1.2 it is possible to retrieve partial essence, that is to extract clips from larger essence files. This is accomplished by defining a time interval
+				using the start and duration parameters. In this case instead of copying the essence file stored in the repository, the service will generate a new essence file 
+				with the same characteristics of the original one but containing only the segment specified. The name of the new file can be provided in the request, otehrwise it will be generated 
+				by the service.
 			</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"></documentation>
 			<documentation source="urn:x-fims:serviceDescription"></documentation>
@@ -2349,6 +2339,42 @@ Documentation needed for:
 					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
 					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
 				</annotation>
+			</element>
+			<element name="start" type="tim:TimeType" minOccurs="0" maxOccurs="1">
+					<annotation>
+					<documentation source="urn:x-fims:description">
+						If a part is required this parameter provides the start position. If omitted start defaults to 0
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>
+			</element>
+			<element name="duration" type="tim:DurationType" minOccurs="0" maxOccurs="1">
+					<annotation>
+					<documentation source="urn:x-fims:description">
+						If a part is required this parameter provides the duration of the part. If omitted duration defaults to the part from start to the end of the essence
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>			
+			</element>
+			<element name="essenceName" type="string" minOccurs="0" maxOccurs="1">
+					<annotation>
+					<documentation source="urn:x-fims:description">
+						If a part is required this parameter provides the name of the essence file. If omitted but start or duration is specified the service will provide a name
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>			
 			</element>
 			<element name="notifyAt" type="bms:AsyncEndpointType" minOccurs="0" maxOccurs="1">
 				<annotation>
@@ -4072,6 +4098,18 @@ Documentation needed for:
 				<annotation>
 					<documentation source="urn:x-fims:description">
 						Parameter representing the knownlocation object. It is configured in the RCR and contains information about physical path of the destination folder.    
+					</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"></documentation>
+					<documentation source="urn:x-fims:serviceDescription"></documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"></documentation>
+					<documentation source="urn:x-fims:inclusionInRequest"></documentation>
+					<documentation source="urn:x-fims:inclusionInResponse"></documentation>
+				</annotation>
+			</element>
+			<element name = "sourceContent" type="bms:BMContentType" minOccurs="1"  maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">
+						Parameter containing the BMContent that describes the essence. Only the relevant BMContentFormat and essenceLocator should be included.
 					</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"></documentation>
 					<documentation source="urn:x-fims:serviceDescription"></documentation>

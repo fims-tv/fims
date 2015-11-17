@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.smpte-ra.org/schemas/st2071/2015/media"
+    xmlns:tns="http://www.smpte-ra.org/schemas/st2071/2015/media" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:identity="http://www.smpte-ra.org/schemas/st2071/2015/identity" 
+    xmlns:types="http://www.smpte-ra.org/schemas/st2071/2015/types"
+    xmlns:query="http://www.smpte-ra.org/schemas/st2071/2015/query"
+    xmlns:event="http://www.smpte-ra.org/schemas/st2071/2015/event"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.1" >
+    
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/types"
+        schemaLocation="st2071-2a.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/identity"
+        schemaLocation="st2071-2b.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/query"
+        schemaLocation="st2071-2h.xsd" />
+    <xs:import namespace="http://www.smpte-ra.org/schemas/st2071/2015/event"
+        schemaLocation="st2071-2e.xsd" />
+
+    <xs:simpleType name="TRACK_TYPE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AUDIO" />
+            <xs:enumeration value="VIDEO" /> 
+            <xs:enumeration value="TIMECODE" />
+            <xs:enumeration value="TEXT" />
+            <xs:enumeration value="DATA" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:element name="TrackType" type="tns:TRACK_TYPE" />
+    
+    <xs:complexType name="MediaPointer">
+        <xs:sequence>
+            <xs:element ref="tns:Source" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:InpointOffset" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:OutpointOffset" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:OffsetType" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Track" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="MediaPointer" type="tns:MediaPointer" />
+    
+    <xs:complexType name="MediaSegment">
+        <xs:complexContent>
+            <xs:extension base="tns:Media">
+                <xs:sequence>
+                    <!-- This extension is here as a reminder that the Media Format Segment is an extension of the Media Segment and Media Format Pointer
+                    <xs:extension base="tns:MediaPointer">
+                        <xs:sequence > -->
+                    <xs:element ref="tns:Source" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:InpointOffset" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:OutpointOffset" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:OffsetType" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:Track" maxOccurs="1" />
+                        <!-- <xs:sequence />
+                    </xs:extension> -->
+            
+                    <xs:element ref="tns:Inpoint" minOccurs="1"  maxOccurs="1" />
+                    <xs:element ref="tns:Outpoint" minOccurs="1"  maxOccurs="1" />
+                    <xs:element ref="tns:Format" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:TrackName" maxOccurs="1" />
+                    <xs:element ref="tns:TrackType" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaSegment" type="tns:MediaSegment" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MediaPointers">
+        <xs:sequence>
+            <xs:element ref="tns:MediaPointer" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="MediaPointers" type="tns:MediaPointers" />
+    
+    <xs:complexType name="MediaSegments">
+        <xs:sequence>
+            <xs:element ref="tns:MediaSegment" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="MediaSegments" type="tns:MediaSegments" />
+    
+    <xs:complexType name="Media">
+        <xs:sequence>
+            <xs:element ref="identity:UMN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Name" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Location" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Created" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Modified" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:Metadata" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="Media" type="tns:Media" />
+    
+    <xs:complexType name="MediaContainer">
+        <xs:complexContent>
+            <xs:extension base="tns:Media">
+                <xs:sequence>
+                    <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="MediaContainer" type="tns:MediaContainer" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MediaAsset">
+        <xs:complexContent>
+            <xs:extension base="tns:Media">
+                <xs:sequence>
+                    <xs:element name="Duration" type="types:DateTime" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="Composition" type="tns:MediaSegments" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaAsset" type="tns:MediaAsset" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MaterialAsset">
+        <xs:complexContent>
+            <xs:extension base="tns:MediaAsset">
+                <!-- Cannot narrow Duration to Framed Time in XML extension -->
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MaterialAsset" type="tns:MaterialAsset" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MediaFile">
+        <xs:complexContent>
+            <xs:extension base="tns:Media">
+                <xs:sequence>
+                    <xs:element ref="tns:MIMEType" minOccurs="1" maxOccurs="1" />
+                    <xs:element ref="tns:Size" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaFile" type="tns:MediaFile" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MediaInstance">
+        <xs:complexContent>
+            <xs:extension base="tns:MediaFile">
+                <xs:sequence>
+                    <!-- This extension is included as a reminder that Media Instances are also Material Assets.
+                    <xs:extension base="MaterialAsset">
+                        <xs:sequence> -->
+                    <xs:element name="Duration" type="types:FramedTime" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="Composition" type="tns:MediaSegments" minOccurs="1" maxOccurs="1" />
+                    <!--    </xs:sequence>
+                    </xs:extension>
+                    -->
+            </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaInstance" type="tns:MediaInstance" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MediaBundle">
+        <xs:complexContent>
+            <xs:extension base="tns:MediaInstance">
+                <xs:sequence>
+                    <xs:element ref="identity:UDN" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+            <!-- This extension is included as a reminder that Media Bundles are also Media Containers.
+            <xs:extension base="MediaContainer">
+                <xs:sequence />
+            </xs:extension>
+            -->
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaBundle" type="tns:MediaBundle" substitutionGroup="tns:Media" />
+    
+    <xs:complexType name="MediaList">
+        <xs:sequence>
+            <xs:element ref="tns:Media" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+     
+    <xs:element name="MediaList" type="tns:MediaList" />
+    
+    <xs:complexType name="MediaNotFound">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="identity:UMN" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+     
+    <xs:element name="MediaNotFound" type="tns:MediaNotFound" substitutionGroup="types:Exception" />
+    
+    <xs:complexType name="MediaCreationFailed">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaCreationFailed" type="tns:MediaCreationFailed" substitutionGroup="types:Exception" />
+     
+    <xs:complexType name="MediaDeletionFailed">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+     
+    <xs:element name="MediaDeletionFailed" type="tns:MediaDeletionFailed" substitutionGroup="types:Exception" />
+    
+    <xs:complexType name="MediaUpdateFailed">
+        <xs:complexContent>
+            <xs:extension base="types:Exception">
+                <xs:sequence>
+                    <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="MediaUpdateFailed" type="tns:MediaUpdateFailed" substitutionGroup="types:Exception" />
+    
+    <xs:complexType name="MediaEvent">
+        <xs:complexContent>
+            <xs:extension base="event:StatusEvent">
+                <xs:sequence>
+                    <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="MediaEvent" type="tns:MediaEvent" substitutionGroup="event:Event"/>
+    
+    <xs:element name="Duration" type="types:FramedTime" />
+    <xs:element name="Composition" type="tns:MediaSegments" />
+    <xs:element name="MIMEType" type="xs:string" />
+    <xs:element name="Size" type="types:uint64" />
+    <xs:element name="Name" type="xs:string" />
+    <xs:element name="Location" type="identity:UMN" />
+    <xs:element name="Created" type="types:DateTime" />
+    <xs:element name="Modified" type="types:DateTime" />
+    <xs:element name="Metadata" type="types:Map" />
+    <xs:element name="Source" type="identity:UMN" />
+    <xs:element name="InpointOffset" type="types:uint64" />
+    <xs:element name="OutpointOffset" type="types:uint64" />
+    <xs:element name="OffsetType" type="types:OFFSET_TYPE" />
+    <xs:element name="Format" type="identity:URI" />
+    <xs:element name="Track" type="xs:unsignedShort" />
+    <xs:element name="TrackName" type="xs:string" />
+    <xs:element name="Inpoint" type="types:DateTime" />
+    <xs:element name="Outpoint" type="types:DateTime" />
+    
+    <!-- WSDL Elements and Types -->
+    <xs:complexType name="MediaResponse">
+        <xs:sequence>
+            <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="MediaListResponse">
+        <xs:sequence>
+            <xs:element ref="tns:MediaList" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="UMNParameter">
+        <xs:sequence>
+            <xs:element ref="identity:UMN" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="UMNFilter">
+        <xs:sequence>
+            <xs:element ref="identity:UMN" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="query:QueryExpression" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="getMediaContainer">
+        <xs:sequence />
+    </xs:complexType>
+    
+    <xs:element name="getMediaContainer" type="tns:getMediaContainer" />
+    
+    <xs:complexType name="getMediaContainerResponse">
+        <xs:sequence>
+            <xs:element ref="tns:MediaContainer" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="getMediaContainerResponse" type="tns:getMediaContainerResponse"/>
+    
+    <xs:complexType name="create">
+        <xs:sequence>
+            <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+            <xs:element ref="tns:MediaPointer" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="create" type="tns:create" />
+    
+    <xs:element name="createResponse" type="tns:MediaResponse"/>
+    
+    <xs:element name="delete" type="tns:UMNParameter" />
+    
+    <xs:element name="deleteResponse" type="tns:MediaResponse"/>
+    
+    <xs:element name="list" type="tns:UMNFilter" />
+    
+    <xs:element name="listResponse" type="tns:MediaListResponse"/>
+    
+    <xs:element name="lookup" type="tns:UMNParameter" />
+    
+    <xs:element name="lookupResponse" type="tns:MediaResponse"/>
+    
+    <xs:element name="lookupAsset" type="tns:UMNParameter" />
+    
+    <xs:complexType name="lookupAssetResponse">
+        <xs:sequence>
+            <xs:element ref="tns:MediaAsset" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="lookupAssetResponse" type="tns:lookupAssetResponse"/>
+    
+    <xs:element name="search" type="tns:UMNFilter" />
+    
+    <xs:element name="searchResponse" type="tns:MediaListResponse"/>
+    
+    <xs:complexType name="update">
+        <xs:sequence>
+            <xs:element ref="tns:Media" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="update" type="tns:update" />
+    
+    <xs:element name="updateResponse" type="tns:MediaResponse"/>
+    
+    <xs:element name="lookupURLs" type="tns:UMNParameter" />
+    
+    <xs:complexType name="lookupURLsResponse">
+        <xs:sequence>
+            <xs:element ref="identity:URLs" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="lookupURLsResponse" type="tns:lookupURLsResponse" />
+</xs:schema>

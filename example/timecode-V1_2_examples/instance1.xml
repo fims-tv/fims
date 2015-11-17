@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+
+<transformRequest xmlns="http://transformmedia.fims.tv" xmlns:desc="http://description.fims.tv"
+   xmlns:tim="http://baseTime.fims.tv"
+   xmlns:bms="http://base.fims.tv"
+   xmlns:tfms="http://transformmedia.fims.tv"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://transformmedia.fims.tv ../../WSDL-REST-XSD/transformMedia.xsd"  version="1_2_0">
+   <transformJob xmlns="">
+      <resourceID xmlns="http://base.fims.tv"></resourceID>
+      <bmObjects xmlns="http://base.fims.tv">
+         <bmObject>
+            <resourceID></resourceID>
+            <bmContents>
+               <bmContent>
+                  <resourceID>urn:smpte:ul:11111111.22222222.33333333.44444444</resourceID>
+                  <bmContentFormats>
+                     <bmContentFormat>
+                        <resourceID></resourceID>
+                     </bmContentFormat>
+                  </bmContentFormats>
+                  <qaReportReferences></qaReportReferences>
+                  
+               </bmContent>
+               <bmContent>
+                  <resourceID>urn:smpte:ul:11111111.22222222.33333333.55555555</resourceID>
+                  <bmContentFormats>
+                     <bmContentFormat>
+                        <resourceID></resourceID>
+                     </bmContentFormat>
+                  </bmContentFormats>
+                  <qaReportReferences></qaReportReferences>
+                  <bms:timelines>
+					  <bms:timeline>
+								<resourceID></resourceID>
+						</bms:timeline>
+                     
+                  </bms:timelines>
+               </bmContent>
+               <bmContent>
+                  <resourceID>urn:smpte:ul:11111111.22222222.33333333.66666666</resourceID>
+                  <bmContentFormats>
+                     <bmContentFormat>
+                        <resourceID></resourceID>
+                     </bmContentFormat>
+                  </bmContentFormats>
+                  <qaReportReferences></qaReportReferences>
+                  <bms:timelines>
+					  <bms:timeline>
+								<resourceID></resourceID>
+						</bms:timeline>
+                     
+                  </bms:timelines>
+               </bmContent>
+               <bmContent>
+                  <resourceID>urn:smpte:ul:11111111.22222222.33333333.77777777</resourceID>
+                  <bmContentFormats>
+                     <bmContentFormat>
+                        <resourceID></resourceID>
+                     </bmContentFormat>
+                  </bmContentFormats>
+                  <qaReportReferences></qaReportReferences>
+                  <bms:timelines>
+					  <bms:timeline>
+								<resourceID></resourceID>
+						</bms:timeline>
+                     
+                  </bms:timelines>
+               </bmContent>
+            </bmContents>
+         </bmObject>
+      </bmObjects>
+      <profiles>
+         <transformProfile>
+            <resourceID xmlns="http://base.fims.tv"></resourceID>
+            <transformAtom>
+               <videoFormat xmlns="http://base.fims.tv">
+               <resourceID></resourceID>
+            </videoFormat><bms:audioFormat>
+               <bms:resourceID></bms:resourceID>
+            </bms:audioFormat>
+               <containerFormat xmlns="http://base.fims.tv">
+                  <resourceID></resourceID>
+               </containerFormat>
+               </transformAtom>
+            <transferAtom>
+               <destination xmlns="http://base.fims.tv">http://somedestination</destination>
+            </transferAtom>
+            <contentPartAtom>
+               <sourceContentIDRef xmlns="http://base.fims.tv">urn:smpte:ul:11111111.22222222.33333333.55555555</sourceContentIDRef>
+               <start xmlns="http://base.fims.tv">
+                  <timecode xmlns="http://baseTime.fims.tv">00:00:00:00</timecode>
+               </start>
+               <duration xmlns="http://base.fims.tv"><timecode xmlns="http://baseTime.fims.tv">00:00:10:00</timecode></duration>
+               <destinationContentID xmlns="http://base.fims.tv">urn:smpte:ul:11111111.22222222.33333333.55555556</destinationContentID>
+            </contentPartAtom>
+            <simpleEDLAtom>
+               <orderedPart xmlns="http://base.fims.tv">
+                  <sourceContentIDRef>urn:smpte:ul:11111111.22222222.33333333.55555555</sourceContentIDRef>
+                  <position>0</position>
+               </orderedPart>
+               <orderedPart xmlns="http://base.fims.tv">
+                  <sourceContentIDRef>urn:smpte:ul:11111111.22222222.33333333.66666666</sourceContentIDRef>
+                  <start>
+                     <timecode xmlns="http://baseTime.fims.tv">00:00:00:10</timecode>
+                  </start>
+                  <duration>
+                     <timecode xmlns="http://baseTime.fims.tv">00:00:10:00</timecode>
+                  </duration>
+                  <position>1</position>
+               </orderedPart>
+               <destinationContentID xmlns="http://base.fims.tv">urn:smpte:ul:11111111.22222222.33333333.55555557</destinationContentID>
+            </simpleEDLAtom>
+            <wholeContentAtom>
+               <sourceContentIDRef xmlns="http://base.fims.tv">urn:smpte:ul:11111111.22222222.33333333.44444444</sourceContentIDRef>
+               <sourceContentIDRef xmlns="http://base.fims.tv">urn:smpte:ul:11111111.22222222.33333333.77777777</sourceContentIDRef>
+            </wholeContentAtom>
+         </transformProfile>
+      </profiles>
+   </transformJob>
+</transformRequest>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2013 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 201 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -159,22 +159,26 @@ limitations under the License.
 						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
 					</annotation>
 				</attribute>
-				<attribute name="factorNumerator" type="positiveInteger" use="required">
+				<attribute name="factorNumerator" type="positiveInteger">
 					<annotation>
 						<documentation source="urn:x-fims:description">The numerator of the
-							correction factor.</documentation>
-						<documentation source="urn:x-fims:normativeRequirement"/>
+							correction factor when applicable.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement">
+							Normative requirement: required when a correction factor applies.
+						</documentation>
 						<documentation source="urn:x-fims:serviceDescription"/>
 						<documentation source="urn:x-fims:contentOfServiceDescription"/>
 						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
 						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
 					</annotation>
 				</attribute>
-				<attribute name="factorDenominator" type="positiveInteger" use="required">
+				<attribute name="factorDenominator" type="positiveInteger">
 					<annotation>
 						<documentation source="urn:x-fims:description">The denominator of the
-							correction factor.</documentation>
-						<documentation source="urn:x-fims:normativeRequirement"/>
+							correction factor when applicable.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement">
+							Normative requirement: required when a correction factor applies.
+						</documentation>
 						<documentation source="urn:x-fims:serviceDescription"/>
 						<documentation source="urn:x-fims:contentOfServiceDescription"/>
 						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
