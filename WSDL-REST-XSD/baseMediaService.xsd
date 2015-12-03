@@ -8490,7 +8490,7 @@ limitations under the License.
   <complexType name="BMContentRelationType">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Nature of the relation between two objects of the same type.
+        Link a BMContent to another BMContent by a predefined relationship
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -8501,8 +8501,7 @@ limitations under the License.
           <element name="linkedObject" type="bms:BMContentType">
             <annotation>
               <documentation source="urn:x-fims:description">
-                User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-                more information.
+                Pointer to BMContentFormat to be linked 
               </documentation>
               <documentation source="urn:x-fims:normativeRequirement"/>
               <documentation source="urn:x-fims:serviceDescription"/>
@@ -8515,8 +8514,7 @@ limitations under the License.
           <element name="relationType" type="bms:RelationTypeType">
             <annotation>
               <documentation source="urn:x-fims:description">
-                User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-                more information.
+                Relationship definition between the two BMContentFormat
               </documentation>
               <documentation source="urn:x-fims:normativeRequirement"/>
               <documentation source="urn:x-fims:serviceDescription"/>
@@ -8532,7 +8530,7 @@ limitations under the License.
   <complexType name="BMContentFormatRelationType">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Nature of the relation between two objects of the same type.
+        Link a BMContentFormat to another BMContentFormat by a predefined relationship
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -8543,8 +8541,7 @@ limitations under the License.
       <element name="linkedObject" type="bms:BMContentFormatType">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Pointer to BMContentFormat to be linked 
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8557,8 +8554,7 @@ limitations under the License.
       <element name="relationType" type="bms:RelationTypeType">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Relationship definition between the two BMContentFormat
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8574,7 +8570,7 @@ limitations under the License.
   <complexType name="BMEssenceLocatorRelationType">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Nature of the relation between two objects of the same type.
+        Link an EssenceLocator to another EssenceLocator by a predefined relationship 
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -8585,8 +8581,7 @@ limitations under the License.
       <element name="linkedObject" type="bms:BMEssenceLocatorType">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Pointer to EssenceLocator to be linked 
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8599,8 +8594,7 @@ limitations under the License.
       <element name="relationType" type="bms:RelationTypeType">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Relationship definition between the two EssenceLocator.
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8611,13 +8605,11 @@ limitations under the License.
       </element>
     </sequence>
   </complexType>
-  
-  
-
+    
   <complexType name="RelationTypeType" abstract="true">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Characteristics of files, video, audio, and ancillary data.
+        Define a relationship type
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -8629,7 +8621,7 @@ limitations under the License.
           
           <element name="name" type="string" minOccurs="1" maxOccurs="1">
             <annotation>
-              <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+              <documentation source="urn:x-fims:description">Name of the relationship</documentation>
               <documentation source="urn:x-fims:normativeRequirement"/>
               <documentation source="urn:x-fims:serviceDescription"/>
               <documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -8642,7 +8634,7 @@ limitations under the License.
           
           <element name="code" type="string" minOccurs="1" maxOccurs="1">
             <annotation>
-              <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+              <documentation source="urn:x-fims:description">Code representing the relationship</documentation>
               <documentation source="urn:x-fims:normativeRequirement"/>
               <documentation source="urn:x-fims:serviceDescription"/>
               <documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -8652,7 +8644,7 @@ limitations under the License.
           </element>
           <element name="description" type="string" minOccurs="0" maxOccurs="1">
             <annotation>
-              <documentation source="urn:x-fims:description">The Resource Type Description value.</documentation>
+              <documentation source="urn:x-fims:description">Description of the relationship</documentation>
               <documentation source="urn:x-fims:normativeRequirement"/>
               <documentation source="urn:x-fims:serviceDescription"/>
               <documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -8674,13 +8666,11 @@ limitations under the License.
       </extension>
     </complexContent>
   </complexType>
-
- 
  
   <complexType name="GroupRelationType">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Nature of the relation between  a group of objects of the same type.
+        Relationship description for BMContent(s) belonging to a BMObject
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -8693,7 +8683,7 @@ limitations under the License.
 
       <element name="name" type="string" minOccurs="1" maxOccurs="1">
         <annotation>
-          <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+          <documentation source="urn:x-fims:description">Name of the relationship</documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
           <documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -8705,7 +8695,7 @@ limitations under the License.
 
       <element name="code" type="string" minOccurs="1" maxOccurs="1">
         <annotation>
-          <documentation source="urn:x-fims:description">The Resource Type Code value.</documentation>
+          <documentation source="urn:x-fims:description">Code representing the relationship</documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
           <documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -8715,7 +8705,7 @@ limitations under the License.
       </element>
       <element name="description" type="string" minOccurs="0" maxOccurs="1">
         <annotation>
-          <documentation source="urn:x-fims:description">The Resource Type Description value.</documentation>
+          <documentation source="urn:x-fims:description">Description of the relationship</documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
           <documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -8729,12 +8719,11 @@ limitations under the License.
       </extension>
         </complexContent>
   </complexType>
-  
  
   <complexType name="TagType">
     <annotation>
       <documentation source="urn:x-fims:description">
-        Nature of the relation between two objects of the same type.
+         Queryable object for user defined metadata
       </documentation>
       <documentation source="urn:x-fims:normativeRequirement"/>
       <documentation source="urn:x-fims:serviceDescription"/>
@@ -8745,8 +8734,7 @@ limitations under the License.
       <element name="name" type="string">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Name of the tag ( Example: Weather) 
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8759,8 +8747,7 @@ limitations under the License.
       <element name="value" type="string">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Value of the tag ( Example: Sunny)
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8774,8 +8761,7 @@ limitations under the License.
       <element name="subtag" type="bms:TagType">
         <annotation>
           <documentation source="urn:x-fims:description">
-            User defined technical attributes. See 'technical attribute' in EBU Tech 3293 for
-            more information.
+            Sub categorization of tag metadata
           </documentation>
           <documentation source="urn:x-fims:normativeRequirement"/>
           <documentation source="urn:x-fims:serviceDescription"/>
@@ -8786,8 +8772,6 @@ limitations under the License.
       </element>
     </sequence>
   </complexType>
-  
-
-
+ 
 
 </schema>
