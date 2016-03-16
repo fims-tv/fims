@@ -11,25 +11,25 @@ Contribtions to FIMS are expected to be in one of four categories, where each is
 
 Please do fork the FIMS project. To communicate with the FIMS membership and administrators, please raise issues using the github issues system.
 
-## Addition
+### Addition
 
 Use case:
 
 > A company has been developing FIMS-like adapters for years and decides to have a project to share these with the wider community. It takes a fork of FIMS v1.2, adds in its extra services taking care to ensure compatibility with FIMS and makes a pull request to the FIMS architecture council.  At the same time it submits an AMWA IPR contribution form. The FIMS architecture council thinks the changes are appropriate and merges them onto a branch of the core FIMS project. These are merged with other significant changes and become part of the v1.3 FIMS review cycle and make it into FIMS v1.3. 
 
-## Fix
+### Fix
 
 Use case:
 
 > An individual notices a bug in v1.2 of FIMS or spots a minor incremental change of significant benefit. They create a fork, make the fix and make a pull request to the architecture council. The architecture council accept the change as a minor, non breaking fix and merge it directly onto the master branch, incrementing the tertiary version number, e.g. creating FIMS v1.2.1.
 
-## Derivative
+### Derivative
 
 Use case:
 
 > A company (e.g. “Acme”) is developing their own FIMS-like SOA system for the management of media assets within part of a larger supply chain. They would like to use some of the FIMS concepts but need to change the data models significantly to fit with their business model. They are happy to share their work openly, but to check their data model back into FIMS would break aspects of the professional media focus of FIMS - classing it as a derivative related project.
 
-## Related
+### Related
 
 Use case: 
 
