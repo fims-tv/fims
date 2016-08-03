@@ -9,7 +9,7 @@ Contribtions to FIMS are expected to be in one of four categories, where each is
 * derivative;
 * related.
 
-Please do fork the FIMS project. To communicate with the FIMS membership and administrators, please raise issues using the github issues system.
+Please do fork the FIMS project. To communicate with the FIMS membership and administrators, please raise issues using the github issues system or create a pull request.
 
 ### Addition
 
