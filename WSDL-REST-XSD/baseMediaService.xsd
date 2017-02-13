@@ -1706,6 +1706,20 @@ limitations under the License.
               <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
             </annotation>
           </element>
+          <element name="ameReportReferences" type="bms:AMEReportReferencesType" minOccurs="0">
+            <annotation>
+              <documentation source="urn:x-fims:description">
+                List of different ameReports associated with the BMContent.
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription">Description: 
+                Whether on request, it must be present, may be interpreted or is not applicable.
+              </documentation>
+              <documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+              <documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+            </annotation>
+          </element>
           <element name="descriptions" type="bms:DescriptionsType" minOccurs="0"
 						maxOccurs="1">
             <annotation>
@@ -1773,7 +1787,13 @@ limitations under the License.
       <element name="qaReportReference" type="bms:ResourceReferenceType" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
-
+  
+  <complexType name="AMEReportReferencesType">
+    <sequence>
+      <element name="ameReportReference" type="bms:ResourceReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  
   <complexType name="SegmentType" abstract="true">
        <annotation>
           <documentation source="urn:x-fims:description">Segment is an abstract class used as a placeholder. Segment instances can be used to carry various types of time related metadata</documentation>

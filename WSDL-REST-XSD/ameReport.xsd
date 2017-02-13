@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
+	xmlns:amer="http://mediaamer.fims.tv" xmlns:tim="http://baseTime.fims.tv"
+	xmlns:amet="http://mediaamet.fims.tv" xmlns:desc="http://description.fims.tv"
+	targetNamespace="http://mediaamer.fims.tv" elementFormDefault="qualified">
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	<import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
+	<import namespace="http://mediaamet.fims.tv" schemaLocation="ameTemplate.xsd"/>
+	<element name="ameReport" type="amer:ameReportType"/>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- QUALITY ANALYSIS REPORT TYPE -->
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<complexType name="ameReportType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Typical workflow at the end of which an
+				ameReport is issued: an ameJob is requested for a specified input BMContent identified
+				by its resourceID. The temporal and/or spatial scope and parameters of the analysis
+				to be assessed are defined in the ameTemplate of the ameProfile. A previous ameReport
+				can be provided as an optional input in the ameProfile for further validation of the
+				results but also from which an ameTemplate can be extracted. At the end of the
+				analysis, an ameReport is issued as a resource identified by a unique resourceID. An
+				ameReport aggregates all the ameItemResults generated when applying an ameTemplate, i.e.
+				the complete report of all the automatic metadata extraction made according to a
+				given ameTemplate on the BMContent referenced by its resourceID. The ameReport
+				contains additional information such as the ameTemplate against which the analysis
+				has been performed, and other information like about the tool used for the analysis.
+				The ameReport is provided in the ameResponse. When a ameReport resourceID is used to
+				list reportReferences in the output BMContent, the ameReport must remain available as
+				a resource. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"> Service description: Required </documentation>
+			<documentation source="urn:x-fims:contentOfServiceDescription"> </documentation>
+			<documentation source="urn:x-fims:contentOfServiceDescription"> </documentation>
+			<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+				Optional</documentation>
+			<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+				Mandatory</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:ResourceType">
+				<sequence>
+					<element name="BMContentReference">
+						<complexType>
+							<complexContent>
+								<extension base="bms:ResourceReferenceType">
+									<annotation>
+										<documentation source="urn:x-fims:description">A reference
+											to the BMContent the ameReport refers to. Further
+											identification is provided through an associated hash
+											code usch as a checksum.</documentation>
+										<documentation source="urn:x-fims:normativeRequirement">Normative requirement: </documentation>
+										<documentation source="urn:x-fims:serviceDescription">
+											Service description: Required </documentation>
+										<documentation source="urn:x-fims:contentOfServiceDescription">
+											Description: A reference to BMContent that has been
+											analysed.</documentation>
+										<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+										<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_3_0</documentation>
+									</annotation>
+									<sequence>
+										<element name="hash" type="bms:HashType" minOccurs="0">
+											<annotation>
+												<documentation source="urn:x-fims:description"> An optional hash code value calculated for the
+													physical essence representation.</documentation>
+												<documentation source="urn:x-fims:normativeRequirement"/>
+												<documentation source="urn:x-fims:serviceDescription">Service Description:
+													Required</documentation>
+												<documentation source="urn:x-fims:contentOfServiceDescription">Description: Whether on
+													request, it must be present, may be interpreted or is not applicable. </documentation>
+												<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+													Optional</documentation>
+												<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+													Optional</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="toolInformation" type="amer:ToolInformationType" minOccurs="0">
+						<annotation>
+							<documentation> Indicates which tool has been used to execute the
+								automatic metadata extraction. This information is provided at the ameReport level
+								when all the ameItems are performed by the same vendor and
+								tool.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								Description: Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: Tool </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+					</element>
+					<element name="overallAnalysisDuration" type="duration" minOccurs="0">
+						<annotation>
+							<documentation>The duration of the overall automatic metadata extraction analysis i.e. the
+								difference between the minimum starttime and the maximum endtime
+								over the execution of all ameItems. </documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description: Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: Overall duration of the analysis. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+					</element>
+					<element name="ameItemResult" type="amer:ameItemResultType" minOccurs="0"
+						maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">A list of results in
+								return to the successful completion of automatic metadata extraction defined in the
+								ameTemplate.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description: Required </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: Results. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Mandatory</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+					</element>
+					<choice>
+						<annotation>
+							<documentation source="urn:x-fims:description">To provide information on
+								the automatic metadata extraction profile (scope and analysis parameters) used to
+								perform the analysis. A choice between a reference to an external
+								resource/file or embedding the template file.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description: Required </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: a reference to a the automatic metadata extraction template, or an element
+								embedding the template. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+						<element name="ameTemplateReference" type="bms:ResourceReferenceType"
+							minOccurs="0">
+							<annotation>
+								<documentation source="urn:x-fims:description">A reference to an
+									external resource/file defining the template.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"/>
+								<documentation source="urn:x-fims:serviceDescription"> Service
+									description:</documentation>
+								<documentation source="urn:x-fims:contentOfServiceDescription">
+									Description: a reference to an automatic metadata extraction template. </documentation>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_3_0</documentation>
+							</annotation>
+						</element>
+						<element name="ameTemplateFile">
+							<annotation>
+								<documentation>An element used to embed an ameTemplate instance /
+									file.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"> Normative
+									Requirement: the embedded file shall be compliant with FIMS
+									ameTemplate.xsd </documentation>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_3_0</documentation>
+							</annotation>
+							<complexType>
+								<sequence>
+									<element ref="amet:ameTemplate" minOccurs="0">
+										<annotation>
+											<documentation>A template instance compliant with
+												ameTemplate.xsd.</documentation>
+											<documentation source="urn:x-fims:normativeRequirement">
+												Normative Requirement: Compliant with FIMS
+												ameTemplate.xsd </documentation>
+											<documentation source="urn:x-fims:serviceDescription"/>
+											<documentation source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_3_0</documentation>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</choice>
+					<element name="ameReportAssociatedResource" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">A reference to an
+								external resource/file defining the template.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description:</documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: a reference to an automatic metadata extraction template. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+						<complexType>
+							<complexContent>
+								<extension base="bms:ResourceReferenceType">
+									<attributeGroup ref="bms:typeGroup">
+										<annotation>
+											<documentation source="urn:x-fims:description">To define
+												the type of resource associated with the ameReport,
+												e.g. a pdf version of the report..</documentation>
+											<documentation source="urn:x-fims:normativeRequirement"/>
+											<documentation source="urn:x-fims:serviceDescription">
+												Service description:</documentation>
+											<documentation source="urn:x-fims:contentOfServiceDescription">
+												Description: the type of resource associated with
+												the report. </documentation>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_3_0</documentation>
+										</annotation>
+									</attributeGroup>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+				<attribute name="ameReportGroupID" type="string">
+					<annotation>
+						<documentation> A free label intended to be used by upper level software
+							(e.g. workflow manager) for grouping related reports. It is also passed
+							as an input parameter to the ameTemplate for execution. </documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+							Optional</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+							Response: Optional</documentation>
+						<documentation source="urn:x-fims:introducedInVersion">Introduced In
+							Version: 1_3_0</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="lastModifiedDateTime" type="dateTime" use="required">
+					<annotation>
+						<documentation>Date and time when the report has been last modified or
+							initially created.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"> Service description:
+							Required </documentation>
+						<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+							The date and time when the report has been created. </documentation>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+							Optional</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+							Response: Mandatory</documentation>
+						<documentation source="urn:x-fims:introducedInVersion">Introduced In
+							Version: 1_3_0</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- AUTOMATIC METADATA EXTRACTION ITEM RESULT TYPE -->
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<complexType name="ameItemResultType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Gathers output metadata parameters
+				resulting from the execution of a single ameAtom automatic metadata extraction task. Each ameAtom has its own
+				ameItemResult.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="resultDescription" type="string" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Description of the result of an
+						ameAtom described in a qaTemplate. A short human readable description of the
+						result.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"> Service Description:
+						Optional </documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"> Description: A
+						description of the result. </documentation>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="toolInformation" type="amer:ToolInformationType" minOccurs="0">
+				<annotation>
+					<documentation> Indicates which tool has been used to execute the automatic metadata extraction.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"> Service Description:
+						Optional </documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+						Tool. </documentation>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="annotation" type="amer:AnnotationType" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">To provide additional contextual
+						information.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="detectionMethod" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">The method used for extracting metadata.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"> Service description:
+						Detection method. </documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="automatic"/>
+						<enumeration value="human"/>
+						<enumeration value="assisted"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="revision" type="nonNegativeInteger" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">To indicate a revision number.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="operator" type="desc:entityType" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">To provide information on the
+						operator/person who performed the test.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<choice>
+				<!-- inline outputs -->
+				<sequence>
+					<element name="ameItemOutput" type="amer:ameItemOutputParameterType" minOccurs="0"
+						maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Each ameItemOutput holds the
+								output parameters of each individual automatic metadata extraction
+								result.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								output parameters. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								1_3_0</documentation>
+						</annotation>
+					</element>
+					<element name="ameItemFragmentOutput" type="amer:ameItemFragmentOutputParameterType"
+						minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation source="urn:x-fims:description">Each qaItemOutput holds the
+								output parameters of each individual automatic metadata extraction result applying to
+								fragments within a predefined scope.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Fragment output parameters. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								1_3_0</documentation>
+						</annotation>
+					</element>					
+				</sequence>
+				<!-- external -->
+				<sequence>
+					<element name="metadataResource" type="string" minOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Locator of the external metadata resource (e.g., URL). If the addressing mechanism used supports fragment identification (e.g., # in URLs), the fragment identifier may be included.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Representation </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								xxx</documentation>
+						</annotation>
+					</element>
+					<element name="metadataResourceFragment" type="string" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">Fragement locator inside the external metadata resource (e.g., identifier).</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Representation </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								xxx</documentation>
+						</annotation>
+					</element>				
+				</sequence>
+			</choice>
+			<element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Extension point.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest"/>
+					<documentation source="urn:x-fims:inclusionInResponse"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Extension point.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest"/>
+					<documentation source="urn:x-fims:inclusionInResponse"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="ameItemIDReference" type="string">
+			<annotation>
+				<documentation>To reference an ameAtom identified by an ameItemID.</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="ameItemName" type="string" use="optional">
+			<annotation>
+				<documentation>Name of a referenced ameAtom.</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="creationDateTime" type="dateTime">
+			<annotation>
+				<documentation> Date and time when the result has been issued.</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- OUTPUT PARAMETER TYPE -->
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<complexType name="ameItemOutputParameterType">
+		<annotation>
+			<documentation source="urn:x-fims:description">The definition of an output result
+				parameter</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="parameterName" type="string">
+				<annotation>
+					<documentation source="urn:x-fims:description">Name of the output
+						parameter.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"> Normative requirement:
+						required </documentation>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<choice>
+				<!-- inline value -->
+				<sequence> 
+					<element name="value" type="string" minOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">The value of the QA engine output
+								parameter or the default value provided as an input
+								parameter.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Required </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Value </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								1_3_0</documentation>
+						</annotation>
+					</element>
+					<element name="type" type="string" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">Data type of the
+								parameter.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Required </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Type </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								1_3_0</documentation>
+						</annotation>
+					</element>
+					<element name="unit" type="string" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">Unit in which the value of the
+								parameter is expressed.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Required </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Unit </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								1_3_0</documentation>
+						</annotation>
+					</element>
+					<element name="representation" type="string" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">The datatype or format applying
+								to the value of this parameter e.g. "decimal with 3 fractional
+								digits".</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Representation </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								1_3_0</documentation>
+						</annotation>
+					</element>
+				</sequence>
+				<!-- external metadata -->
+				<sequence>
+					<element name="metadataResource" type="string" minOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Locator of the external metadata resource (e.g., URL). If the addressing mechanism used supports fragment identification (e.g., # in URLs), the fragment identifier may be included.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Representation </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								xxx</documentation>
+						</annotation>
+					</element>
+					<element name="metadataResourceFragment" type="string" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">Fragement locator inside the external metadata resource (e.g., identifier).</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service description:
+								Optional </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+								Representation </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+								Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+								Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+								xxx</documentation>
+						</annotation>
+					</element>				
+				</sequence>
+			</choice>
+
+			<element name="track" type="string" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Identification of the track (e.g.
+						audio or video) under analysis.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"> Service description:
+						Optional </documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+						Track </documentation>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Extension point.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest"/>
+					<documentation source="urn:x-fims:inclusionInResponse"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Extension point.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest"/>
+					<documentation source="urn:x-fims:inclusionInResponse"/>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="annotation" type="amer:AnnotationType" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">To provide additional contextual
+						information.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="confidence" type="float" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">To provide a level of confidence
+						associated with the result.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"> Service description:
+						Required </documentation>
+					<documentation source="urn:x-fims:contentOfServiceDescription"> Description:
+						Confidence </documentation>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="relatedameItemOutput" type="amer:ameItemOutputParameterType"
+				minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">To list related ameItemOuput
+						parameters.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<!-- OUTPUT FRAGMENT PARAMETER TYPE -->
+	<!-- ############################## -->
+	<complexType name="ameItemFragmentOutputParameterType">
+		<annotation>
+			<documentation source="urn:x-fims:description">The definition of an output fragment
+				parameter</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="amer:ameItemOutputParameterType"> 
+				<sequence>
+					<element name="location" type="amer:LocatorType" minOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">To define the temporal
+								and/or spatial location of a
+								qaFragmentOutputParameter.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_2_0</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- @@@@@@@@@@@@@@@@@@@@ -->
+	<!-- GLOBAL COMPLEX TYPES -->
+	<!-- @@@@@@@@@@@@@@@@@@@@ -->
+	<complexType name="LocatorType">
+		<annotation>
+			<documentation source="urn:x-fims:description">To define content or temporal or spatial
+				fragment thereof to which results and a report applies.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="start" type="tim:TimeType">
+				<annotation>
+					<documentation source="urn:x-fims:description">To define the start time of a
+						temporal fragment.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="end" type="tim:TimeType">
+				<annotation>
+					<documentation source="urn:x-fims:description">To define the end time of a
+						temporal fragment.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="spatialRegion" type="string">
+			<annotation>
+				<documentation source="urn:x-fims:description">To define the region of a spatial
+					fragment. A string representing a rectangular spatial region of the video track
+					according to the String pattern defined in W3C Media Fragments -
+					http://www.w3.org/TR/media-frags/#naming-space</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="ToolInformationType">
+		<annotation>
+			<documentation> To provide information on a hardware of software tool used to test part
+				or all of the resource. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="name" type="string" minOccurs="0">
+				<annotation>
+					<documentation>The commercial name of the AME tool used</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="vendor" type="string" minOccurs="0">
+				<annotation>
+					<documentation>The name of the vendor</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="version" type="string" minOccurs="0">
+				<annotation>
+					<documentation>The version of the product</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="family" type="string" minOccurs="0">
+				<annotation>
+					<documentation>The family of products to which the AME tool belongs
+						to</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="url" type="anyURI" minOccurs="0">
+				<annotation>
+					<documentation> A Unique Resource Location at which more information can be
+						found about the AME tool. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="toolID" type="string" use="required">
+			<annotation>
+				<documentation>A unique identifier of the QA tool.</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="AnnotationType">
+		<annotation>
+			<documentation> To provide additional contextual information. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="annotationText" type="desc:textElementType">
+				<annotation>
+					<documentation>the text of the annotation. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="editor" type="desc:entityType" minOccurs="0">
+				<annotation>
+					<documentation>To identify the editor of the annotation. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+			<element name="annotationDateTime" type="dateTime" minOccurs="0">
+				<annotation>
+					<documentation>A date and time when the annotation was created. </documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+</schema>

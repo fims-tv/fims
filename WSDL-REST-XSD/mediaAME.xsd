@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
+	xmlns:mames="http://mediaame.fims.tv" xmlns:tim="http://baseTime.fims.tv"
+	xmlns:amer="http://mediaamer.fims.tv" xmlns:amet="http://mediaamet.fims.tv"
+	xmlns:desc="http://description.fims.tv" targetNamespace="http://mediaame.fims.tv"
+	elementFormDefault="qualified">
+	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
+	<import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
+	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
+	<import namespace="http://mediaamer.fims.tv" schemaLocation="AmeReport.xsd"/>
+	<import namespace="http://mediaamet.fims.tv" schemaLocation="AmeTemplate.xsd"/>
+
+
+
+
+	<!-- @@@@@@@@@@@@@@@@@@@@ -->
+	<!-- GLOBAL COMPLEX TYPES -->
+	<!-- @@@@@@@@@@@@@@@@@@@@ -->
+	<!-- **************************** FIMS-defined resources ****************************** -->
+	<!-- AME PROFILE -->
+	<complexType name="ameProfileType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Profile used by the automatic metadata
+				extraction service to perform an analyzis on the media content. The profile
+				specifies an AmeAtom per individual extraction task to be performed
+				.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:ProfileType">
+				<sequence>
+					<choice>
+						<annotation>
+							<documentation source="urn:x-fims:description">To provide information on
+								the automatic extraction profile (scope and analysis parameters)
+								used to perform the task. A choice between a reference to an
+								external resource/file or embedding the template
+								file.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"> Service
+								description: </documentation>
+							<documentation source="urn:x-fims:contentOfServiceDescription">
+								Description: a reference to a the automatic metadata extraction
+								template, or an element embedding the test template. </documentation>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Optional</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+						<element name="AmeTemplateReference" type="bms:ResourceReferenceType"
+							minOccurs="0">
+							<annotation>
+								<documentation source="urn:x-fims:description">A reference to an
+									external resource/file defining the template.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"/>
+								<documentation source="urn:x-fims:serviceDescription"> Service
+									description:</documentation>
+								<documentation source="urn:x-fims:contentOfServiceDescription">
+									Description: a reference to an extraction template. </documentation>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_3_0</documentation>
+							</annotation>
+						</element>
+						<element name="AmeTemplateFile">
+							<annotation>
+								<documentation>An element used to embed a AmeTemplate
+									file.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"> Normative
+									Requirement: the embedded file shall be compliant with FIMS
+									AmeTemplate.xsd </documentation>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_3_0</documentation>
+							</annotation>
+							<complexType>
+								<sequence>
+									<element ref="amet:ameTemplate" minOccurs="0">
+										<annotation>
+											<documentation>An AmeTemplate can be embedded here as
+												file compliant with the fims AmeTemplate.xsd
+												schema.</documentation>
+											<documentation source="urn:x-fims:normativeRequirement">
+												Normative Requirement: the embedded file shall be
+												compliant with FIMS AmeTemplate.xsd </documentation>
+											<documentation source="urn:x-fims:serviceDescription"/>
+											<documentation
+												source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest"
+												>Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse"
+												>Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion"
+												>Introduced In Version: 1_3_0</documentation>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</choice>
+					<choice>
+						<element name="ameReportReference" type="bms:ResourceReferenceType"
+							minOccurs="0">
+							<annotation>
+								<documentation>A job may be based on the information provided in a
+									previous AmeReport including the previous extraction
+									AmeTemplate. The AmeReportReference points to an external
+									Amereport resource.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"/>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_3_0</documentation>
+							</annotation>
+						</element>
+						<element name="AmeReportFile">
+							<annotation>
+								<documentation>A job may be based on the information provided in a
+									previous AmeReport including the previous extraction
+									AmeTemplate. The AmeReportFile Can be embedded here as file
+									compliant with the fims AmeReport schema.</documentation>
+								<documentation source="urn:x-fims:normativeRequirement"> Normative
+									Requirement: the embedded file shall be compliant with FIMS
+									Amereport.xsd </documentation>
+								<documentation source="urn:x-fims:serviceDescription"/>
+								<documentation source="urn:x-fims:contentOfServiceDescription"/>
+								<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+									Request: Optional</documentation>
+								<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+									Response: Optional</documentation>
+								<documentation source="urn:x-fims:introducedInVersion">Introduced In
+									Version: 1_3_0</documentation>
+							</annotation>
+							<complexType>
+								<sequence>
+									<element ref="amer:ameReport" minOccurs="0">
+										<annotation>
+											<documentation>A AmeReport can be embedded here as file
+												compliant with the fims AmeReport.xsd
+												schema.</documentation>
+											<documentation source="urn:x-fims:normativeRequirement">
+												Normative Requirement: the embedded file shall be
+												compliant with FIMS AmeReport.xsd </documentation>
+											<documentation source="urn:x-fims:serviceDescription"/>
+											<documentation
+												source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest"
+												>Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse"
+												>Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion"
+												>Introduced In Version: 1_3_0</documentation>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</choice>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ameJobType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Describes an automatice metadata
+				extraction job for only one BMContent as an input.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"> Normative requirement: Only one
+				BMContent object is analysed at a time. </documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:JobType">
+				<sequence>
+					<element name="profile" minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation source="urn:x-fims:description">Automatic metadata
+								extraction profiles associated with this job.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement"/>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Mandatory</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element name="AmeProfile" type="mames:ameProfileType" minOccurs="1"
+									maxOccurs="1">
+									<annotation>
+										<documentation source="urn:x-fims:description">Profile set
+											of instructions for the Ame engine to perform automatic
+											metadata extraction on the supplied
+											content.</documentation>
+										<documentation source="urn:x-fims:normativeRequirement"/>
+										<documentation source="urn:x-fims:serviceDescription"/>
+										<documentation
+											source="urn:x-fims:contentOfServiceDescription"/>
+										<documentation source="urn:x-fims:inclusionInRequest"
+											>Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse"
+											>Inclusion In Response: Mandatory</documentation>
+										<documentation source="urn:x-fims:introducedInVersion"
+											>Introduced In Version: 1_3_0</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- **************************** FIMS-defined enumerations **************************** -->
+	<simpleType name="ameErrorCodeType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Specific error codes for automatic
+				metadata extraction - INF_S05_xxxx: Infrastructure errors (system, storage, network,
+				memory, processor) - DAT_S05_xxxx: Data errors (validation, missing, duplication) -
+				SVC_S05_xxxx: Operation errors (existence, support, lock, connection, failure) -
+				SEC_S05_xxxx: Security errors (authentication, authorization)</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="DAT_S06_0001">
+				<annotation>
+					<documentation source="urn:x-fims:description">Report not
+						available.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="DAT_S06_0002">
+				<annotation>
+					<documentation source="urn:x-fims:description">Template not
+						available.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S6_0001">
+				<annotation>
+					<documentation source="urn:x-fims:description">Encryption not supported. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0002">
+				<annotation>
+					<documentation source="urn:x-fims:description">Authentication not supported. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0003">
+				<annotation>
+					<documentation source="urn:x-fims:description">File too large.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0004">
+				<annotation>
+					<documentation source="urn:x-fims:description">Scope out of bounds. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0005">
+				<annotation>
+					<documentation source="urn:x-fims:description">Scope not supported. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0006">
+				<annotation>
+					<documentation source="urn:x-fims:description">Rejected by operator. </documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0007">
+				<annotation>
+					<documentation source="urn:x-fims:description">Automatic metadata extraction
+						ended unexpectedly.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0008">
+				<annotation>
+					<documentation source="urn:x-fims:description">Unsupported
+						template.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVC_S06_0009">
+				<annotation>
+					<documentation source="urn:x-fims:description">Unsupported item or
+						items.</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<!-- **************************** FIMS-defined messages and faults **************************** -->
+	<complexType name="ameRequestType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A request to the automatic metadata
+				extraction service to analyze content as specified in the AmeTemplate and
+				AmeAtoms.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="AmeJob" type="mames:ameJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes an automatic metadata
+						extraction job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Not applicable</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current FIMS schema
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_2_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="ameResponseType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Represents the acknowledgment sent back
+				from the automatic extraction metadata service when the job is
+				submitted.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="AmeJob" type="mames:ameJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes an automatic metadata
+						extraction job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not
+						applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current FIMS schema
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="ameFaultType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Fault information for the automatic
+				extraction metadata service.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If an exception is generated
+				when the quality analysis request message is submitted to the service, it shall
+				respond with a message based on the AmeFaultType.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="bms:FaultType">
+				<sequence>
+					<element name="extendedCode" type="mames:ameErrorCodeType" minOccurs="0">
+						<annotation>
+							<documentation source="urn:x-fims:description">Automatic metadata
+								extraction-specific error codes, as detailed in the
+								AmeErrorCodeType.</documentation>
+							<documentation source="urn:x-fims:normativeRequirement">This element
+								shall be set if the service needs to provide service-specific error
+								codes which are not specified in the fault 'code' element. In this
+								case, the code element shall be set to 'EXT_S00_0000' and the
+								extendedCode shall be set to one of the codes described in
+								AmeErrorCodeType. If the 'code'; element is set to any other value
+								than 'EXT_S00_0000'; then this element shall not be
+								set.</documentation>
+							<documentation source="urn:x-fims:serviceDescription"/>
+							<documentation source="urn:x-fims:contentOfServiceDescription"/>
+							<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+								Request: Not applicable</documentation>
+							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+								Response: Optional</documentation>
+							<documentation source="urn:x-fims:introducedInVersion">Introduced In
+								Version: 1_3_0</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ameNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Notification of the successful completion
+				of an automatic metadata extraction job.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If one or more "notifyAt"
+				elements are set for the associated automatic metadata extraction job, then the
+				service shall respond with a notification to the specified endpoints when the job
+				completes. (If notification is supported.)</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<element name="AmeJob" type="mames:ameJobType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Describes an automatic metadata
+						extraction job.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not
+						applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="ameFaultNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Fault notification for the automatic
+				metadata extraction service, including the related capture job and the fault
+				code.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">If one or more "notifyAt"
+				elements are set for the automatic metadata extraction job and a failure occurs during the job
+				execution, then the service shall respond with an automatic metadata extraction fault notification
+				to the endpoint specified by 'faultTo'.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:modifiedInVersion">Modified In Version:
+				1_1_0</documentation>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+		<sequence>
+			<sequence>
+				<element name="AmeJob" type="mames:ameJobType" minOccurs="1" maxOccurs="1">
+					<annotation>
+						<documentation source="urn:x-fims:description">Describes an automatic metadata extraction
+							job.</documentation>
+						<documentation source="urn:x-fims:normativeRequirement"/>
+						<documentation source="urn:x-fims:serviceDescription"/>
+						<documentation source="urn:x-fims:contentOfServiceDescription"/>
+						<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+							Not applicable</documentation>
+						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+							Response: Mandatory</documentation>
+						<documentation source="urn:x-fims:introducedInVersion">Introduced In
+							Version: 1_3_0</documentation>
+					</annotation>
+				</element>
+			</sequence>
+			<element name="fault" type="mames:ameFaultType" minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation source="urn:x-fims:description">Fault
+						information.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Not
+						applicable</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Mandatory</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_0</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="version" type="bms:CurrentVersion" use="required">
+			<annotation>
+				<documentation source="urn:x-fims:description">The current schema FIMS
+					version.</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_1_0</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_0</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<element name="AmeRequest" type="mames:ameRequestType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A request to the automatic metadata extraction
+				service for analyzing content as defined in a AmeTemplate and assocciated
+				AmeAtoms.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+	</element>
+	<element name="AmeAck" type="mames:ameResponseType">
+		<annotation>
+			<documentation source="urn:x-fims:description">Represents the acknowledgment sent back
+				from the automatic metadata extraction service when the job is
+				submitted.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+	</element>
+	<element name="AmeFault" type="mames:ameFaultType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A fault that may be sent by the automatic metadata extraction service when a job is submitted.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement"/>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+	</element>
+	<element name="AmeNotification" type="mames:ameNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A job completion notification that the
+				automatic metadata extraction service sends to a specified endpoint when the job ends.</documentation>
+			<documentation source="urn:x-fims:normativeRequirement">This notification shall be sent
+				to all "notifyAt" element is associated with the quality analysis
+				job.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+	</element>
+	<element name="AmeFaultNotification" type="mames:ameFaultNotificationType">
+		<annotation>
+			<documentation source="urn:x-fims:description">A fault notification that the automatic metadata extraction service sends to a specified endpoint if the job
+				fails. </documentation>
+			<documentation source="urn:x-fims:normativeRequirement">This fault notification shall be
+				sent to all "notifyAt" element is associated with the automatic metadata extraction
+				job.</documentation>
+			<documentation source="urn:x-fims:serviceDescription"/>
+			<documentation source="urn:x-fims:contentOfServiceDescription"/>
+			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+				1_3_0</documentation>
+		</annotation>
+	</element>
+</schema>
