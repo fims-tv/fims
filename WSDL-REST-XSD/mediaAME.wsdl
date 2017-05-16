@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<!--
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+--> 
+<wsdl:definitions 
+    name="MediaAME" 
+    targetNamespace="http://mediaame.fims.tv"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:bms="http://base.fims.tv" 
+	xmlns:mames="http://mediaame.fims.tv"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+	<wsdl:types>
+		<schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"
+			> </import>
+		</schema>
+
+		<schema targetNamespace="http://mediaame.fims.tv"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mames="http://mediaame.fims.tv">
+			<include schemaLocation="mediaAME.xsd"/>
+		</schema>
+	</wsdl:types>
+
+	<wsdl:message name="mediaAMERequestMsg">
+		<wsdl:part name="in" element="mames:AmeRequest">
+			<wsdl:documentation>This message represents a request to the automatic metadata extraction 
+				service for analysing content from a source to a target.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="mediaAMEAckMsg">
+		<wsdl:part name="ack" element="mames:AmeAck">
+			<wsdl:documentation>This message represents the acknowledgment sent back from the automatic
+				metadata extraction service when the analysis job is submitted. It is based on
+				the BaseResponseType.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="mediaAMEFaultMsg">
+		<wsdl:part name="fault" element="mames:AmeFault">
+			<wsdl:documentation>This message represents a fault which may be sent by the media
+				automatic metadata extraction service when submitting a job.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="mediaAMENotificationMsg">
+		<wsdl:part name="in" element="mames:AmeNotification">
+			<wsdl:documentation>This message represents a job completion notification that the automatic metadata extraction service sends to a specified endpoint when the media quality
+				analysis job ends. This notification shall be sent if the notifyAt element is set in
+				the request.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="mediaAMEFaultNotificationMsg">
+		<wsdl:part name="fault" element="mames:AmeFaultNotification">
+			<wsdl:documentation>This message represents a fault notification that the automatic metadata				
+				extraction service sends to a specified endpoint if the automatic metadata extraction job
+				fails. The fault notification shall be sent if the notifyAt element is set in the
+				request.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="manageJobRequestMsg">
+		<wsdl:part name="in" element="bms:manageJobRequest">
+			<wsdl:documentation>This message allows to submit jobs management requests, such as
+				getting the status or pausing a job.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageJobResponseMsg">
+		<wsdl:part name="out" element="bms:manageJobResponse">
+			<wsdl:documentation>This message provides the response to job management requests, which
+				includes the current status of the job.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageQueueRequestMsg">
+		<wsdl:part name="in" element="bms:manageQueueRequest">
+			<wsdl:documentation>This message allowsto submit queue management requests, such as
+				getting the status or locking a queue.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="manageQueueResponseMsg">
+		<wsdl:part name="out" element="bms:manageQueueResponse">
+			<wsdl:documentation>This messag provides the response to queue management requests,
+				which includes the status and lenght of the queue.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="queryJobRequestMsg">
+		<wsdl:part name="in" element="bms:queryJobRequest">
+			<wsdl:documentation>This message is used to request a list of submitted
+				jobs.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="queryJobResponseMsg">
+		<wsdl:part name="out" element="bms:queryJobResponse">
+			<wsdl:documentation>This message provides a list of jobs.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="FaultMsg">
+		<wsdl:part name="fault" element="bms:fault">
+			<wsdl:documentation>This message represents a fault which might occur for a management
+				request.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="mediaAMEMedia">
+		<wsdl:documentation>This port type allows to send job requests to the automatic metadata extraction 
+			service. <h4>REST Mapping for mediaAME Service</h4>
+			<table>
+				<tr>
+					<th width="10%">Operation</th>
+					<th width="30%">Description</th>
+					<th width="5%">HTTP Method</th>
+					<th width="10%">URI</th>
+					<th width="10%">Request Body</th>
+					<th width="10%">Success Body</th>
+					<th width="10%">Failure Body</th>
+					<th width="10%">HTTP Request Headers</th>
+					<th width="5%">HTTP Response Headers</th>
+				</tr>
+				<tr>
+					<td class="firstColumn">mediaAME</td>
+					<td>Create a mediaAME Job</td>
+					<td class="firstColumn">POST</td>
+					<td>.../job</td>
+					<td class="firstColumn">mames:mediaAMEJobType</td>
+					<td>mames:mediaAMEJobType</td>
+					<td class="firstColumn">mames:mediaAMEFaultType</td>
+					<td/>
+					<td class="firstColumn">location: {urlForJob}</td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+		</wsdl:documentation>
+		<wsdl:operation name="mediaAME">
+			<wsdl:documentation>This operation allows to submit a automatic metadata extraction job request to the
+				automatic metadata extraction  service.</wsdl:documentation>
+			<wsdl:input message="mames:mediaAMERequestMsg"/>
+			<wsdl:output message="mames:mediaAMEAckMsg"/>
+			<wsdl:fault name="mediaAMEFault" message="mames:mediaAMEFaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="mediaAMEMediaNotification">
+		<wsdl:documentation>This port type defines the operations used by the automatic metadata extraction service
+			to send back a notification to the endpoint specified in the notifyAt request element.
+				<h4>REST Mapping for mediaAME Notifications</h4>
+			<table>
+				<tr>
+					<th width="20%">Notification</th>
+					<th width="25%">Description</th>
+					<th width="10%">HTTP Method</th>
+					<th width="25%">Body</th>
+					<th width="20%">Generated Events</th>
+				</tr>
+				<tr>
+					<td class="firstColumn">notifymediaAMEResult</td>
+					<td>mediaAME Job events related to state change, creation, deletion,
+						progress</td>
+					<td class="firstColumn">POST</td>
+					<td>mames:mediaAMEJobType</td>
+					<td class="firstColumn"><ul>
+							<li> Create Job </li><li> Job Progress </li><li> Manage Job
+						</li></ul></td>
+				</tr>
+				<tr>
+					<td class="firstColumn">notifyFault</td>
+					<td>mediaAME Job Failures</td>
+					<td class="firstColumn">POST</td>
+					<td>mames:mediaAMEFaultNotificationType</td>
+					<td class="firstColumn"><ul>
+							<li> Create Job</li>
+							<li> Job Failure</li>
+						</ul></td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+		</wsdl:documentation>
+		<wsdl:operation name="notifymediaAMEResult">
+			<wsdl:documentation>This operation allows the automatic metadata extraction service to send a
+				notification with information about job completion to the endpoint specified in the
+				notifyAt element of the job request.</wsdl:documentation>
+			<wsdl:input message="mames:mediaAMENotificationMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="notifyFault">
+			<wsdl:documentation>This operation allows the automatic metadata extraction  service to send a fault
+				notification with information about the job failure to the endpoint specified in the
+				notifyAt element of the job request.</wsdl:documentation>
+			<wsdl:input message="mames:mediaAMEFaultNotificationMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="MediaServiceStatus">
+		<wsdl:documentation>The MediaServiceStatus interface provides a common SOAP interface for
+			all FIMS services for managing jobs and queues. <h4>REST Mapping for Media Status
+				Service</h4>
+			<table>
+				<tr>
+					<th width="10%">Operation</th>
+					<th width="30%">Description</th>
+					<th width="5%">HTTP Method</th>
+					<th width="10%">URI</th>
+					<th width="10%">Request Body</th>
+					<th width="10%">Success Body</th>
+					<th width="10%">Failure Body</th>
+					<th width="10%">HTTP Request Headers</th>
+					<th width="5%">HTTP Response Headers</th>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (single)</td>
+					<td>Retrieve a Capture Job</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/{jobId}</td>
+					<td class="firstColumn"/>
+					<td>bms:JobType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (all)</td>
+					<td>Retrieve All Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/</td>
+					<td class="firstColumn"/>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (selection)</td>
+					<td>Retrieve a list of Specific Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job?jobId={jobid}&amp;jobId={jobId}...</td>
+					<td class="firstColumn"/>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryJob (filtered)</td>
+					<td>Retrieve a Filtered List Capture Jobs</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job?{<em>JobFilterCriteria</em>} (see specification document)</td>
+					<td class="firstColumn"/>
+					<td>bms:JobsType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageJob</td>
+					<td>Manage Jobs (Control Jobs)</td>
+					<td class="firstColumn">POST</td>
+					<td>.../job/{jobId}/manage</td>
+					<td class="firstColumn">bms:ManageJobRequestType</td>
+					<td>bms:JobType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageJob (query status)</td>
+					<td>Get Minimal Job for current Status</td>
+					<td class="firstColumn">GET</td>
+					<td>.../job/{jobId}/manage</td>
+					<td class="firstColumn"/>
+					<td>bms:JobType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryQueue</td>
+					<td>Retrieve complete details of a Queue</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}</td>
+					<td class="firstColumn"/>
+					<td>bms:QueueType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">queryQueues</td>
+					<td>Retrieve complete details of all Queues</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/</td>
+					<td class="firstColumn"/>
+					<td>bms:QueuesType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue (status)</td>
+					<td>Retrieve a Queue Status</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}/status</td>
+					<td class="firstColumn"/>
+					<td>bms:QueueType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue (commands)</td>
+					<td>Manage Queue (Queue Commands)</td>
+					<td class="firstColumn">POST</td>
+					<td>.../queue/{queueID}/manage</td>
+					<td class="firstColumn">bms:ManageQueueRequestType</td>
+					<td>bms:QueueType</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+				<tr>
+					<td class="firstColumn">manageQueue</td>
+					<td>Manage Queue (retrieve queue for management)</td>
+					<td class="firstColumn">GET</td>
+					<td>.../queue/{queueID}/manage</td>
+					<td class="firstColumn"/>
+					<td>bms:QueueType (minimum attributes)</td>
+					<td class="firstColumn">bms:FaultType</td>
+					<td/>
+					<td class="firstColumn"/>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+		</wsdl:documentation>
+		<wsdl:operation name="manageJob">
+			<wsdl:documentation>This operation provides the managements of jobs, for example
+				requesting the status of a job or pausing a job.</wsdl:documentation>
+			<wsdl:input name="jobIn" message="mames:manageJobRequestMsg"/>
+			<wsdl:output name="jobOut" message="mames:manageJobResponseMsg"/>
+			<wsdl:fault name="fault" message="mames:FaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="manageQueue">
+			<wsdl:documentation>This operation provides the managements of the job queue, for
+				example requesting the status of the queue or starting the
+				queue.</wsdl:documentation>
+			<wsdl:input name="queueIn" message="mames:manageQueueRequestMsg"/>
+			<wsdl:output name="queueOut" message="mames:manageQueueResponseMsg"/>
+			<wsdl:fault name="fault" message="mames:FaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="queryJob">
+			<wsdl:documentation>This operation allows to list submitted jobs and get summary status
+				information for each job.</wsdl:documentation>
+			<wsdl:input name="queryIn" message="mames:queryJobRequestMsg"/>
+			<wsdl:output name="queryOut" message="mames:queryJobResponseMsg"/>
+			<wsdl:fault name="fault" message="mames:FaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="mediaAMEMediaStatusBinding" type="mames:MediaServiceStatus">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="manageJob">
+			<soap:operation soapAction="http://mediaAMEmedia.fims.tv/manageJob"/>
+			<wsdl:input name="jobIn">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="jobOut">
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="manageQueue">
+			<soap:operation soapAction="http://mediaAMEmedia.fims.tv/manageQueue"/>
+			<wsdl:input name="queueIn">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="queueOut">
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="queryJob">
+			<soap:operation soapAction="http://mediaAMEmedia.fims.tv/queryJob"/>
+			<wsdl:input name="queryIn">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="queryOut">
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="mediaAMEMediaBinding" type="mames:mediaAMEMedia">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="mediaAME">
+			<soap:operation soapAction="http://mediaAMEmedia.fims.tv/mediaAME"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="mediaAMEFault">
+				<soap:fault use="literal" name="mediaAMEFault"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="mediaAMEMediaNotificationBinding" type="mames:mediaAMEMediaNotification">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="notifymediaAMEResult">
+			<soap:operation soapAction="http://mediaAMEmedia.fims.tv/notifymediaAMEResult"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="notifyFault">
+			<soap:operation soapAction="http://mediaAMEmedia.fims.tv/notifyFault"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="mediaAMEMediaService">
+		<wsdl:port name="mediaAMEMediaPort" binding="mames:mediaAMEMediaBinding">
+			<soap:address location="http://host/path/mediaAMEMediaPort"/>
+		</wsdl:port>
+		<wsdl:port name="mediaAMEMediaStatusPort" binding="mames:mediaAMEMediaStatusBinding">
+			<soap:address location="http://host/path/mediaAMEMediaStatusPort"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="mediaAMEMediaNotificationService">
+		<wsdl:port name="mediaAMEMediaNotificationPort"
+			binding="mames:mediaAMEMediaNotificationBinding">
+			<soap:address location="http://host/port/mediaAMEMediaNotificationPort"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
