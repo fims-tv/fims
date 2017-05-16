@@ -17,12 +17,12 @@ limitations under the License.
 
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bms="http://base.fims.tv"
 	xmlns:desc="http://description.fims.tv" xmlns:tim="http://baseTime.fims.tv"
-	xmlns:service="http://www.smpte-ra.org/schemas/st2071/2015/service"
+	xmlns:service="http://www.smpte-ra.org/schemas/st2071/2014/service"
 	targetNamespace="http://base.fims.tv"
 	elementFormDefault="qualified">
   <import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
   <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
-  <import namespace="http://www.smpte-ra.org/schemas/st2071/2015/service" schemaLocation="mdcf-schema/st2071-2q.xsd"/> <!-- New in V1.2.0. --> 
+  <import namespace="http://www.smpte-ra.org/schemas/st2071/2014/service" schemaLocation="mdcf-schema/st2071-2q.xsd"/> <!-- New in V1.2.0. --> 
       <!-- TODO: Update location to point at SMPTE RA website when schemas have completed FCD and are available online. -->
   <!-- ****************************** FIMS Current Version ****************************** -->
   <simpleType name="CurrentVersion">
