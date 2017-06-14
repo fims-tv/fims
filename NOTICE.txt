@@ -1,5 +1,5 @@
 FIMS REST API Reference Implementation
-Copyright 2015 The European Broadcasting Union and the Advanced Media Workflow Association
+Copyright 2015-2016-2017 The European Broadcasting Union and the Advanced Media Workflow Association
 
 This software was developed by the Framework for Interoperable Media Services (FIMS) Task Force, a joint effort of the Advanced Media Workflow Association (AMWA) and the European Broadcasting Union (EBU).
 
