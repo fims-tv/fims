@@ -1,6 +1,6 @@
-# FIMS v1.2
+# FIMS v1.3
 
-This repository contains the version 1.2 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) 
+This repository contains the version 1.3 release of the [EBU](http://tech.ebu.ch)/[AMWA](http://www.amwa.tv) 
 [Framework for Interoparable Media Services (FIMS)](http://www.fims.tv). The specification has been approved 
 by both sponsoring organisations.
 
@@ -23,14 +23,11 @@ quality control, with support for partial content and servive capability descrip
 
 ## Significant updates
 
-Four significant additions were made between v1.1 and v1.2 of the specification:
+Three significant additions were made between v1.2 and v1.3 of the specification:
 
-1. Added a new media Quality Assurance service.
-2. Support for partial content, particularly for transfer, transform and QC operations from the FIMS _Timecode project_.
-3. Enhancements and corrections to the REST mappings.
-4. Added service capability description description aligned with the SMPTE 2072 Media Device and Control Framework.
-
-A number of other minor enhancements and improvements were made, including an update of the EBUCore description metadata.
+1. Extension of the FIMS repository interface.
+2. Support for growing content in particular in the context of streaming over IP.
+3. A new service interface for Automatic Metadata Extraction (AME).
 
 ## What's in the package
 
@@ -51,7 +48,7 @@ existence or validity of any claim or of any patent rights in connection therewi
 Directors, shall not be responsible for identifying patents for which a license may be required by an AMWA specification 
 or for conducting inquiries into the legal validity or scope of those patents that are brought to its attention.
 
-Copyright 2015 The European Broadcasting Union 
+Copyright 2017 The European Broadcasting Union 
 
-Copyright 2015 Advanced Media Workflow Association 
+Copyright 2017 Advanced Media Workflow Association 
 
