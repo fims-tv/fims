@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+Copyright 2017 Advanced Media Workflow Association and European Broadcasting Union
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -23,9 +23,6 @@ limitations under the License.
   <import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
   <import namespace="http://www.smpte-ra.org/schemas/st2071/2015/service"
     schemaLocation="mdcf-schema/st2071-2q.xsd"/>
-  <!-- New in V1.2.0. -->
-  <!-- TODO: Update location to point at SMPTE RA website when schemas have completed FCD and are available online. -->
-  <!-- ****************************** FIMS Current Version ****************************** -->
   <simpleType name="CurrentVersion">
     <annotation>
       <documentation source="urn:x-fims:description"> This schema type reports the current version
