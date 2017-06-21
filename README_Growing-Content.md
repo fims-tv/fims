@@ -155,7 +155,7 @@ output file format. If the output is GC-capable, then the transcode
 service may include the GC locators in response to a QueryJob request. A
 sequence diagram to show the events is as follows:
 
-(media/image1.png){width="5.958333333333333in"
+![](media/image1.png){width="5.958333333333333in"
 height="6.729166666666667in"}
 
 The compatibility scenarios can be summarized as follows:
