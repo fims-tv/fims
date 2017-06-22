@@ -23,8 +23,8 @@ limitations under the License.
 	<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd"/>
 	<import namespace="http://description.fims.tv" schemaLocation="description.xsd"/>
 	<import namespace="http://baseTime.fims.tv" schemaLocation="baseTime.xsd"/>
-	<import namespace="http://mediaamer.fims.tv" schemaLocation="AmeReport.xsd"/>
-	<import namespace="http://mediaamet.fims.tv" schemaLocation="AmeTemplate.xsd"/>
+	<import namespace="http://mediaamer.fims.tv" schemaLocation="ameReport.xsd"/>
+	<import namespace="http://mediaamet.fims.tv" schemaLocation="ameTemplate.xsd"/>
 
 
 
