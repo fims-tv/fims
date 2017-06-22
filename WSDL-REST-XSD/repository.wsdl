@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xml>
 <!--
-Copyright 2017 Advanced Media Workflow Association and European Broadcasting Union
-
-Licensed under the Apache License, Version 2.0 (the "License"); 
-you may not use this file except in compliance with the License. 
-You may obtain a copy of the License at 
-
-http://www.apache.org/licenses/LICENSE-2.0 
-
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, 
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-See the License for the specific language governing permissions and 
+Copyright 2015 Advanced Media Workflow Association and European Broadcasting Union
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
 limitations under the License.
---> 
+-->
 
-<wsdl:definitions 
-    name="repository" 
+<wsdl:definitions
+    name="repository"
     targetNamespace="http://repository.fims.tv"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns="http://www.w3.org/2001/XMLSchema"
-	xmlns:bms="http://base.fims.tv" 
-	xmlns:rps="http://repository.fims.tv" 
+	xmlns:bms="http://base.fims.tv"
+	xmlns:rps="http://repository.fims.tv"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-	
+
 	<wsdl:types>
 	    <schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<import namespace="http://base.fims.tv" schemaLocation="baseMediaService.xsd">
 			</import>
 		</schema>
-
 		<schema targetNamespace="http://repository.fims.tv" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://repository.fims.tv">
 			<include schemaLocation="repository.xsd" ></include>
-        </schema>		
+        </schema>
     </wsdl:types>
 	<!-- **************************** fault message **************************** -->
 	<wsdl:message name="repositoryFaultMsg">
@@ -41,219 +37,267 @@ limitations under the License.
 			<wsdl:documentation>This message contains data describing an error condition that prevented a repository request from succeeding.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<!-- **************************** operation message **************************** -->
     <wsdl:message name="generateUniqueIDRequestMsg">
     	<wsdl:part name="in" element="rps:generateUniqueIDRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to generate a unique identifier (ID).  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
     </wsdl:message>
-	
+
 	<wsdl:message name="addContentRequestMsg">
 		<wsdl:part name="in" element="rps:addContentRequest">
 			<wsdl:documentation>This message supplies content metadata in the form of a BMContentType element along with user credentials and session state information to allow authorized access to the repository in order to register a new asset.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="addEssencePlaceholderRequestMsg">
 		<wsdl:part name="in" element="rps:addEssencePlaceholderRequest">
 			<wsdl:documentation>This message supplies content metadata in the form of a BMContentType element and a format description in the form of a BMContentFormatType element, along with user credentials and session state information to allow authorized access to the repository in order to register a new asset.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
-	
+
+	<!-- FIMS 1.3  Begin -->
+	<wsdl:message name="addTagRequestMsg">
+		<wsdl:part name="in" element="rps:addTagRequest">
+			<wsdl:documentation>This message supplies a Tag object to the linked resource reference object.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="removeTagRequestMsg">
+		<wsdl:part name="in" element="rps:addTagRequest">
+			<wsdl:documentation>This message supplies a Tag object to the linked resource reference object.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="queryTagsRequestMsg">
+		<wsdl:part name="in" element="rps:queryTagsRequest">
+			<wsdl:documentation>This message supplies a Tag object as a search criteria for the query operation.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="addRelationRequestMsg">
+		<wsdl:part name="in" element="rps:addRelationRequest">
+			<wsdl:documentation>This message supplies a relation object representing the relation to be created between two resource reference objects</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="removeRelationRequestMsg">
+		<wsdl:part name="in" element="rps:removeRelationRequest">
+			<wsdl:documentation>This message supplies a relation object representing the relation to be removed between two resource reference objects</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="registerExternalEssenceRequestMsg">
+		<wsdl:part name="in" element="rps:registerExternalEssenceRequest">
+			<wsdl:documentation>This message supplies an essence locator to be registered in the repository</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="unregisterExternalEssenceRequestMsg">
+		<wsdl:part name="in" element="rps:unregisterExternalEssenceRequest">
+			<wsdl:documentation>This message supplies an essence locator to be unregistered within the repository</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<!-- FIMS 1.3  End -->
+
 	<wsdl:message name="addEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:addEssenceRequest">
 			<wsdl:documentation>This message supplies content metadata in the form of a BMContentType element, an optional format description in the form of a BMContentFormatType element, an essence location in the form of a BMEssenceLocatorType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to upload essence that is associated with an asset.  The essence location must be accessible to the repository, the list of allowable accessible locations can be retrieved from the RCR.  If the format description is not supplied, it is up to the repository to extract the format metadata from the essence.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelAddEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:cancelAddEssenceRequest">
 			<wsdl:documentation>This message supplies an AddEssence operation ID in the form of a ResourceReferenceType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to cancel a previously-requested AddEssence operation.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="replaceContentRequestMsg">
 		<wsdl:part name="in" element="rps:replaceContentRequest">
 			<wsdl:documentation>This message supplies asset metadata in the form of a BMContentType element, an optional lock token (for controlling concurrent operations) in the form of a LockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to replace metadata for a previously added asset.  If the lock token is not supplied, then the operation may fail if another client has acquired a controlling lock.  Repository behavior if credentials are not supplied is implementation-specific.  See Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="updateContentPropertiesRequestMsg">
 		<wsdl:part name="in" element="rps:updateContentPropertiesRequest">
 			<wsdl:documentation>This message supplies asset metadata in the form of a BMContentType element, an optional lock token (for controlling concurrent operations) in the form of a LockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to replace metadata for a previously added asset.  If the lock token is not supplied, then the operation may fail if another client has acquired a controlling lock.  Repository behavior if credentials are not supplied is implementation-specific.  See Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="lockRequestMsg">
 		<wsdl:part name="in" element="rps:lockRequest">
 			<wsdl:documentation>This message supplies an optional lock token in the form of a LockTokenType element, an optional resource reference in the form of a ResourceReferenceType element, an optional expiration date in the form of a dateTime element, along with optional user credentials and session state information to allow authorized access to the repository in order to create a lock for controlling concurrent access to a given set of resources.  If the lock token is not supplied, then the repository will create a new lock, otherwise the resource will be associated with the given lock.  If a resource is not supplied, either an empty lock will be created (no lock token in message) or the given lock will be unchanged with respect to resource associations.  The second case is useful to change the expiration date of an existing lock.  If the expiration date is not supplied, the lock will never expire.  Repository behavior if credentials are not supplied is implementation-specific.  See Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="unLockRequestMsg">
 		<wsdl:part name="in" element="rps:unLockRequest">
 			<wsdl:documentation>This message supplies a lock token in the form of a LockTokenType element, an optional list of resource references in the form of a ResourceReferencesType element, along with optional user credentials and session state information to allow authorized access to the repository in order to remove a lock for controlling concurrent access to a given set of resources.  If resources are not supplied, all resources that are currently associated with the lock will be removed from that lock.  Repository behavior if credentials are not supplied is implementation-specific.  See Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="clearLockRequestMsg">
 		<wsdl:part name="in" element="rps:clearLockRequest">
 			<wsdl:documentation>This message supplies a lock token in the form of a LockTokenType element, a "super" or managing lock token in the form of a SuperLockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to clear resource associations from a lock without being the creator of the lock.  The SuperLockToken must be retrieved from the RCR API for the Repository in order to be able to override the given lock.  All resource associations will be removed from the given lock.  Repository behavior if credentials are not supplied is implementation-specific.  See Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getLocksRequestMsg">
 		<wsdl:part name="in" element="rps:getLocksRequest">
 			<wsdl:documentation>This message supplies a "super" or managing lock token in the form of a SuperLockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to discover acquired locks without necessarily being the creator of any of the locks.  The SuperLockToken must be retrieved from the RCR API for the Repository in order to be able to get the list of locks.  Repository behavior if credentials are not supplied is implementation-specific.  See Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="removeEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:removeEssenceRequest">
 			<wsdl:documentation>This message supplies essence locations in the form of a BMEssenceLocatorsType element, an optional lock token (for controlling concurrent operations) in the form of a LockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to mark the given essence files as to be deleted.  If the lock token is not supplied, then the operation may fail if another client has acquired a controlling lock.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="unRemoveEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:unRemoveEssenceRequest">
 			<wsdl:documentation>This message supplies essence locations in the form of a BMEssenceLocatorsType element, an optional lock token (for controlling concurrent operations) in the form of a LockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to reverse any "delete-marking" of the given essence files.  If the lock token is not supplied, then the operation may fail if another client has acquired a controlling lock.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="removeContentRequestMsg">
 		<wsdl:part name="in" element="rps:removeContentRequest">
 			<wsdl:documentation>This message supplies an asset reference in the form of a BMContentType element, an optional lock token (for controlling concurrent operations) in the form of a LockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to mark the given asset (plus all associated essence files) as to be deleted.  If the lock token is not supplied, then the operation may fail if another client has acquired a controlling lock.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="unRemoveContentRequestMsg">
 		<wsdl:part name="in" element="rps:unRemoveContentRequest">
 			<wsdl:documentation>This message supplies an asset reference in the form of a BMContentType element, an optional lock token (for controlling concurrent operations) in the form of a LockTokenType element, along with optional user credentials and session state information to allow authorized access to the repository in order to reverse any "delete-marking" of the given asset and its associated essence files.  If the lock token is not supplied, then the operation may fail if another client has acquired a controlling lock.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:purgeEssenceRequest">
 			<wsdl:documentation>This message supplies an essence location in the form of a BMEssenceLocatorType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to physically remove essence that has been marked for deletion.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:cancelPurgeEssenceRequest">
 			<wsdl:documentation>This message supplies an PurgeEssence operation ID in the form of a ResourceReferenceType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to cancel a previously-requested PurgeEssence operation.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeContentRequestMsg">
 		<wsdl:part name="in" element="rps:purgeContentRequest">
 			<wsdl:documentation>This message supplies an asset reference in the form of a BMContentType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to physically remove an asset (plus all associated essence) that has been marked for deletion.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeContentRequestMsg">
 		<wsdl:part name="in" element="rps:cancelPurgeContentRequest">
 			<wsdl:documentation>This message supplies an PurgeContent operation ID in the form of a ResourceReferenceType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to cancel a previously-requested PurgeContent operation.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getContentRequestMsg">
 		<wsdl:part name="in" element="rps:getContentRequest">
 			<wsdl:documentation>This message supplies an asset reference in the form of a BMContentType element, an optional format filter in the form of a BMContentFilterType element, an optional specific content filter in the form of a string (to be retrieved from the RCR), along with optional user credentials and session state information to allow authorized access to the repository in order to retrieve the metadata for an asset.  The content filter is an enumeration that identifies the desired extent of the returned metadata.  The default value for the filter is "full".  One of the enumerations is "specificFilter", if this enumeration is used, then the specificFilter from the RCR must be supplied.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getContentCollectionRequestMsg">
 		<wsdl:part name="in" element="rps:getContentCollectionRequest">
 			<wsdl:documentation>This message supplies a set of asset references in the form of a BMContentsType element, an optional format filter in the form of a BMContentFilterType element, an optional specific content filter in the form of a string (to be retrieved from the RCR), along with optional user credentials and session state information to allow authorized access to the repository in order to retrieve the metadata for multiple assets.  The content filter is an enumeration that identifies the desired extent of the returned metadata.  The default value for the filter is "full".  One of the enumerations is "specificFilter", if this enumeration is used, then the specificFilter from the RCR must be supplied.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="retrieveEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:retrieveEssenceRequest">
 			<wsdl:documentation>This message supplies an essence location in the form of a BMEssenceLocatorType element, a "known" destination location in the form of a KnownLocationType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to download specified essence from the repository to a target location that is accessible to the Repository.  The allowable accessible target locations is available from the RCR.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelRetrieveEssenceRequestMsg">
 		<wsdl:part name="in" element="rps:cancelRetrieveEssenceRequest">
 			<wsdl:documentation>This message supplies an RetrieveEssence operation ID in the form of a ResourceReferenceType element, optional endpoints for result or fault notifications in the form of an AsyncEndpointType element, along with optional user credentials and session state information to allow authorized access to the repository in order to cancel a previously-requested RetrieveEssence operation.  If the notification endpoints are not supplied, the client cannot be notified of any success or failure information related to the request.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="contentQueryRequestMsg">
 		<wsdl:part name="in" element="rps:contentQueryRequest">
 			<wsdl:documentation>This message provides an optional configuration value in the form of a QueryProfileType element, a query parameter specification in the form of a QueryInputDefinitionType element, a result formatting specification in the form of a QueryOutputDefinitionType element, along with optional user credentials and session state information to allow authorized access to the repository in order to find assets that match the provided query parameters.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getRepositoryStateRequestMsg">
 		<wsdl:part name="in" element="rps:getRepositoryStateRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the current state of the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getStorageAvailableCapacityRequestMsg">
 		<wsdl:part name="in" element="rps:getStorageAvailableCapacityRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the current storage capacities of the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getPerformanceIndicatorRequestMsg">
 		<wsdl:part name="in" element="rps:getPerformanceIndicatorRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the current usage level of the Repository (0% being idle, 100% being completely saturated).  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getRepositoryReportRequestMsg">
 		<wsdl:part name="in" element="rps:getRepositoryReportRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the current general condition or health of the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getGeneralCapabilityRequestMsg">
 		<wsdl:part name="in" element="rps:getGeneralCapabilityRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the general set of capability settings from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSchemaExtensionsRequestMsg">
 		<wsdl:part name="in" element="rps:getSchemaExtensionsRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the implementation-defined list of schema extensions from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getUpdatablePropertiesRequestMsg">
 		<wsdl:part name="in" element="rps:getUpdatablePropertiesRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the list of properties that may be updated in the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getQueryResultsetDefinitionsRequestMsg">
 		<wsdl:part name="in" element="rps:getQueryResultsetDefinitionsRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve a list of implementation-defined query result sets from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSearchablePropertiesRequestMsg">
 		<wsdl:part name="in" element="rps:getSearchablePropertiesRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the list of properties that can be included in query parameters from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getRepositoryDefinitionsRequestMsg">
 		<wsdl:part name="in" element="rps:getRepositoryDefinitionsRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the implementation-specific storage definitions from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSuperLockTokenRequestMsg">
 		<wsdl:part name="in" element="rps:getSuperLockTokenRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve a super lock token from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSupportedStatusRequestMsg">
 		<wsdl:part name="in" element="rps:getSupportedStatusRequest">
 			<wsdl:documentation>This message supplies optional user credentials and session state information to allow authorized access to the repository in order to retrieve the supported status types from the Repository.  Repository behavior if credentials are not supplied is implementation-specific.  See the Repository XSD documentation for schema details.</wsdl:documentation>
@@ -265,140 +309,185 @@ limitations under the License.
 			<wsdl:documentation>This message provides data related to a successfully executed AddEssence operation, including the content metadata for the associated asset in the form of a BMContentType element, the location of the added essence in the Repository in the form of a BMEssenceLocatorType element, and an operation ID in the form of a ResourceReferenceType element.  The operation ID will match an ID returned in an AddEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="addEssenceFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:addEssenceOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed AddEssence operation, including the fault data in the form of a RepositoryFaultType, the content metadata for the requested asset in the form of a BMContentType element, the requested location for the added essence in the form of a BMEssenceLocatorType element, and an operation ID in the form of a ResourceReferenceType element.  The operation ID will match an ID returned in an AddEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelAddEssenceNotificationMsg">
 		<wsdl:part name="in" element="rps:cancelAddEssenceOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed CancelAddEssence operation, including a Cancel operation ID and an AddEssence operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an AddEssenceAckMessage and a CancelAddEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelAddEssenceFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:cancelAddEssenceOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed CancelAddEssence operation, including the fault data in the form of a RepositoryFaultType, a Cancel operation ID and an AddEssence operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an AddEssenceAckMessage and a CancelAddEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeEssenceNotificationMsg">
 		<wsdl:part name="in" element="rps:purgeEssenceOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed PurgeEssence operation, including the content metadata for the associated asset in the form of a BMContentType element, the location of the purged essence in the Repository in the form of a BMEssenceLocatorType element, and a PurgeEssence operation ID in the form of a ResourceReferenceType element. The operation ID will match an ID returned in a PurgeEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeEssenceFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:purgeEssenceOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed PurgeEssence operation, including the fault data in the form of a RepositoryFaultType,the content metadata for the associated asset in the form of a BMContentType element, the location of the essence in the Repository in the form of a BMEssenceLocatorType element, and a PurgeEssence operation ID in the form of a ResourceReferenceType element. The operation ID will match an ID returned in a PurgeEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeEssenceNotificationMsg">
 		<wsdl:part name="in" element="rps:cancelPurgeEssenceOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed CancelPurgeEssence operation, including a Cancel operation ID and a PurgeEssence operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an PurgeEssenceAckMessage and a CancelPurgeEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeEssenceFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:cancelPurgeEssenceOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed CancelPurgeEssence operation, including the fault data in the form of a RepositoryFaultType, a Cancel operation ID and a PurgeEssence operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an PurgeEssenceAckMessage and a CancelPurgeEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeContentNotificationMsg">
 		<wsdl:part name="in" element="rps:purgeContentOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed PurgeContent operation, including the content metadata for the associated asset in the form of a BMContentType element, and a PurgeContent operation ID in the form of a ResourceReferenceType element. The operation ID will match an ID returned in a PurgeContentAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeContentFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:purgeContentOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed PurgeContent operation, including the fault data in the form of a RepositoryFaultType, the content metadata for the associated asset in the form of a BMContentType element, and a PurgeContent operation ID in the form of a ResourceReferenceType element. The operation ID will match an ID returned in a PurgeContentAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeContentNotificationMsg">
 		<wsdl:part name="in" element="rps:cancelPurgeContentOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed CancelPurgeContent operation, including a CancelPurgeContent operation ID and an PurgeContent operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an PurgeContentAckMessage and a CancelPurgeContentAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeContentFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:cancelPurgeContentOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed CancelPurgeContent operation, including the fault data in the form of a RepositoryFaultType, a Cancel operation ID and a PurgeContent operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an PurgeContentAckMessage and a CancelPurgeContentAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="retrieveEssenceNotificationMsg">
 		<wsdl:part name="in" element="rps:retrieveEssenceOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed RetrieveEssence operation, including the the location of the essence in the Repository in the form of a BMEssenceLocatorType element, a RetrieveEssence operation ID in the form of a ResourceReferenceType element, and a destination location in the form of a KnownLocationType element. The operation ID will match an ID returned in a RetrieveEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="retrieveEssenceFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:retrieveEssenceOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed RetrieveEssence operation, including the fault data in the form of a RepositoryFaultType, the the location of the essence in the Repository in the form of a BMEssenceLocatorType element, a RetrieveEssence operation ID in the form of a ResourceReferenceType element, and a destination location in the form of a KnownLocationType element. The operation ID will match an ID returned in a RetrieveEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelRetrieveEssenceNotificationMsg">
 		<wsdl:part name="in" element="rps:cancelRetrieveEssenceOperationNotification">
 			<wsdl:documentation>This message provides data related to a successfully executed CancelRetrieveEssence operation, including a Cancel operation ID and an RetrieveEssence operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an RetrieveEssenceAckMessage and a CancelRetrieveEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelRetrieveEssenceFaultNotificationMsg">
 		<wsdl:part name="fault" element="rps:cancelRetrieveEssenceOperationFaultNotification">
 			<wsdl:documentation>This message provides data related to a failed CancelRetrieveEssence operation, including the fault data in the form of a RepositoryFaultType, a Cancel operation ID and an RetrieveEssence operation ID, both in the form of a ResourceReferenceType element. The operation IDs will match IDs returned in an RetrieveEssenceAckMessage and a CancelRetrieveEssenceAckMessage.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="repositoryEventMsg">
 		<wsdl:part name="in" element="bms:eventEnvelope">
 			<wsdl:documentation>This message provides data related to a Repository system event, including a timestamp in the form of a dateTime element, an event type in the form of an eventType element, an event sub-type in the form of an EventSubType element, an event classification in the form of an EventClassificationType and a payload in the form of an EventPayloadType element.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	<!-- **************************** operation Ack message **************************** -->	
+	<!-- **************************** operation Ack message **************************** -->
 	<wsdl:message name="generateUniqueIDResponseMsg">
 		<wsdl:part name="out" element="rps:generateUniqueIDResponse">
 			<wsdl:documentation>This message returns a unique ID in the form of a ResourceIDType.  The message represents a successful completion of a GenerateUniqueID request.  This ID is unique within the context of the Repository.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
     </wsdl:message>
-	
+
 	<wsdl:message name="addContentResponseMsg">
 		<wsdl:part name="out" element="rps:addContentResponse">
 			<wsdl:documentation>This message returns new asset metadata in the form of a BMContentType element.  The message represents a successful completion of an AddContent request.    See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="addEssencePlaceholderResponseMsg">
 		<wsdl:part name="out" element="rps:addEssencePlaceholderResponse">
 			<wsdl:documentation>This message returns a new essence placeholder in the form of an EssencePlaceholderLocatorType element.  The message represents a successful completion of an AddEssencePlaceholder request.  The returned placeholder object must be passed to the repository service when the actual essence corresponding to the placeholder is added (part of addEssenceRequestMsg).  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
-	</wsdl:message>	
-	
-	
+	</wsdl:message>
+
+	<!-- FIMS 1.3 Begin -->
+     <wsdl:message name="addTagResponseMsg">
+		<wsdl:part name="out" element="rps:addTagResponse">
+			<wsdl:documentation>This message returns a the linked resource reference object with the newly added tag.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeTagResponseMsg">
+		<wsdl:part name="out" element="rps:addTagResponse">
+			<wsdl:documentation>This message returns a the linked resource reference object after the tag object has been removed.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="queryTagsResponseMsg">
+		<wsdl:part name="out" element="rps:queryTagsResponse">
+			<wsdl:documentation>This message returns the list of resource reference object matching the tag query criteria.</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="addRelationResponseMsg">
+		<wsdl:part name="out" element="rps:addRelationResponse">
+			<wsdl:documentation>This message returns the resource reference object containing the new relation</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="removeRelationResponseMsg">
+		<wsdl:part name="out" element="rps:removeRelationResponse">
+			<wsdl:documentation>This message returns the resource reference object after the relation has been removed</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="registerExternalEssenceResponseMsg">
+		<wsdl:part name="out" element="rps:registerExternalEssenceResponse">
+			<wsdl:documentation>This message returns the BMContent object after the external essence has been registered</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="unregisterExternalEssenceResponseMsg">
+		<wsdl:part name="out" element="rps:unregisterExternalEssenceResponse">
+			<wsdl:documentation>This message returns the BMContent object after the external essence has been unregistered</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+
+
+	<!-- FIMS 1.3 End -->
+
 	<wsdl:message name="addEssenceAckMsg">
 		<wsdl:part name="ack" element="rps:addEssenceOperationAck">
 			<wsdl:documentation>This message acknowledges the submission of an AddEssenceRequest. The message contains a timestamp in the form of a dateTime element and an operation ID in the form of a ResourceReferenceType element.  The operation ID will be used in notification messages to link the result or fault to the original request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelAddEssenceAckMsg">
 		<wsdl:part name="ack" element="rps:cancelAddEssenceOperationAck">
 			<wsdl:documentation>This message confirms the submission of a CancelAddEssenceRequest. The message contains a timestamp in the form of a dateTime element, a cancel operation ID and the associated AddEssence operation ID, both in the form of a ResourceReferenceType element, and an operation status value in the form of a CancelOperationStatusType element.  The operation IDs will be used in notification messages to link the result or fault to the original request.  If the error element is not included, the submission was successful.  If the error element is included, then the submission failed, and no further notifications will be issued.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="replaceContentResponseMsg">
 		<wsdl:part name="out" element="rps:replaceContentResponse">
 			<wsdl:documentation>This message returns updated asset metadata in the form of a BMContentType element.  The message represents a successful completion of a ReplaceContent request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="updateContentPropertiesResponseMsg">
 		<wsdl:part name="out" element="rps:updateContentPropertiesResponse">
 			<wsdl:documentation>This message returns updated asset metadata in the form of a BMContentType element.  The message represents a successful completion of an UpdateContent request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
@@ -410,180 +499,180 @@ limitations under the License.
 			<wsdl:documentation>This message returns a new or updated lock token in the form of a LockTokenType element.  The message represents a successful completion of a Lock request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="unLockResponseMsg">
 		<wsdl:part name="out" element="rps:unLockResponse">
 			<wsdl:documentation>This message returns an updated lock token in the form of a LockTokenType element.  The message represents a successful completion of an UnLock request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="clearLockResponseMsg">
 		<wsdl:part name="out" element="rps:clearLockResponse">
 			<wsdl:documentation>This message returns a cleared (no associated resources) lock token in the form of a LockTokenType element.  The message represents a successful completion of a ClearLock request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getLocksResponseMsg">
 		<wsdl:part name="out" element="rps:getLocksResponse">
 			<wsdl:documentation>This message returns a set of lock tokens in the form of a LockTokensType element.  The message represents a successful completion of a GetLocks request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="removeEssenceResponseMsg">
 		<wsdl:part name="out" element="rps:removeEssenceResponse">
 			<wsdl:documentation>This message returns updated asset metadata in the form of a BMContentType element.  The message represents a successful completion of a RemoveEssence request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="unRemoveEssenceResponseMsg">
 		<wsdl:part name="out" element="rps:unRemoveEssenceResponse">
 			<wsdl:documentation>This message returns updated asset metadata in the form of a BMContentType element.  The message represents a successful completion of an UnRemoveEssence request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="removeContentResponseMsg">
 		<wsdl:part name="out" element="rps:removeContentResponse">
 			<wsdl:documentation>This message returns updated asset metadata in the form of a BMContentType element.  The message represents a successful completion of a RemoveContent request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="unRemoveContentResponseMsg">
 		<wsdl:part name="out" element="rps:unRemoveContentResponse">
 			<wsdl:documentation>This message returns updated asset metadata in the form of a BMContentType element.  The message represents a successful completion of an UnRemoveContent request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeEssenceAckMsg">
 		<wsdl:part name="ack" element="rps:purgeEssenceOperationAck">
 			<wsdl:documentation>This message confirms the submission of an PurgeEssenceRequest. The message contains a timestamp in the form of a dateTime element and an operation ID in the form of a ResourceReferenceType element.  The operation ID will be used in notification messages to link the result or fault to the original request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeEssenceAckMsg">
 		<wsdl:part name="ack" element="rps:cancelPurgeEssenceOperationAck">
 			<wsdl:documentation>This message confirms the submission of a CancelPurgeEssenceRequest. The message contains a timestamp in the form of a dateTime element, a cancel operation ID and the associated PurgeEssence operation ID, both in the form of a ResourceReferenceType element, and an operation status value in the form of a CancelOperationStatusType element.  The operation IDs will be used in notification messages to link the result or fault to the original request.  If the error element is not included, the submission was successful.  If the error element is included, then the submission failed, and no further notifications will be issued.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="purgeContentAckMsg">
 		<wsdl:part name="ack" element="rps:purgeContentOperationAck">
 			<wsdl:documentation>This message confirms the submission of a PurgeContentRequest. The message contains a timestamp in the form of a dateTime element and an operation ID in the form of a ResourceReferenceType element.  The operation ID will be used in notification messages to link the result or fault to the original request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelPurgeContentAckMsg">
 		<wsdl:part name="ack" element="rps:cancelPurgeContentOperationAck">
 			<wsdl:documentation>This message confirms the submission of a CancelPurgeContentRequest. The message contains a timestamp in the form of a dateTime element, a cancel operation ID and the associated PurgeContent operation ID, both in the form of a ResourceReferenceType element, and an operation status value in the form of a CancelOperationStatusType element.  The operation IDs will be used in notification messages to link the result or fault to the original request.  If the error element is not included, the submission was successful.  If the error element is included, then the submission failed, and no further notifications will be issued.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getContentResponseMsg">
 		<wsdl:part name="out" element="rps:getContentResponse">
 			<wsdl:documentation>This message returns "hydrated" asset metadata in the form of a BMContentType element.  The message represents a successful completion of a GetContent request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getContentCollectionResponseMsg">
 		<wsdl:part name="out" element="rps:getContentCollectionResponse">
 			<wsdl:documentation>This message returns a set of "hydrated" asset metadata in the form of a BMContentsType element.  The message represents a successful completion of a GetContentCollection request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="retrieveEssenceAckMsg">
 		<wsdl:part name="ack" element="rps:retrieveEssenceOperationAck">
 			<wsdl:documentation>This message confirms the submission of a RetrieveEssenceRequest. The message contains a timestamp in the form of a dateTime element and an operation ID in the form of a ResourceReferenceType element.  The operation ID will be used in notification messages to link the result or fault to the original request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="cancelRetrieveEssenceAckMsg">
 		<wsdl:part name="ack" element="rps:cancelRetrieveEssenceOperationAck">
 			<wsdl:documentation>This message confirms the submission of a CancelRetrieveEssenceRequest. The message contains a timestamp in the form of a dateTime element, a cancel operation ID and the associated RetrieveEssence operation ID, both in the form of a ResourceReferenceType element, and an operation status value in the form of a CancelOperationStatusType element.  The operation IDs will be used in notification messages to link the result or fault to the original request.  If the error element is not included, the submission was successful.  If the error element is included, then the submission failed, and no further notifications will be issued.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="contentQueryResponseMsg">
 		<wsdl:part name="out" element="rps:contentQueryResponse">
 			<wsdl:documentation>This message returns the result of a content query, including the number of results and a page number, both in the form of an integer element, a copy of the original query request in the form of a ContentQueryRequestType and the set of result asset metadata in the form of a BMContentsType.  The message represents a successful completion of a ContentQueryResponse request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getRepositoryStateResponseMsg">
 		<wsdl:part name="out" element="rps:getRepositoryStateResponse">
 			<wsdl:documentation>This message returns Repository state in the form of a RepositoryStateType element.  The message represents a successful completion of a GetRepositoryState request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getStorageAvailableCapacityResponseMsg">
 		<wsdl:part name="out" element="rps:getStorageAvailableCapacityResponse">
 			<wsdl:documentation>This message returns Repository available capacity  in the form of a StorageComponentsType element.  The message represents a successful completion of a GetStorageAvailableCapacity request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getPerformanceIndicatorResponseMsg">
 		<wsdl:part name="out" element="rps:getPerformanceIndicatorResponse">
 			<wsdl:documentation>This message returns a Repository performance indicator in the form of a PerformanceIndicatorType element.  The message represents a successful completion of a GetPerformanceIndicator request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getRepositoryReportResponseMsg">
 		<wsdl:part name="out" element="rps:getRepositoryReportResponse">
 			<wsdl:documentation>This message returns a Repository performance indicator in the form of a PerformanceIndicatorType element.  The message represents a successful completion of a GetPerformanceIndicator request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getGeneralCapabilityResponseMsg">
 		<wsdl:part name="out" element="rps:getGeneralCapabilityResponse">
 			<wsdl:documentation>This message returns a list of Repository capabilities in the form of a GeneralCapabilityType element.  The message represents a successful completion of a GetGeneralCapability request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSchemaExtensionsResponseMsg">
 		<wsdl:part name="out" element="rps:getSchemaExtensionsResponse">
 			<wsdl:documentation>This message returns a list of Repository schema extensions in the form of a SchemaExtensionsType element.  The message represents a successful completion of a GetSchemaExtensions request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getUpdatablePropertiesResponseMsg">
 		<wsdl:part name="out" element="rps:getUpdatablePropertiesResponse">
 			<wsdl:documentation>This message returns a list of Repository updatable asset properties in the form of a UpdatablePropertyInfosType element.  The message represents a successful completion of a GetUpdatableProperties request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getQueryResultsetDefinitionsResponseMsg">
 		<wsdl:part name="out" element="rps:getQueryResultsetDefinitionsResponse">
 			<wsdl:documentation>This message returns a set of implementation specific defined result sets in the form of a QueryResultsetDefinitionsType element.  The message represents a successful completion of a GetQueryResultsetDefinitions request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSearchablePropertiesResponseMsg">
 		<wsdl:part name="out" element="rps:getSearchablePropertiesResponse">
 			<wsdl:documentation>This message returns a list of Repository searchable asset properties in the form of a SearchablePropertyInfosType element.  The message represents a successful completion of a GetSearchableProperties request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getRepositoryDefinitionsResponseMsg">
 		<wsdl:part name="out" element="rps:getRepositoryDefinitionsResponse">
 			<wsdl:documentation>This message returns a list of Repository definitions in the form of a RepositoryDefinitionsType element.  The message represents a successful completion of a GetRepositoryDefinitions request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSuperLockTokenResponseMsg">
 		<wsdl:part name="out" element="rps:getSuperLockTokenResponse">
 			<wsdl:documentation>This message returns a "super" lock token in the form of a SuperLockTokenType element.  The message represents a successful completion of a GetSuperLock request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	
+
 	<wsdl:message name="getSupportedStatusResponseMsg">
 		<wsdl:part name="out" element="rps:getSupportedStatusResponse">
 			<wsdl:documentation>This message returns a list of Repository supported statuses for content and essence in the form of a SupportedStatusType element.  The message represents a successful completion of a GetSupportedStatus request.  See the Repository XSD documentation for schema details.</wsdl:documentation>
 		</wsdl:part>
 	</wsdl:message>
-	<!-- **************************** services **************************** -->    
+	<!-- **************************** services **************************** -->
     <wsdl:portType name="Repository">
     	<wsdl:documentation>The Repository port is for operations that interact directly with the repository.
 		Asynchronous operations are those that return "Ack" messages instead of "Response" messages.  If an asynchronous operation fails immediately, a Fault message will be returned instead of an Ack.  This can happen, for example, if the request is malformed, say with invalid credentials.  If the operation returns an Ack, then the result is returned via Notification.  As part of the Request, the caller may supply "Notify-To" and "Fault-To" endpoints to receive success or failure notifications.  If the endpoints are not supplied, then the caller will have no way of knowing when the request was finished, and whether it succeeded or failed.
 		Cancel operations are a little different because they may succeed or fail depending on the system state.  If, for example, a PurgeEssence command has already permanently removed essence files, then an associated CancelPurgeEssence request will fail because there is no way to undo that action.  This failure may happen immediately or via fault notification, depending on the implementation and its ability to validate requests.
-    	
+
     		<h4>REST Mapping for Repository Service</h4>
     		<table>
     			<tr>
@@ -631,6 +720,113 @@ limitations under the License.
     				<td>{Repository Credentials}</td>
     				<td class="firstColumn"></td>
     			</tr>
+
+    			<!-- FIMS 1.3 Begin -->
+    			<tr>
+    				<td class="firstColumn">AddTag</td>
+    				<td>Add a Tag Object to the linked resource reference object</td>
+    				<td class="firstColumn">POST</td>
+    				<td>.../{resourceType}/{resourceID}/tag</td>
+    				<td class="firstColumn">bms:TagType</td>
+    				<td>bms:TagType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+          <!-- Note: 'Primary key' for TAG is name and value, so DELETE uses
+               equivalent RemoveTagRequest rather than a path. -->
+
+    			<tr>
+    				<td class="firstColumn">RemoveTag</td>
+    				<td>Remove Tag Object associated with the linked resource reference object</td>
+    				<td class="firstColumn">DELETE</td>
+    				<td>.../{resourceType}/{resourceID}/tag</td>
+    				<td class="firstColumn">rps:RemoveTagRequestType</td>
+    				<td></td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+    			<tr>
+    				<td class="firstColumn">QueryTags</td>
+    				<td>Query tag objects linked to a referenced object.</td>
+    				<td class="firstColumn">GET</td>
+    				<td>.../tag/{tagName}</td>
+    				<td class="firstColumn"></td>
+    				<td>rps:QueryTagsResponseType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+    			<tr>
+    				<td class="firstColumn">AddRelation</td>
+    				<td>Add relation between two object resource reference objects </td>
+    				<td class="firstColumn">POST</td>
+    				<td>.../relation</td>
+    				<td class="firstColumn">rps:AddRelationRequestType</td>
+    				<td>rps:AddRelationResponseType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+    			<tr>
+    				<td class="firstColumn">RemoveRelation</td>
+    				<td>Remove existing relation between two object resource reference objects.</td>
+    				<td class="firstColumn">DELETE</td>
+    				<td>.../relation/{primaryID}/{linkedID}</td>
+    				<td class="firstColumn"></td>
+    				<td>rps:RemoveRelationResponseType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+          <tr>
+            <td class="firstColumn">QueryRelation</td>
+            <td>Query an existing relation between two object resource reference
+              objects, where relationID can be the primary or the linked object.</td>
+            <td class="firstColumn">GET</td>
+            <td>.../relation/{relationID}</td>
+            <td class="firstColumn"></td>
+            <td>bms:LinkedResourceRelationsType</td>
+            <td class="firstColumn">rps:RepositoryFaultType</td>
+            <td>{Repository Credentials}</td>
+            <td class="firstColumn"></td>
+          </tr>
+
+    			<tr>
+    				<td class="firstColumn">RegisterExternalEssence</td>
+    				<td>Register an external essence within the repository</td>
+    				<td class="firstColumn">POST</td>
+    				<td>.../externalEssence</td>
+    				<td class="firstColumn">rps:RegisterExternalEssenceRequestType</td>
+    				<td>rps:RegisterExternalEssenceResponseType</td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+    			<tr>
+    				<td class="firstColumn">UnregisterExternalEssence</td>
+    				<td>Unregister an external essence within the repository</td>
+    				<td class="firstColumn">DELETE</td>
+    				<td>.../externalEssence/{externalFileLocatorID}</td>
+    				<td class="firstColumn"></td>
+    				<td></td>
+    				<td class="firstColumn">rps:RepositoryFaultType</td>
+    				<td>{Repository Credentials}</td>
+    				<td class="firstColumn"></td>
+    			</tr>
+
+          <!-- As external essence is a form of essence locator, GET method
+               for accessing other essence locators works here. -->
+
+    			<!-- FIMS 1.3 End -->
+
     			<tr>
     				<td class="firstColumn">AddEssence</td>
     				<td>Add essence files of a given BMContentFormat to a repository and associate it with an existing content element </td>
@@ -667,7 +863,7 @@ limitations under the License.
     			<tr>
     				<td class="firstColumn">UpdateContentProperties</td>
     				<td>Updates specific "metadata" properties of an existing content element </td>
-    				<td class="firstColumn">PUT</td> <!-- Change for v1.2.0. POST changed to PUT. --> 
+    				<td class="firstColumn">PUT</td> <!-- Change for v1.2.0. POST changed to PUT. -->
     				<td>.../content/properties/{resourceId}/{revisionID}</td> <!-- Change for v1.2.0. Added properties sub-resource to disambiguate routing. -->
     				<td class="firstColumn">rps:PropertyInfosType</td>
     				<td>bms:BMContentType</td>
@@ -679,8 +875,8 @@ limitations under the License.
     				<td class="firstColumn">Lock</td> <!-- Change for V1.2.0. POST a LockRequest to create a new lock. -->
     				<td>Create a lock on the given resource or resources.</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken</td> 
-    				<td class="firstColumn">bms:LockTokenType</td> 
+    				<td>.../locktoken</td>
+    				<td class="firstColumn">bms:LockTokenType</td>
     				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -690,8 +886,8 @@ limitations under the License.
     				<td class="firstColumn">UpdateLock</td> <!-- New for V1.2.0. Added additional REST operation to create or update a lock token. -->
     				<td>Create or update a lock on the given resource or resources.</td>
     				<td class="firstColumn">PUT</td> <!-- Must replace complete information about the lock. -->
-    				<td>.../locktoken/{tokenId}</td> 
-    				<td class="firstColumn">bms:LockTokenType</td> 
+    				<td>.../locktoken/{tokenId}</td>
+    				<td class="firstColumn">bms:LockTokenType</td>
     				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -701,8 +897,8 @@ limitations under the License.
     				<td class="firstColumn">LockResource</td> <!-- New for V1.2.0. Add a resource or resources to an existing lock token by posting a resource reference. -->
     				<td>Add a lock to a given resource or resources.</td>
     				<td class="firstColumn">POST</td>
-    				<td>.../locktoken/{tokenId}</td> 
-    				<td class="firstColumn">bms:ResourceReferencesType</td> 
+    				<td>.../locktoken/{tokenId}</td>
+    				<td class="firstColumn">bms:ResourceReferencesType</td>
     				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -713,7 +909,7 @@ limitations under the License.
     				<td>Disassociates given resource from a lock</td> <!-- Less powerful than SOAP - can only do one at a time. PUT method also available. -->
     				<td class="firstColumn">DELETE</td>
     				<td>.../locktoken/{tokenId}/{resourceId}</td>
-    				<td class="firstColumn"></td> 
+    				<td class="firstColumn"></td>
        				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -724,7 +920,7 @@ limitations under the License.
     				<td>Overrides a lock using a "SuperLockToken" acquired from the RCR</td>
     				<td class="firstColumn">POST</td>
     				<td>.../locktoken/{tokenId}/clear</td> <!-- Change in V1.2.0. Problem: verb in the path. Anwser. Not ideal, but provides a specific route. -->
-    				<td class="firstColumn">rps:ClearLockRequestType</td> 
+    				<td class="firstColumn">rps:ClearLockRequestType</td>
     				<td>bms:LockTokenType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td><ul><li>{Repository Credentials}</li><li>{Super Token}</li></ul></td>
@@ -834,7 +1030,7 @@ limitations under the License.
     				<td>Attempts to cancel a pending or in-progress PurgeContent job</td>
     				<td class="firstColumn">POST</td>
     				<td>.../content/{resourceId}/{revisionID}/purge/cancel-purge</td> <!-- Change in v1.2.0. Added sub-resource "cancel-purge" to disambiguate routing.  -->
-    				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td> 
+    				<td class="firstColumn">rps:CancelPurgeEssenceRequestType</td>
     				<td>rps:PurgeContentOperationAckType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -856,7 +1052,7 @@ limitations under the License.
     				<td>Returns multiple content elements for the given set of assets</td>
     				<td class="firstColumn">POST</td> <!-- Change from GET in V1.2.0. -->
     				<td>.../content/get-content-collection</td> <!-- Chagnge in V1.2.0. Added sub-resource path for routing. -->
-    				<td class="firstColumn">rps:GetContentCollectionRequestType</td> 
+    				<td class="firstColumn">rps:GetContentCollectionRequestType</td>
     				<td>List of bms:BMContentType</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -867,7 +1063,7 @@ limitations under the License.
     				<td>Copies one or more essence files specified by a BMEssenceLocator to a known supported destination by the repository</td>
     				<td class="firstColumn">POST</td><!--  Changed in V1.2.0. Changed from GET to POST. -->
     				<td>.../essence/retrieve</td> <!--  Change in V1.2.0. Otherwise in conflict with AddEssence. -->
-    				<td class="firstColumn">rps:RetrieveEssenceRequestType</td> 
+    				<td class="firstColumn">rps:RetrieveEssenceRequestType</td>
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -878,7 +1074,7 @@ limitations under the License.
     				<td>Attempts to cancel a pending or in-progress RetrieveEssence job</td>
     				<td class="firstColumn">POST</td> <!-- Changed in V1.2.0. Changed from GET to POST. -->
     				<td>.../essence/cancel-retrieve</td> <!--  Changed in V1.2.0. Replaced "/{resourceID}" path parameter with "cancel-retrieve". ResourceID now posted. -->
-    				<td class="firstColumn">rps:CancelRetrieveEssenceRequestType</td> 
+    				<td class="firstColumn">rps:CancelRetrieveEssenceRequestType</td>
     				<td>bms:bmEssenceLocator</td>
     				<td class="firstColumn">rps:RepositoryFaultType</td>
     				<td>{Repository Credentials}</td>
@@ -898,7 +1094,7 @@ limitations under the License.
     		</table>
     		<br/>
     		<br/>
-    	
+
     	</wsdl:documentation>
     	<wsdl:operation name="GenerateUniqueID">
     		<wsdl:documentation>This operation generates a Unique ID within the scope of a given repository.  The ID must be obtained before creating objects that require a resourceID, unless a different ID is desired - the ID can be created by an external service as long as ID uniqueness is respected.  Failure of the request will result in a fault message return.</wsdl:documentation>
@@ -906,43 +1102,106 @@ limitations under the License.
     		<wsdl:output message="rps:generateUniqueIDResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
          </wsdl:operation>
-    	
+
     	<wsdl:operation name="AddContent">
     		<wsdl:documentation>This operation creates a new asset (BMContentType) in a repository and associates it with an existing content element (BMContentType).  An asset must be created prior to adding an essence placeholder, and must include a unique ID.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:addContentRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:addContentResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
-    	
+
+
     	<wsdl:operation name="AddEssencePlaceholder">
     		<wsdl:documentation>This operation creates a placeholder for future essence files on a given content element (BMContentType) in a repository.  This operation can be used to register the intention to create essence, allowing other clients to adjust behavior accordingly.  When the actual essence is added to the repository, the placeholder returned from this call must be passed in with the AddEssence request.  Otherwise, the service cannot know which placeholder to remove, resulting in the simultaneous existence of a placeholder and actual essence.  The input placeholder essence locator is optional, unless a specific resource ID is desired for the placeholder.  If the placeholder is supplied, then the service will return the same placeholder in the response, preserving the resourceID.  If the placeholder is not supplied, the service will create a placeholder and return it in the response.</wsdl:documentation>
     		<wsdl:input message="rps:addEssencePlaceholderRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:addEssencePlaceholderResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
+
+
+
+    	<!-- FIMS 1.3  Begin -->
+
+    	<wsdl:operation name="AddTag">
+    		<wsdl:documentation>This operation creates a new tag object associated to the specified resource reference object.</wsdl:documentation>
+    		<wsdl:input message="rps:addTagRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:addTagResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+    	<wsdl:operation name="RemoveTag">
+    		<wsdl:documentation>This operation remove a tag object associated to the specified resource reference object.</wsdl:documentation>
+    		<wsdl:input message="rps:removeTagRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:removeTagResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+    	<wsdl:operation name="QueryTags">
+    		<wsdl:documentation>This operation returns a list of resource reference objects matching the tag search criteria </wsdl:documentation>
+    		<wsdl:input message="rps:queryTagsRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:queryTagsResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+    	<wsdl:operation name="AddRelation">
+    		<wsdl:documentation>This operation creates a relation between the two specified resource reference objects</wsdl:documentation>
+    		<wsdl:input message="rps:addRelationRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:addRelationResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+
+    	<wsdl:operation name="RemoveRelation">
+    		<wsdl:documentation>This operation removes the existing relation between the two specified resource reference objects</wsdl:documentation>
+    		<wsdl:input message="rps:removeRelationRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:removeRelationResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+
+
+    	<wsdl:operation name="RegisterExternalEssence">
+    		<wsdl:documentation>This operation registered an external essence within the repository</wsdl:documentation>
+    		<wsdl:input message="rps:registerExternalEssenceRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:registerExternalEssenceResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+    	<wsdl:operation name="UnregisterExternalEssence">
+    		<wsdl:documentation>This operation unregistered an existing external essence within the repository</wsdl:documentation>
+    		<wsdl:input message="rps:unregisterExternalEssenceRequestMsg"></wsdl:input>
+    		<wsdl:output message="rps:unregisterExternalEssenceResponseMsg"></wsdl:output>
+    		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
+    	</wsdl:operation>
+
+
+
+
+
+    	<!-- FIMS 1.3  End -->
+
     	<wsdl:operation name="AddEssence">
     		<wsdl:documentation>This operation adds essence files of a given BMContentFormat to a repository and associates it with an existing content element (BMContentType). The files must be in an accessible location defined in the RCR, and the files may be moved into the repository's essence storage, depending on the service implementation.  If a service implementation transfers the files from the accessible location to a different location, then the returned essence locator must reflect the new location(s) while preserving the resourceID.  Also, in this case the service implementation must remove the files from the accessible location.  This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:addEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:addEssenceAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="CancelAddEssence">
     		<wsdl:documentation>This operation attempts to cancel a given pending or in-progress AddEssence job.  The request may or may not be successful depending on the state of the job. If the request is successful, any intermediate essence data will be deleted from the repository's essence storage.  This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:cancelAddEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:cancelAddEssenceAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="ReplaceContent">
     		<wsdl:documentation>This operation updates an entire existing content element (BMContentType). Only addressable and updatable properties (as defined by the RCR) may be updated, added or removed (NULLed).   Any properties that are omitted from the input will be set to NULL in the repository content.  If versioning is supported, a new version of the content is created.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:replaceContentRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:replaceContentResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="UpdateContentProperties">
     		<wsdl:documentation>This operation updates specific "metadata" properties of an existing content element (BMContentType).  Only addressable and updatable properties (as defined by the RCR) may be updated or added.  Any properties not specified by the input will be ignored in the repository content.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:updateContentPropertiesRequestMsg"></wsdl:input>
@@ -956,49 +1215,49 @@ limitations under the License.
     		<wsdl:output message="rps:lockResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="UnLock">
     		<wsdl:documentation>This operation disassociates given resources from a lock.  If no resources are specified, all resources will be disassociated from the lock.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:unLockRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:unLockResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="ClearLock">
     		<wsdl:documentation>This operation overrides a lock.  A "SuperLockToken" must be acquired from the RCR before calling this operation.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:clearLockRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:clearLockResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="GetLocks">
     		<wsdl:documentation>This operation returns a list of all open locks known by the asset repository.  A "SuperLockToken" must be acquired from the RCR before calling this operation.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:getLocksRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:getLocksResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="RemoveEssence">
     		<wsdl:documentation>This operation marks a given set of essence files to be deleted.  To permanently delete the essence, use the PurgeEssence operation.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:removeEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:removeEssenceResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="UnRemoveEssence">
     		<wsdl:documentation>This operation "unmarks" a given set of essence files for deletion.  If this is done before a PurgeEssence operation, the essence files will not be removed from storage.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:unRemoveEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:unRemoveEssenceResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="RemoveContent">
     		<wsdl:documentation>This operation marks a given set of content elements to be deleted.  To permanently delete the content, use the PurgeContent operation.  The operation is also responsible for marking all associated essence files as to be deleted as well.  Essence files cannot exist in a repository without content elements.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:removeContentRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:removeContentResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="UnRemoveContent">
     		<wsdl:documentation>This operation "unmarks" a given set of content elements for deletion.  If this is done before a PurgeContent operation, the content will not be removed from the repository.  Any essence files that were marked for deletion by the corresponding RemoveContent operation will be unmarked as well.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:unRemoveContentRequestMsg"></wsdl:input>
@@ -1012,56 +1271,56 @@ limitations under the License.
     		<wsdl:output message="rps:purgeEssenceAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="CancelPurgeEssence">
     		<wsdl:documentation>This operation attempts to cancel a pending or in-progress PurgeEssence job. The request may or may not be successful depending on the state of the job.  This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:cancelPurgeEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:cancelPurgeEssenceAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="PurgeContent">
     		<wsdl:documentation>This operation permanently deletes marked content elements from a repository.  All related essence files will also be permanently deleted from essence storage. This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:purgeContentRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:purgeContentAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="CancelPurgeContent">
     		<wsdl:documentation>This operation attempts to cancel a pending or in-progress PurgeContent job. The request may or may not be successful depending on the state of the job.  The operation may not be allowed if the job has progressed too far.  For example, if associated essence has been partially removed from storage, the resultant state would be unpredictable and possibly harmful if the action was stopped.  This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:cancelPurgeContentRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:cancelPurgeContentAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="GetContent">
     		<wsdl:documentation>This operation returns a single content element (BMContentType) for the given asset.  The details of the returned data can be controlled with a filter parameter.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:getContentRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:getContentResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="GetContentCollection">
     		<wsdl:documentation>This operation returns multiple content elements (BMContentType) for the given set of assets.  The details of the returned data can be controlled with a filter parameter.  Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:getContentCollectionRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:getContentCollectionResponseMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="RetrieveEssence">
     		<wsdl:documentation>This operation copies one or more essence files specified by a BMEssenceLocator to a known supported destination by the repository. This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:retrieveEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:retrieveEssenceAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="CancelRetrieveEssence">
     		<wsdl:documentation>This operation attempts to cancel a pending or in-progress RetrieveEssence job.  The request may or may not be successful depending on the state of the job. If the request is successful, any intermediate essence data will be deleted from the known supported destination.  This is an asynchronous operation.  Failure of the request may result in an immediate fault message return.  An acknowledged request submission may still fail later in the operation, in which case the failure will be delivered in a fault notification sent to the "faultTo" endpoint.</wsdl:documentation>
     		<wsdl:input message="rps:cancelRetrieveEssenceRequestMsg"></wsdl:input>
     		<wsdl:output message="rps:cancelRetrieveEssenceAckMsg"></wsdl:output>
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
-    	
+
     	<wsdl:operation name="ContentQuery">
     		<wsdl:documentation>This operation looks for repository assets that match the query parameters.  This operation is intended to support automated clients, for instance, orchestration/automation systems.  It is not intended to support arbitrary user searches.  A search parameter must match a property defined in the asset schema - BMContentType or SchemaExtensionType - and must be defined in the RCR (SearchablePropertyInfoType).  The maximum number of supported search parameters across all query operations is defined in the RCR. Failure of the request will result in a fault message return.</wsdl:documentation>
     		<wsdl:input message="rps:contentQueryRequestMsg"></wsdl:input>
@@ -1069,10 +1328,10 @@ limitations under the License.
     		<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
     	</wsdl:operation>
     </wsdl:portType>
-    
+
 	<wsdl:portType name="RepositoryNotification">
 		<wsdl:documentation>The RepositoryNotification port is for operations where a repository service calls a client either when a notification  event happens in the repository, or when an asynchronous operation successfully or unsuccessfully completes.  The asynchronous operation endpoints are communicated from the client to the server via the "notifyAt" parameter in asynchronous Request messages (for example, see the rps:retrieveEssenceRequestType definition).  AsyncEndpointType defines "replyTo" for Result notifications and "faultTo" for Fault notifications.  Event endpoint registration is implementation-specific, details to published at a later time.
-	
+
 			<h4>REST Mapping for Repository Notifications</h4>
 			<table>
 				<tr>
@@ -1204,100 +1463,100 @@ limitations under the License.
 			</table>
 			<br />
 			<br />
-			
-		
-		
-		
+
+
+
+
 		</wsdl:documentation>
 		<wsdl:operation name="NotifyAddEssenceResult">
     		<wsdl:documentation>This operation indicates that an AddEssence request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:addEssenceNotificationMsg"></wsdl:input>
     	</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyAddEssenceFault">
 			<wsdl:documentation>This operation indicates that an AddEssence request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:addEssenceFaultNotificationMsg"></wsdl:input>
     	</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelAddEssenceResult">
 			<wsdl:documentation>This operation indicates that a CancelAddEssence request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:cancelAddEssenceNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelAddEssenceFault">
 			<wsdl:documentation>This operation indicates that a CancelAddEssence request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:cancelAddEssenceFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyPurgeEssenceResult">
 			<wsdl:documentation>This operation indicates that a PurgeEssence request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:purgeEssenceNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyPurgeEssenceFault">
 			<wsdl:documentation>This operation indicates that a PurgeEssence request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:purgeEssenceFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelPurgeEssenceResult">
 			<wsdl:documentation>This operation indicates that a CancelPurgeEssence request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:cancelPurgeEssenceNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelPurgeEssenceFault">
 			<wsdl:documentation>This operation indicates that a CancelPurgeEssence request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:cancelPurgeEssenceFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyPurgeContentResult">
 			<wsdl:documentation>This operation indicates that a PurgeContent request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:purgeContentNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyPurgeContentFault">
 			<wsdl:documentation>This operation indicates that a PurgeContent request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:purgeContentFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelPurgeContentResult">
 			<wsdl:documentation>This operation indicates that a CancelPurgeContent request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:cancelPurgeContentNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelPurgeContentFault">
 			<wsdl:documentation>This operation indicates that a CancelPurgeContent request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:cancelPurgeContentFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyRetrieveEssenceResult">
 			<wsdl:documentation>This operation indicates that a RetrieveEssence request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:retrieveEssenceNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyRetrieveEssenceFault">
 			<wsdl:documentation>This operation indicates that a RetrieveEssence request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:retrieveEssenceFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelRetrieveEssenceResult">
 			<wsdl:documentation>This operation indicates that a CancelRetrieveEssence request to a repository has succeeded.</wsdl:documentation>
 			<wsdl:input message="rps:cancelRetrieveEssenceNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelRetrieveEssenceFault">
 			<wsdl:documentation>This operation indicates that a CancelRetrieveEssence request to a repository has failed.</wsdl:documentation>
 			<wsdl:input message="rps:cancelRetrieveEssenceFaultNotificationMsg"></wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="RepositoryEvent">
 			<wsdl:documentation>Events represent changes in the state of a repository that are useful for an external software system to be aware of.  Examples include addition or removal of content or essence, performance degradation, resource levels low, and system going offline for maintenance.  Events are one-time, "send-and-forget" messages with no guaranteed delivery.  Event types can be controlled via the RCR API.</wsdl:documentation>
 			<wsdl:input message="rps:repositoryEventMsg"></wsdl:input>
 		</wsdl:operation>
     </wsdl:portType>
-    
+
 	<wsdl:portType name="Rcr">
 		<wsdl:documentation>The RCR (Repository Capabilities Registry) provides "meta" information about the Repository.
-		
+
 			<h4>REST Mapping for Repository Capabilities Registry</h4> <!-- Change in V1.2.0. Using GET with sub-resource rather than posting a specific RCR request type. -->
 			<table>
 				<tr>
@@ -1446,7 +1705,7 @@ limitations under the License.
 			</table>
 			<br/>
 			<br/>
-		
+
 		</wsdl:documentation>
 		<wsdl:operation name="GetRepositoryState">
 			<wsdl:documentation>This operation returns the current state of the Repository service.  The returned state is a string: "online" means the repository service is active, "offline" means the repository service is inactive or not available and "failover" means an instance of the repository service is not in use, but another instance is active.  The result can also contain an optional vender-specific state as an extension of the abstract CustomRepositoryStateType.</wsdl:documentation>
@@ -1454,77 +1713,77 @@ limitations under the License.
 			<wsdl:output message="rps:getRepositoryStateResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetStorageAvailableCapacity">
 			<wsdl:documentation>This operation returns the current capacities of the Repository storage components.  The results include the available and total space in bytes for each named component.</wsdl:documentation>
 			<wsdl:input message="rps:getStorageAvailableCapacityRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getStorageAvailableCapacityResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetPerformanceIndicator">
 			<wsdl:documentation>This operation returns the an indication of the current performance level of the Repository.  The result includes a "percentage of capacity" value where 0 is completely idle and 100 is completely saturated.</wsdl:documentation>
 			<wsdl:input message="rps:getPerformanceIndicatorRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getPerformanceIndicatorResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetRepositoryReport">
 			<wsdl:documentation>This operation returns a implementation-specific health or general condition report in HTML format.</wsdl:documentation>
 			<wsdl:input message="rps:getRepositoryReportRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getRepositoryReportResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetGeneralCapability">
 			<wsdl:documentation>This operation returns the set of "capabilities" of the Repository.  Capabilities describe the depth of a service's implementation of the Asset Repository API.  For example, capabilities can describe supported or restricted functionality, max values, timeouts, source and destination locations, event templates, endpoints, query limits, etc.  See the Repository XSD GeneralCapabilityType for details on the full set of capabilities.</wsdl:documentation>
 			<wsdl:input message="rps:getGeneralCapabilityRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getGeneralCapabilityResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSchemaExtensions">
 			<wsdl:documentation>This operation returns the set of asset metadata schema extensions supported by the Repository. Extensions are expressed in XSD files.  Any types found in XML content that are not in the base standard must be defined in a schema extension file. For further information, please refer to the Implementation Guidelines. </wsdl:documentation>
 			<wsdl:input message="rps:getSchemaExtensionsRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getSchemaExtensionsResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetUpdatableProperties">
 			<wsdl:documentation>This operation returns the set of asset metadata properties that can be updated by the Repository.  Only those properties can be included in a BMContentType passed to an UpdateContentProperties operation. Properties may be constrained as far as which update modes (e.g., delete, insert, change) are allowed.</wsdl:documentation>
 			<wsdl:input message="rps:getUpdatablePropertiesRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getUpdatablePropertiesResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetQueryResultsetDefinitions">
 			<wsdl:documentation>This operation returns a set of implementation-specific defined result sets retuned by the Query operation. A result set may not exclude mandatory elements of BMContent objects.</wsdl:documentation>
 			<wsdl:input message="rps:getQueryResultsetDefinitionsRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getQueryResultsetDefinitionsResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSearchableProperties">
 			<wsdl:documentation>This operation returns the set of asset metadata properties that can be queried by the Repository.  Only those searchable properties can be included in a QueryParameterType passed to an ContentQuery operation. Queryable properties may be prohibited from being used with certain operators (e.g., less), and also can be prohibited from defining result sort order.</wsdl:documentation>
 			<wsdl:input message="rps:getSearchablePropertiesRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getSearchablePropertiesResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetRepositoryDefinitions">
 		  <wsdl:documentation>This operation returns a set of implementation-specific internal storage volumes. These volumes can be returned in the response to a getStorageAvailableCapacity request</wsdl:documentation>
 			<wsdl:input message="rps:getRepositoryDefinitionsRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getRepositoryDefinitionsResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSuperLockToken">
 			<wsdl:documentation>This operation returns a "super" token to override existing locks.  The super token can be used remove resources from an existing lock even if the lock was acquired by a different client.</wsdl:documentation>
 			<wsdl:input message="rps:getSuperLockTokenRequestMsg"></wsdl:input>
 			<wsdl:output message="rps:getSuperLockTokenResponseMsg"></wsdl:output>
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSupportedStatus">
 			<wsdl:documentation>This operation returns the Repository-supported statuses (base and custom) for content and essence. Status items describe the presence of data (e.g., online, deleted, etc...) at a given moment in a repository. Custom statuses are implementation-specific. </wsdl:documentation>
 			<wsdl:input message="rps:getSupportedStatusRequestMsg"></wsdl:input>
@@ -1532,10 +1791,10 @@ limitations under the License.
 			<wsdl:fault name="repositoryFault" message="rps:repositoryFaultMsg"></wsdl:fault>
 		</wsdl:operation>
 	</wsdl:portType>
-	
+
 	<wsdl:binding name="RepositoryBinding" type="rps:Repository">
       	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-		
+
 		<wsdl:operation name="GenerateUniqueID">
 			<soap:operation soapAction="http://repository.fims.tv/generateUniqueID" />
       		<wsdl:input>
@@ -1548,7 +1807,7 @@ limitations under the License.
       			<soap:fault use="literal" name="repositoryFault" />
       		</wsdl:fault>
       	</wsdl:operation>
-		
+
 		<wsdl:operation name="AddContent">
 			<soap:operation soapAction="http://repository.fims.tv/addContent" />
 			<wsdl:input>
@@ -1561,8 +1820,8 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
-		
+
+
 		<wsdl:operation name="AddEssencePlaceholder">
 			<soap:operation soapAction="http://repository.fims.tv/addEssencePlaceholder" />
 			<wsdl:input>
@@ -1575,7 +1834,113 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
+
+
+
+
+		<!-- FIMS 1.3 Begin -->
+
+		<wsdl:operation name="AddTag">
+			<soap:operation soapAction="http://repository.fims.tv/addTag" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="RemoveTag">
+			<soap:operation soapAction="http://repository.fims.tv/RemoveTag" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="QueryTags">
+			<soap:operation soapAction="http://repository.fims.tv/QueryTags" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="AddRelation">
+			<soap:operation soapAction="http://repository.fims.tv/AddRelation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="RemoveRelation">
+			<soap:operation soapAction="http://repository.fims.tv/RemoveRelation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+		<wsdl:operation name="RegisterExternalEssence">
+			<soap:operation soapAction="http://repository.fims.tv/RegisterExternalEssence" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="UnregisterExternalEssence">
+			<soap:operation soapAction="http://repository.fims.tv/UnregisterExternalEssence" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="repositoryFault">
+				<soap:fault use="literal" name="repositoryFault" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+
+
+		<!-- FIMS 1.3 End -->
+
 		<wsdl:operation name="AddEssence">
 			<soap:operation soapAction="http://repository.fims.tv/addEssence" />
 			<wsdl:input>
@@ -1588,7 +1953,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="CancelAddEssence">
 			<soap:operation soapAction="http://repository.fims.tv/cancelAddEssence" />
 			<wsdl:input>
@@ -1601,7 +1966,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="ReplaceContent">
 			<soap:operation soapAction="http://repository.fims.tv/replaceContent" />
 			<wsdl:input>
@@ -1614,7 +1979,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="UpdateContentProperties">
 			<soap:operation soapAction="http://repository.fims.tv/updateContentProperties" />
 			<wsdl:input>
@@ -1627,7 +1992,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="Lock">
 			<soap:operation soapAction="http://repository.fims.tv/lock" />
 			<wsdl:input>
@@ -1640,7 +2005,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="UnLock">
 			<soap:operation soapAction="http://repository.fims.tv/unLock" />
 			<wsdl:input>
@@ -1653,7 +2018,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="ClearLock">
 			<soap:operation soapAction="http://repository.fims.tv/clearLock" />
 			<wsdl:input>
@@ -1666,7 +2031,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetLocks">
 			<soap:operation soapAction="http://repository.fims.tv/getLocks" />
 			<wsdl:input>
@@ -1679,7 +2044,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="RemoveEssence">
 			<soap:operation soapAction="http://repository.fims.tv/removeEssence" />
 			<wsdl:input>
@@ -1692,7 +2057,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="UnRemoveEssence">
 			<soap:operation soapAction="http://repository.fims.tv/unRemoveEssence" />
 			<wsdl:input>
@@ -1705,7 +2070,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="RemoveContent">
 			<soap:operation soapAction="http://repository.fims.tv/removeContent" />
 			<wsdl:input>
@@ -1718,7 +2083,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="UnRemoveContent">
 			<soap:operation soapAction="http://repository.fims.tv/unRemoveContent" />
 			<wsdl:input>
@@ -1731,7 +2096,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="PurgeEssence">
 			<soap:operation soapAction="http://repository.fims.tv/purgeEssence" />
 			<wsdl:input>
@@ -1744,7 +2109,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="CancelPurgeEssence">
 			<soap:operation soapAction="http://repository.fims.tv/cancelPurgeEssence" />
 			<wsdl:input>
@@ -1757,7 +2122,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="PurgeContent">
 			<soap:operation soapAction="http://repository.fims.tv/purgeContent" />
 			<wsdl:input>
@@ -1770,7 +2135,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="CancelPurgeContent">
 			<soap:operation soapAction="http://repository.fims.tv/cancelPurgeContent" />
 			<wsdl:input>
@@ -1783,7 +2148,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetContent">
 			<soap:operation soapAction="http://repository.fims.tv/getContent" />
 			<wsdl:input>
@@ -1796,7 +2161,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetContentCollection">
 			<soap:operation soapAction="http://repository.fims.tv/getContentCollection" />
 			<wsdl:input>
@@ -1809,7 +2174,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="RetrieveEssence">
 			<soap:operation soapAction="http://repository.fims.tv/retrieveEssence" />
 			<wsdl:input>
@@ -1822,7 +2187,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="CancelRetrieveEssence">
 			<soap:operation soapAction="http://repository.fims.tv/cancelRetrieveEssence" />
 			<wsdl:input>
@@ -1835,7 +2200,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="ContentQuery">
 			<soap:operation soapAction="http://repository.fims.tv/contentQuery" />
 			<wsdl:input>
@@ -1849,7 +2214,7 @@ limitations under the License.
 			</wsdl:fault>
 		</wsdl:operation>
       </wsdl:binding>
-	
+
 	<wsdl:binding name="RepositoryNotificationBinding" type="rps:RepositoryNotification">
       	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="NotifyAddEssenceResult">
@@ -1864,7 +2229,7 @@ limitations under the License.
       			<soap:body use="literal" />
       		</wsdl:input>
       	</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelAddEssenceResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyCancelAddEssenceResult" />
 			<wsdl:input>
@@ -1877,7 +2242,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyPurgeEssenceResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyPurgeEssenceResult" />
 			<wsdl:input>
@@ -1890,7 +2255,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelPurgeEssenceResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyCancelPurgeEssenceResult" />
 			<wsdl:input>
@@ -1903,7 +2268,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyPurgeContentResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyPurgeContentResult" />
 			<wsdl:input>
@@ -1916,7 +2281,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelPurgeContentResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyCancelPurgeContentResult" />
 			<wsdl:input>
@@ -1929,7 +2294,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyRetrieveEssenceResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyRetrieveEssenceResult" />
 			<wsdl:input>
@@ -1942,7 +2307,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="NotifyCancelRetrieveEssenceResult">
 			<soap:operation soapAction="http://repository.fims.tv/notifyCancelRetrieveEssenceResult" />
 			<wsdl:input>
@@ -1955,7 +2320,7 @@ limitations under the License.
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="RepositoryEvent">
 			<soap:operation soapAction="http://repository.fims.tv/repositoryEvent" />
 			<wsdl:input>
@@ -1963,7 +2328,7 @@ limitations under the License.
 			</wsdl:input>
 		</wsdl:operation>
       </wsdl:binding>
-	
+
 	<wsdl:binding name="RcrBinding" type="rps:Rcr">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
 
@@ -2044,7 +2409,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetUpdatableProperties">
 			<soap:operation soapAction="http://repository.fims.tv/getUpdatableProperties" />
 			<wsdl:input>
@@ -2057,7 +2422,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetQueryResultsetDefinitions">
 			<soap:operation soapAction="http://repository.fims.tv/getQueryResultsetDefinitions" />
 			<wsdl:input>
@@ -2070,7 +2435,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSearchableProperties">
 			<soap:operation soapAction="http://repository.fims.tv/getSearchableProperties" />
 			<wsdl:input>
@@ -2083,7 +2448,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetRepositoryDefinitions">
 			<soap:operation soapAction="http://repository.fims.tv/getRepositoryDefinitions" />
 			<wsdl:input>
@@ -2096,7 +2461,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSuperLockToken">
 			<soap:operation soapAction="http://repository.fims.tv/getSuperLockToken" />
 			<wsdl:input>
@@ -2109,7 +2474,7 @@ limitations under the License.
 				<soap:fault use="literal" name="repositoryFault" />
 			</wsdl:fault>
 		</wsdl:operation>
-		
+
 		<wsdl:operation name="GetSupportedStatus">
 			<soap:operation soapAction="http://repository.fims.tv/getSupportedStatus" />
 			<wsdl:input>
@@ -2123,17 +2488,17 @@ limitations under the License.
 			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
-	
+
 	<wsdl:service name="RepositoryService">
 		<wsdl:port name="RepositoryPort" binding="rps:RepositoryBinding">
 			<soap:address location="http://host/path/RepositoryPort" />
       	</wsdl:port>
-		
+
 		<wsdl:port name="RcrPort" binding="rps:RcrBinding">
 			<soap:address location="http://host/path/RcrPort" />
 		</wsdl:port>
 	</wsdl:service>
-	
+
 	<wsdl:service name="RepositoryNotificationService">
 		<wsdl:port name="RepositoryNotificationPort" binding="rps:RepositoryNotificationBinding">
 			<soap:address location="http://host/port/RepositoryNotificationPort" />
