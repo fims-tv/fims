@@ -2350,6 +2350,18 @@ limitations under the License.
                 Optional</documentation>
             </annotation>
           </element>
+          <element name="tags" type="bms:TagType" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <documentation source="urn:x-fims:description">Contains collection of tags
+              </documentation>
+              <documentation source="urn:x-fims:normativeRequirement"/>
+              <documentation source="urn:x-fims:serviceDescription">Service Description: Required</documentation>
+              <documentation source="urn:x-fims:contentOfServiceDescription"/>
+              <documentation source="urn:x-fims:inclusionInRequest"/>
+              <documentation source="urn:x-fims:inclusionInResponse"/>
+              <documentation source="urn:x-fims:introducedInVersion">Introduced In Version: REP-2-0</documentation>
+            </annotation>
+          </element>
           <element name="locatorInfo" type="string" minOccurs="0" maxOccurs="1">
             <annotation>
               <documentation source="urn:x-fims:description"> Describes the geographical location of
