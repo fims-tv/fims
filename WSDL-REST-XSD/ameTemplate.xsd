@@ -30,33 +30,33 @@ limitations under the License.
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	<complexType name="ameAtomType">
 		<annotation>
-			<documentation source="urn:x-fims:description">To define the parameters of a qaAtom used
-				to initialize an automatic metadata extraction service. qaAtom parameters are
-				communicated to a service in a qaTemplate.</documentation>
+			<documentation source="urn:x-fims:description">To define the parameters of a ameAtom used
+				to initialize an automatic metadata extraction service. ameAtom parameters are
+				communicated to a service in a ameTemplate.</documentation>
 			<documentation source="urn:x-fims:normativeRequirement"/>
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-				1_2_0</documentation>
+				1_3_0</documentation>
 		</annotation>
 
-		<!-- CHECK IF WE WANT TO DEFINE SOME BASIC TYPES OF AME HERE e.g. shot detection, face recognition OR ELSE -->
+		<!-- PLACEHOLDER FOR BASIC AME ITEM TYPES (e.g. shot detection, face recognition) - currently left to implementers to fill in TBD below -->
 		<sequence>
 			<element name="ameItemType" minOccurs="0" maxOccurs="1">
 				<annotation>
 					<documentation source="urn:x-fims:description">To specify the type of
-						qaItem</documentation>
+						ameItem</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
 					<documentation source="urn:x-fims:serviceDescription"> Service description:
 						Required </documentation>
 					<documentation source="urn:x-fims:contentOfServiceDescription"> Description: To
-						specify the type of qaItem </documentation>
+						specify the type of ameItem </documentation>
 					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
 						Optional</documentation>
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 				<simpleType>
 					<restriction base="string">
@@ -79,7 +79,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 				<simpleType>
 					<restriction base="string">
@@ -105,13 +105,13 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="ameItemInput" type="amet:ameItemInputParameterType" minOccurs="0"
 				maxOccurs="unbounded">
 				<annotation>
-					<documentation source="urn:x-fims:description">This is the qaAtom input
+					<documentation source="urn:x-fims:description">This is the ameAtom input
 						parameters that are passed to the service for automatiatic metadata
 						extraction.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
@@ -124,13 +124,13 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="ameItemFragmentInput" type="amet:ameItemFragmentInputParameterType"
 				minOccurs="0" maxOccurs="unbounded">
 				<annotation>
-					<documentation source="urn:x-fims:description">This is the qaAtom fragment input
+					<documentation source="urn:x-fims:description">This is the ameAtom fragment input
 						parameters that are passed to the service for automatice metadata
 						extraction.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
@@ -143,7 +143,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="ExtensionGroup" type="bms:ExtensionGroup" minOccurs="0" maxOccurs="1">
@@ -155,7 +155,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInRequest"/>
 					<documentation source="urn:x-fims:inclusionInResponse"/>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
@@ -168,14 +168,14 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInRequest"/>
 					<documentation source="urn:x-fims:inclusionInResponse"/>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 		</sequence>
 		<attribute name="ameItemID" type="string">
 			<annotation>
 				<documentation source="urn:x-fims:description">The identifier of the
-					qaItem</documentation>
+					ameItem</documentation>
 				<documentation source="urn:x-fims:normativeRequirement">In the case of an EBU AME
 					analysis, the "Item ID" from the EBU AME
 					cards(http://ebu.io/ame/).</documentation>
@@ -186,13 +186,13 @@ limitations under the License.
 				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 					Optional</documentation>
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-					1_2_0</documentation>
+					1_3_0</documentation>
 			</annotation>
 		</attribute>
 		<attribute name="ameItemName" type="string">
 			<annotation>
 				<documentation source="urn:x-fims:description">The name of the
-					qaItem</documentation>
+					ameItem</documentation>
 				<documentation source="urn:x-fims:normativeRequirement">In case of an EBU AME
 					analysis, the "Item Name" from the EBU AME
 					cards(http://ebu.io/ame/).</documentation>
@@ -205,7 +205,7 @@ limitations under the License.
 				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 					Optional</documentation>
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-					1_2_0</documentation>
+					1_3_0</documentation>
 			</annotation>
 		</attribute>
 	</complexType>
@@ -220,7 +220,7 @@ limitations under the License.
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-				1_2_0</documentation>
+				1_3_0</documentation>
 		</annotation>
 		<sequence>
 			<element name="parameterName" type="string">
@@ -235,13 +235,13 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="value" type="string" minOccurs="0">
 				<annotation>
-					<documentation source="urn:x-fims:description">???????????????????????? The
-						value of the QA engine output parameter or the default value provided as an
+					<documentation source="urn:x-fims:description"> The
+						value of the AME engine output parameter or the default value provided as an
 						input parameter.</documentation>
 					<documentation source="urn:x-fims:normativeRequirement"/>
 					<documentation source="urn:x-fims:serviceDescription"> Service description:
@@ -253,7 +253,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="type" type="string" minOccurs="0">
@@ -270,7 +270,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="unit" type="string" minOccurs="0">
@@ -287,7 +287,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="representation" type="string" minOccurs="0">
@@ -305,7 +305,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="track" type="string" minOccurs="0" maxOccurs="1">
@@ -322,7 +322,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="externalMetadatatype" type="string" minOccurs="0">
@@ -339,7 +339,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="externalMetadata" minOccurs="0">
@@ -354,7 +354,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInRequest"/>
 					<documentation source="urn:x-fims:inclusionInResponse"/>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 				<complexType>
 					<simpleContent>
@@ -373,7 +373,7 @@ limitations under the License.
 									<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 										Optional</documentation>
 									<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-										1_2_0</documentation>
+										1_3_0</documentation>
 								</annotation>
 							</attribute>
 						</extension>
@@ -389,7 +389,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInRequest"/>
 					<documentation source="urn:x-fims:inclusionInResponse"/>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="ExtensionAttributes" type="bms:ExtensionAttributes" minOccurs="0"
@@ -402,7 +402,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInRequest"/>
 					<documentation source="urn:x-fims:inclusionInResponse"/>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="valueRange" type="string" minOccurs="0" maxOccurs="1">
@@ -419,7 +419,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="relatedameItemInput" type="amet:ameItemInputParameterType" minOccurs="0"
@@ -435,7 +435,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 		</sequence>
@@ -450,7 +450,7 @@ limitations under the License.
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-				1_2_0</documentation>
+				1_3_0</documentation>
 		</annotation>
 		<complexContent>
 			<extension base="amet:ameItemInputParameterType"> </extension>
@@ -467,7 +467,7 @@ limitations under the License.
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-				1_2_0</documentation>
+				1_3_0</documentation>
 		</annotation>
 		<sequence>
 			<element name="start" type="tim:TimeType">
@@ -482,7 +482,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Mandatory</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="end" type="tim:TimeType">
@@ -497,7 +497,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Mandatory</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 		</sequence>
@@ -515,7 +515,7 @@ limitations under the License.
 				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 					Optional</documentation>
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-					1_2_0</documentation>
+					1_3_0</documentation>
 			</annotation>
 		</attribute>
 	</complexType>
@@ -526,7 +526,7 @@ limitations under the License.
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-				1_2_0</documentation>
+				1_3_0</documentation>
 		</annotation>
 		<sequence>
 			<element name="annotationText" type="desc:textElementType">
@@ -540,7 +540,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="editor" type="desc:entityType" minOccurs="0">
@@ -554,7 +554,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 			<element name="annotationDateTime" type="dateTime" minOccurs="0">
@@ -568,7 +568,7 @@ limitations under the License.
 					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-						1_2_0</documentation>
+						1_3_0</documentation>
 				</annotation>
 			</element>
 		</sequence>
@@ -585,7 +585,7 @@ limitations under the License.
 			<documentation source="urn:x-fims:serviceDescription"/>
 			<documentation source="urn:x-fims:contentOfServiceDescription"/>
 			<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
-				1_2_0</documentation>
+				1_3_0</documentation>
 		</annotation>
 		<complexContent>
 			<extension base="bms:ResourceType">
@@ -605,18 +605,16 @@ limitations under the License.
 							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
 								Response: Mandatory</documentation>
 							<documentation source="urn:x-fims:introducedInVersion">Introduced In
-								Version: 1_2_0</documentation>
+								Version: 1_3_0</documentation>
 							<documentation source="urn:x-fims:introducedInVersion">Introduced In
-								Version: 1_2_0</documentation>
+								Version: 1_3_0</documentation>
 						</annotation>
 					</element>
 					<element name="ameTemplateScope" type="amet:LocatorType" minOccurs="0"
 						maxOccurs="unbounded">
 						<annotation>
 							<documentation source="urn:x-fims:description">The temporal and/or
-								spatial scope of analysis applying to the profile. to be discussed:
-								one or more profile scopes may be used to replicate item
-								scopes-????????????? to be confirmed</documentation>
+								spatial scope of analysis applying to the profile.</documentation>
 							<documentation source="urn:x-fims:normativeRequirement"/>
 							<documentation source="urn:x-fims:serviceDescription"/>
 							<documentation source="urn:x-fims:contentOfServiceDescription"/>
@@ -625,7 +623,7 @@ limitations under the License.
 							<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
 								Response: Optional</documentation>
 							<documentation source="urn:x-fims:introducedInVersion">Introduced In
-								Version: 1_2_0</documentation>
+								Version: 1_3_0</documentation>
 						</annotation>
 					</element>
 				</sequence>
@@ -641,7 +639,7 @@ limitations under the License.
 						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
 							Response: Optional</documentation>
 						<documentation source="urn:x-fims:introducedInVersion">Introduced In
-							Version: 1_2_0</documentation>
+							Version: 1_3_0</documentation>
 					</annotation>
 				</attribute>
 				<attribute name="ameTemplateName" type="string">
@@ -656,7 +654,7 @@ limitations under the License.
 						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
 							Response: Optional</documentation>
 						<documentation source="urn:x-fims:introducedInVersion">Introduced In
-							Version: 1_2_0</documentation>
+							Version: 1_3_0</documentation>
 					</annotation>
 				</attribute>
 				<attribute name="ameTemplateDescription" type="string">
@@ -671,7 +669,7 @@ limitations under the License.
 						<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
 							Response: Optional</documentation>
 						<documentation source="urn:x-fims:introducedInVersion">Introduced In
-							Version: 1_2_0</documentation>
+							Version: 1_3_0</documentation>
 					</annotation>
 				</attribute>
 			</extension>

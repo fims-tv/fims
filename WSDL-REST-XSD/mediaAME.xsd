@@ -114,14 +114,10 @@ limitations under the License.
 												Normative Requirement: the embedded file shall be
 												compliant with FIMS AmeTemplate.xsd </documentation>
 											<documentation source="urn:x-fims:serviceDescription"/>
-											<documentation
-												source="urn:x-fims:contentOfServiceDescription"/>
-											<documentation source="urn:x-fims:inclusionInRequest"
-												>Inclusion In Request: Optional</documentation>
-											<documentation source="urn:x-fims:inclusionInResponse"
-												>Inclusion In Response: Optional</documentation>
-											<documentation source="urn:x-fims:introducedInVersion"
-												>Introduced In Version: 1_3_0</documentation>
+											<documentation source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_3_0</documentation>
 										</annotation>
 									</element>
 								</sequence>
@@ -176,14 +172,10 @@ limitations under the License.
 												Normative Requirement: the embedded file shall be
 												compliant with FIMS AmeReport.xsd </documentation>
 											<documentation source="urn:x-fims:serviceDescription"/>
-											<documentation
-												source="urn:x-fims:contentOfServiceDescription"/>
-											<documentation source="urn:x-fims:inclusionInRequest"
-												>Inclusion In Request: Optional</documentation>
-											<documentation source="urn:x-fims:inclusionInResponse"
-												>Inclusion In Response: Optional</documentation>
-											<documentation source="urn:x-fims:introducedInVersion"
-												>Introduced In Version: 1_3_0</documentation>
+											<documentation source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_3_0</documentation>
 										</annotation>
 									</element>
 								</sequence>
@@ -233,14 +225,10 @@ limitations under the License.
 											content.</documentation>
 										<documentation source="urn:x-fims:normativeRequirement"/>
 										<documentation source="urn:x-fims:serviceDescription"/>
-										<documentation
-											source="urn:x-fims:contentOfServiceDescription"/>
-										<documentation source="urn:x-fims:inclusionInRequest"
-											>Inclusion In Request: Mandatory</documentation>
-										<documentation source="urn:x-fims:inclusionInResponse"
-											>Inclusion In Response: Mandatory</documentation>
-										<documentation source="urn:x-fims:introducedInVersion"
-											>Introduced In Version: 1_3_0</documentation>
+										<documentation source="urn:x-fims:contentOfServiceDescription"/>
+										<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+										<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_3_0</documentation>
 									</annotation>
 								</element>
 							</sequence>
@@ -380,7 +368,7 @@ limitations under the License.
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="version" type="bms:CurrentVersion" use="required">
+		<attribute name="version" use="required">
 			<annotation>
 				<documentation source="urn:x-fims:description">The current FIMS schema
 					version.</documentation>
@@ -391,6 +379,11 @@ limitations under the License.
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
 					1_3_0</documentation>
 			</annotation>
+			<simpleType>
+				<restriction base="bms:CurrentVersion">
+					<enumeration value="1_3_0"/>
+				</restriction>
+			</simpleType>
 		</attribute>
 	</complexType>
 	<complexType name="ameResponseType">
@@ -423,7 +416,7 @@ limitations under the License.
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="version" type="bms:CurrentVersion" use="required">
+		<attribute name="version" use="required">
 			<annotation>
 				<documentation source="urn:x-fims:description">The current FIMS schema
 					version.</documentation>
@@ -432,6 +425,11 @@ limitations under the License.
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
 					1_3_0</documentation>
 			</annotation>
+			<simpleType>
+				<restriction base="bms:CurrentVersion">
+					<enumeration value="1_3_0"/>
+				</restriction>
+			</simpleType>
 		</attribute>
 	</complexType>
 	<complexType name="ameFaultType">
@@ -508,7 +506,7 @@ limitations under the License.
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="version" type="bms:CurrentVersion" use="required">
+		<attribute name="version" use="required">
 			<annotation>
 				<documentation source="urn:x-fims:description">The current schema FIMS
 					version.</documentation>
@@ -517,6 +515,11 @@ limitations under the License.
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
 					1_3_0</documentation>
 			</annotation>
+			<simpleType>
+				<restriction base="bms:CurrentVersion">
+					<enumeration value="1_3_0"/>
+				</restriction>
+			</simpleType>
 		</attribute>
 	</complexType>
 	<complexType name="ameFaultNotificationType">
@@ -569,7 +572,7 @@ limitations under the License.
 				</annotation>
 			</element>
 		</sequence>
-		<attribute name="version" type="bms:CurrentVersion" use="required">
+		<attribute name="version" use="required">
 			<annotation>
 				<documentation source="urn:x-fims:description">The current schema FIMS
 					version.</documentation>
@@ -578,6 +581,11 @@ limitations under the License.
 				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
 					1_3_0</documentation>
 			</annotation>
+			<simpleType>
+				<restriction base="bms:CurrentVersion">
+					<enumeration value="1_3_0"/>
+				</restriction>
+			</simpleType>
 		</attribute>
 	</complexType>
 	<element name="AmeRequest" type="mames:ameRequestType">
