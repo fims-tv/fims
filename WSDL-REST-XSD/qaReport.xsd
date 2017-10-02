@@ -67,20 +67,15 @@ limitations under the License.
 											to the BMContent the qaReport refers to. Further
 											identification is provided through an associated hash
 											code usch as a checksum.</documentation>
-										<documentation source="urn:x-fims:normativeRequirement"
-											>Normative requirement: </documentation>
+										<documentation source="urn:x-fims:normativeRequirement">Normative requirement: </documentation>
 										<documentation source="urn:x-fims:serviceDescription">
 											Service description: Required </documentation>
-										<documentation
-											source="urn:x-fims:contentOfServiceDescription">
+										<documentation source="urn:x-fims:contentOfServiceDescription">
 											Description: A reference to BMContent that has been
 											analysed.</documentation>
-										<documentation source="urn:x-fims:inclusionInRequest"
-											>Inclusion In Request: Mandatory</documentation>
-										<documentation source="urn:x-fims:inclusionInResponse"
-											>Inclusion In Response: Mandatory</documentation>
-										<documentation source="urn:x-fims:introducedInVersion"
-											>Introduced In Version: 1_2_0</documentation>
+										<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Mandatory</documentation>
+										<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Mandatory</documentation>
+										<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
 									</annotation>
 									<sequence>
 										<element name="hash" type="bms:HashType" minOccurs="0">
@@ -244,14 +239,10 @@ limitations under the License.
 												Normative Requirement: Compliant with FIMS
 												qaTemplate.xsd </documentation>
 											<documentation source="urn:x-fims:serviceDescription"/>
-											<documentation
-												source="urn:x-fims:contentOfServiceDescription"/>
-											<documentation source="urn:x-fims:inclusionInRequest"
-												>Inclusion In Request: Optional</documentation>
-											<documentation source="urn:x-fims:inclusionInResponse"
-												>Inclusion In Response: Optional</documentation>
-											<documentation source="urn:x-fims:introducedInVersion"
-												>Introduced In Version: 1_2_0</documentation>
+											<documentation source="urn:x-fims:contentOfServiceDescription"/>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
 										</annotation>
 									</element>
 								</sequence>
@@ -285,16 +276,12 @@ limitations under the License.
 											<documentation source="urn:x-fims:normativeRequirement"/>
 											<documentation source="urn:x-fims:serviceDescription">
 												Service description:</documentation>
-											<documentation
-												source="urn:x-fims:contentOfServiceDescription">
+											<documentation source="urn:x-fims:contentOfServiceDescription">
 												Description: the type of resource associated with
 												the report. </documentation>
-											<documentation source="urn:x-fims:inclusionInRequest"
-												>Inclusion In Request: Optional</documentation>
-											<documentation source="urn:x-fims:inclusionInResponse"
-												>Inclusion In Response: Optional</documentation>
-											<documentation source="urn:x-fims:introducedInVersion"
-												>Introduced In Version: 1_2_0</documentation>
+											<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request: Optional</documentation>
+											<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response: Optional</documentation>
+											<documentation source="urn:x-fims:introducedInVersion">Introduced In Version: 1_2_0</documentation>
 										</annotation>
 									</attributeGroup>
 								</extension>
@@ -641,6 +628,34 @@ limitations under the License.
 					1_2_0</documentation>
 			</annotation>
 		</attribute>
+		<attribute name="qaItemInstanceId" type="bms:UID">
+			<annotation>
+				<documentation>To identify a specific instance of a qaAtom.</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_1</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="qaItemVersion" type="decimal">
+			<annotation>
+				<documentation>To identify a version of a qaAtom.</documentation>
+				<documentation source="urn:x-fims:normativeRequirement"/>
+				<documentation source="urn:x-fims:serviceDescription"/>
+				<documentation source="urn:x-fims:contentOfServiceDescription"/>
+				<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+					Optional</documentation>
+				<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+					Optional</documentation>
+				<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+					1_3_1</documentation>
+			</annotation>
+		</attribute>
 	</complexType>
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	<!-- OUTPUT PARAMETER TYPE -->
@@ -862,6 +877,34 @@ limitations under the License.
 						Optional</documentation>
 					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
 						1_2_0</documentation>
+				</annotation>
+			</element>
+			<element name="alias" type="string" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation source="urn:x-fims:description">To name an output parameter by its alias.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In Request:
+						Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In Response:
+						Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In Version:
+						1_3_1</documentation>
+				</annotation>
+			</element>
+			<element name="wrapperLocation" type="string" minOccurs="0">
+				<annotation>
+					<documentation source="urn:x-fims:description">The identification of the portion of the file wrapper to be checked/utilised by the item.</documentation>
+					<documentation source="urn:x-fims:normativeRequirement"/>
+					<documentation source="urn:x-fims:serviceDescription"/>
+					<documentation source="urn:x-fims:contentOfServiceDescription"/>
+					<documentation source="urn:x-fims:inclusionInRequest">Inclusion In
+						Request: Optional</documentation>
+					<documentation source="urn:x-fims:inclusionInResponse">Inclusion In
+						Response: Optional</documentation>
+					<documentation source="urn:x-fims:introducedInVersion">Introduced In
+						Version: 1_3_1</documentation>
 				</annotation>
 			</element>
 		</sequence>
